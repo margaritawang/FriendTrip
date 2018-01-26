@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-app.use("/api/users", usersRoutes());
+app.use("/api", usersRoutes());
 
 app.listen(PORT, () => {
   console.log("listening on port " + PORT);
