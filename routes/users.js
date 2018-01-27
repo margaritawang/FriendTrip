@@ -9,9 +9,9 @@ module.exports = () => {
     return res.send('home page');
   })
   
-  router.get('/friends/:uid', (req, res) => {
-    user_id = req.params.uid;
-    console.log(user_id);
+  router.get('/friends/:tid', (req, res) => {
+    trip_id = req.params.tid;
+    console.log(trip_id);
     return res.send('friends for user')
   })
 
