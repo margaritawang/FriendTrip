@@ -12,7 +12,7 @@ const knexConfig = require("./knexfile");
 const knex = require("knex")(knexConfig[ENV]);
 const morgan = require('morgan');
 const knexLogger = require('knex-logger');
-// const datahelper = require('./routes/datahelpers.js')(knex);
+const datahelper = require('./routes/datahelpers.js')(knex);
 
 const usersRoutes = require("./routes/users");
 
@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-app.use("/api", usersRoutes());
+app.use("/api", usersRoutes(datahelper));
 
 app.listen(PORT, () => {
   console.log("listening on port " + PORT);
