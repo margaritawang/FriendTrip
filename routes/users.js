@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const nlp = require('./classification.js');
 require('dotenv').config();
 
 
@@ -80,7 +81,8 @@ module.exports = () => {
       end_date: req.body.end,
       description: req.body.description,
       trip_id: req.params.trip_id,
-      owner_id: req.session.user_id
+      owner_id: req.session.user_id,
+      category: nlp.getcategory(req.body.description)
     };
     datahelper.addActivities(activity).then(() =>{
       return res.status(200);
@@ -98,6 +100,7 @@ module.exports = () => {
     });
   });
 
+  // add a new comment for an activity
   router.post('/activites/:aid/comments', (req, res) => {
     let comment = {
       description: req.body.description,
@@ -108,6 +111,6 @@ module.exports = () => {
       return res.status(200);
     });
   });
-  
+
   return router;
 }
