@@ -7,37 +7,49 @@ module.exports = () => {
   router.get('/', (req, res) => {
     // console.log("here");
     return res.send('home page');
-  })
+  });
   
   router.get('/friends/:tid', (req, res) => {
     trip_id = req.params.tid;
     console.log(trip_id);
-    return res.send('friends for user')
-  })
+    return res.send('friends invited on this trip')
+  });
 
   router.get('/trips/:uid', (req, res) => {
-    user_id = req.params['uid']
+    user_id = req.params.uid
     console.log(user_id);
-    return res.send('all trips for user');
-  })
+    datahelper.queryUserTrips(user_id).
+    then((data) => {
+      return res.json(data);
+    });
+  });
 
   router.get('/trips/:tid', (req, res) => {
     trip_id = req.params.tid;
     console.log(trip_id);
-    return res.send('individual trip')
-  })
+    datahelper.queryTrip(trip_id).
+    then((data) => {
+      return res.json(data);
+    });
+  });
 
   router.get('/trips/:tid/activities', (req, res) => {
     trip_id = req.params.tid;
     console.log(trip_id);
-    return res.send('trip activities');
-  })
+    datahelper.getActivities(trip_id).
+    then((data) => {
+      return res.json(data);
+    });
+  });
 
   router.get('/activities/:aid/comments', (req, res) => {
-    trip_id = req.params.tid;
-    console.log(trip_id);
-    return res.send('comments for a specific activity');
-  })
+    activity_id = req.params.tid;
+    console.log(activity_id);
+    datahelper.getComments(activity_id).
+    then((data) => {
+      return res.json(data);
+    });
+  });
 
   return router;
 }
