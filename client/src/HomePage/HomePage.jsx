@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { userActions } from '../_actions';
+import { Menu, Segment, Container, Header } from 'semantic-ui-react'
 
 class HomePage extends React.Component {
     componentDidMount() {
@@ -14,35 +15,27 @@ class HomePage extends React.Component {
     render() {
         const { user, users } = this.props;
         return (
-          <div>
-            <input id="anPageName" name="page" type="hidden" value="desktop" />
-            <div className="desktop">
-              <div>
-                <div className="rectangle">
-                </div>
-                <div className="tell-us-where-you-ar">
-                  Tell us where you are strating from and where you
-                  <br/> want to go and we’ll find the best route
-                  <br/> to get you there
-                </div>
-                <div className="h-ome">
-                  HOME
-                </div>
-                <div className="t-rip">
-                  TRIP
-                </div>
-                <div className="l-ogin">
-                  LOGIN
-                </div>
-                <div className="sign-up">
-                  SIGN UP
-                </div>
-                <div className="main">
-                  PLAN RIGHT
-                </div>
-              </div>
-            </div>
-          </div>
+          <Segment className="mainSeg inverted vertical center aligned">
+          <Header component='h1'className='inverted'><h1 className='logo'>FriendTrip</h1></Header>
+           <Container>
+             <Menu className='inverted large nav'>
+               <Menu.Item name='Info' />
+               <Menu.Item name='Login'/>
+               <Menu.Item name='SignUp'/>
+             </Menu>
+           </Container>
+           <Container className='text planRight'>
+             <Header component='h1'className='inverted vertical center aligned'>
+               <h1 className='pr'>PLAN RIGHT</h1>
+             </Header>
+             <Header component='h2'className='inverted vertical center aligned'>
+               Do whatever you want when you want to.
+             </Header>
+
+           </Container>
+
+
+          </Segment>
         );
     }
 }
