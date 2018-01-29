@@ -5,8 +5,8 @@ const ENV = process.env.ENV || "development";
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
-// const cookieParser  = require('cookie-parser');
-// const cookieSession = require('cookie-session');
+const cookieParser  = require('cookie-parser');
+const cookieSession = require('cookie-session');
 
 const knexConfig = require("./knexfile");
 const knex = require("knex")(knexConfig[ENV]);
@@ -20,6 +20,10 @@ app.use(morgan('tiny'));
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
+app.post('/login', (req, res) => {
+  if knex('user').where('email', req.body.email)
+});
 
 app.use("/api", usersRoutes(datahelper));
 

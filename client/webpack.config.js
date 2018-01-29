@@ -2,7 +2,9 @@ var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.jsx',
+    entry: [
+        'webpack-dev-server/client?http://0.0.0.0:8080',
+        './src/index.jsx'],
     output: {
         path: path.resolve('dist'),
         filename: 'bundle.js'
@@ -28,6 +30,8 @@ module.exports = {
         inject: 'body'
     })],
     devServer: {
+        host: '0.0.0.0',
+        port: 8080,
         historyApiFallback: true
     },
     node: {
