@@ -28,3 +28,22 @@
 .pr {
   font-size: 300%;
 }
+
+/* .login-main {
+  background-image: url(../img/loginLayout.png);
+} */
+
+.login-main {
+    height: 100vh;
+
+    background-image: url('../img/loginLayout.png') !important;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.loginForm {
+  width: 400px;
+  height: 500px;
+  margin: auto;
+  padding-top: 20%;
+}

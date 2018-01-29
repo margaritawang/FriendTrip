@@ -3,21 +3,18 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { userActions } from '../_actions';
 import Webcam from 'react-webcam';
-
+import { Form, Container, Input, Field, Segment, Button, Icon, Image } from 'semantic-ui-react'
 
 class LoginPage extends React.Component {
     constructor(props) {
         super(props);
-
         // reset login status
         this.props.dispatch(userActions.logout());
-
         this.state = {
             username: '',
             password: '',
             submitted: false
         };
-
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.setRef=this.setRef.bind(this);
@@ -26,6 +23,7 @@ class LoginPage extends React.Component {
 
     handleChange(e) {
         const { name, value } = e.target;
+        console.log(name);
         this.setState({ [name]: value });
     }
 
@@ -39,18 +37,9 @@ class LoginPage extends React.Component {
             dispatch(userActions.login(username, password));
         }
     }
-
-    // handleFace(e) {
-    //   e.preventDefault();
-    //   this.setState({submitted: true});
-    //   const { dispatch } = this.props;
-    //   dispatch(userActions.face())
-    // }
-
     setRef(webcam) {
       this.webcam = webcam;
     }
-
     capture() {
       const imageSrc = this.webcam.getScreenshot();
       console.log(imageSrc);
@@ -58,49 +47,44 @@ class LoginPage extends React.Component {
       const { dispatch } = this.props;
       dispatch(userActions.face(imageSrc));
     }
-
     render() {
         const { loggingIn } = this.props;
         const { username, password, submitted } = this.state;
         return (
-            <div className="col-md-6 col-md-offset-3">
-                <h2>Login</h2>
-                <form name="form" onSubmit={this.handleSubmit}>
-                    <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
-                        <label htmlFor="username">Username</label>
-                        <input type="text" className="form-control" name="username" value={username} onChange={this.handleChange} />
-                        {submitted && !username &&
-                            <div className="help-block">Username is required</div>
-                        }
-                    </div>
-                    <div className={'form-group' + (submitted && !password ? ' has-error' : '')}>
-                        <label htmlFor="password">Password</label>
-                        <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
-                        {submitted && !password &&
-                            <div className="help-block">Password is required</div>
-                        }
-                    </div>
-                    <div className="form-group">
-                        <button className="btn btn-primary">Login</button>
-                        {loggingIn &&
-                            <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                        }
-                        <Link to="/register" className="btn btn-link">Register</Link>
-                    </div>
-                </form>
-                <div>
-                  <Webcam
-                    audio={false}
-                    height={350}
-                    ref={this.setRef}
-                    width={350}
-                    screenshotFormat="image/jpeg"
-                  />
-                <button onClick={this.capture}>Capture photo </button>
+          <Container className='login-main'>
+            <Form className="large loginForm" onSubmit={this.handleSubmit}>
+              <Segment className='stacked'>
+                <div className='field'>
+                  <Input icon="user" name='username' iconPosition='left' placeholder='Account number' onChange={this.handleChange}/>
+                    {submitted && !username &&
+                      <div className="help-block">Username is required</div>
+                    }
                 </div>
-
-
-            </div>
+                <div className='field'>
+                  <Input icon="certificate" name='password' iconPosition='left' placeholder='Password' onChange={this.handleChange}/>
+                    {submitted && !password &&
+                      <div className="help-block">Password is required</div>
+                    }
+                </div>
+                <div className='field'>
+                  <Button animated>
+                    <Button.Content visible>Log In</Button.Content>
+                    <Button.Content hidden>
+                      <Icon name='right arrow'/>
+                    </Button.Content>
+                  </Button>
+                  <button className="ui facebook button">
+                    <i className="facebook icon"></i>
+                    Facebook
+                  </button>
+                  <button className="ui google plus button">
+                    <i className="google plus icon"></i>
+                    Google Plus
+                  </button>
+                </div>
+              </Segment>
+            </Form>
+          </Container>
         );
     }
 }

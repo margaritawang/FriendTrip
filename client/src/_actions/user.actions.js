@@ -20,7 +20,6 @@ function face(buffer) {
         console.log("data",data);
         dispatch(success({name: 'sen'}));
         history.push('/');
-
       },
       error => {
         dispatch(failure("error"));
