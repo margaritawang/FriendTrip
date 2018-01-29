@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
 const app = express();
 const cookieParser  = require('cookie-parser');
 const cookieSession = require('cookie-session');
-
+const bcrypt = require('bcrypt');
 const knexConfig = require("./knexfile");
 const knex = require("knex")(knexConfig[ENV]);
 const morgan = require('morgan');
@@ -21,9 +21,32 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1', 'key2']
+}));
+
 app.post('/login', (req, res) => {
-  if knex('user').where('email', req.body.email)
+  user = knex('user').where('email', req.body.email);
+  if (!user) {
+    return res.status(404);
+  } else if (!bcrypt.compareSync(user.password, req.body.password)){
+    return res.status(401);
+  } else {
+    req.session.user_id = user.id;
+  }
 });
+
+app.post('/register', (req, res) => {
+  user = {
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    email: req.body.email,
+    password: bcrypt.hashSync(req.body.password, 10)
+  };
+
+  return knex('user').insert(user);
+})
 
 app.use("/api", usersRoutes(datahelper));
 
