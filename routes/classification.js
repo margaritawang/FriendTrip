@@ -93,17 +93,17 @@ classifier.learn('Poke Time', 'Restaurant');
 classifier.learn("Vera's Burger Shack", 'Restaurant');
 classifier.learn('Delicious Pho', 'Restaurant');
 
-console.log(classifier.categorize('Queen Elizabeth Park'));
-console.log(classifier.categorize('Mercure Hotel'));
-console.log(classifier.categorize('Petronas Twin Towers'));
-console.log(classifier.categorize('Burger King'));
-console.log(classifier.categorize('White Spot'));
-console.log(classifier.categorize('False Creek Sea Wall'));
+// console.log(classifier.categorize('Queen Elizabeth Park'));
+// console.log(classifier.categorize('Mercure Hotel'));
+// console.log(classifier.categorize('Petronas Twin Towers'));
+// console.log(classifier.categorize('Burger King'));
+// console.log(classifier.categorize('White Spot'));
+// console.log(classifier.categorize('False Creek Sea Wall'));
 
 
 
 module.exports = {
   getCategory: function(data) {
-    return classifier.learn(data);
+    return classifier.categorize(data);
   }
 }

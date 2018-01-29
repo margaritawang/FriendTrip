@@ -4,7 +4,7 @@ const nlp = require('./classification.js');
 require('dotenv').config();
 
 
-module.exports = () => {
+module.exports = (datahelper) => {
   router.get('/', (req, res) => {
     return res.send('home page');
   });
@@ -39,7 +39,7 @@ module.exports = () => {
   });
 
   // select a single trip
-  router.get('/trips/:tid', (req, res) => {
+  router.get('/trip/:tid', (req, res) => {
     trip_id = req.params.tid;
     console.log(trip_id);
     datahelper.queryTrip(trip_id).
@@ -49,7 +49,7 @@ module.exports = () => {
   });
 
   // update a trip
-  router.put('/trips/:tid', (req, res) =>{
+  router.put('/trip/:tid', (req, res) =>{
     let trip = {
       id: req.params.tid,
       name: req.body.name,
@@ -58,14 +58,14 @@ module.exports = () => {
   });
 
   // delete a trip
-  router.delete('/trips/:tid', (req, res) => {
+  router.delete('/trip/:tid', (req, res) => {
     datahelper.deleteTrip(req.params.tid).then(()=>{
       return res.status(200);
     });
   });
 
   // get activities within a trip
-  router.get('/trips/:tid/activities', (req, res) => {
+  router.get('/trip/:tid/activities', (req, res) => {
     trip_id = req.params.tid;
     console.log(trip_id);
     datahelper.getActivities(trip_id).
@@ -75,7 +75,7 @@ module.exports = () => {
   });
 
   // add activities within a trip
-  router.post('/trips/:tid/activities', (req, res) => {
+  router.post('/trip/:tid/activities', (req, res) => {
     let activity = {
       start_date: req.body.start,
       end_date: req.body.end,
