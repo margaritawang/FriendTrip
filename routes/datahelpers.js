@@ -44,6 +44,7 @@ module.exports = function makeDataHelpers(db) {
       return db.select("*").from('comments').where('activity_id', activityid);
     },
 
+    // add a new comment for an activity
     postComments: function(commentinfo) {
       return db('comments').insert(commentinfo);
     }
