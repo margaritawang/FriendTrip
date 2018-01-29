@@ -35,7 +35,7 @@
 
 .login-main {
     height: 100vh;
-
+    margin: auto;
     background-image: url('../img/loginLayout.png') !important;
     background-size: 100%;
     background-repeat: no-repeat;
@@ -46,4 +46,9 @@
   height: 500px;
   margin: auto;
   padding-top: 20%;
+}
+
+
+.camera {
+  margin: auto;
 }
