@@ -52,7 +52,7 @@ function faceCompare(buffer) {
     data.append('name', 'what');
 
     return axios.post('http://localhost:3000/api/compare',data,config)
-            .then((resposne) => {
+            .then((response) => {
                 // console.log(resposne);
               localStorage.setItem('user', JSON.stringify({name: 'sen'}));
               return Promise.resolve(resposne);
