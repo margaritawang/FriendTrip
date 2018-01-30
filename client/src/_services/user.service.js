@@ -26,6 +26,9 @@ function login(username, password) {
     console.log('res', response);
     localStorage.setItem('user', JSON.stringify({user: username, token: 'fake-jwt-token'}));
     return Promise.resolve({user: username, token: 'fake-jwt-token'});
+  }).
+  catch((err) => {
+    return Promise.reject(err);
   })
 }
 
@@ -41,13 +44,11 @@ function faceCompare(buffer) {
   }
   data.append('file', buffer);
   data.append('name', 'what');
-
-  return axios.post('http://localhost:3000/api/compare', data, config).then((resposne) => {
+  return axios.post('api/face/compare', data, config).then((resposne) => {
     // console.log(resposne);
     localStorage.setItem('user', JSON.stringify({name: 'sen'}));
     return Promise.resolve(resposne);
   })
-
 }
 
 function logout() {
@@ -74,14 +75,33 @@ function getById(id) {
 }
 
 function register(user) {
+  // const requestOptions = {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify(user)
+  // };
+  // return fetch('/users/register', requestOptions).then(handleResponse);
+
   const requestOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(user)
+      firstname: user.firstName,
+      lastname: user.lastName,
+      username: user.username,
+      password: user.password
   };
-  return fetch('/users/register', requestOptions).then(handleResponse);
+  return axios.post('/api/register', requestOptions).then((response) => {
+    console.log('res', response);
+    let registeredUser = {
+      user: user.username
+    }
+    // localStorage.setItem('user', JSON.stringify({user: username, token: 'fake-jwt-token'}));
+    return  Promise.resolve(registeredUser);
+  }).catch((err) => {
+    return Promise.reject(err);
+  })
+
+
 }
 
 function update(user) {
@@ -111,6 +131,5 @@ function handleResponse(response) {
   if (!response.ok) {
     return Promise.reject(response.statusText);
   }
-
   return response.json();
 }
