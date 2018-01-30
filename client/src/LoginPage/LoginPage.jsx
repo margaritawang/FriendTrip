@@ -11,10 +11,10 @@ import {
   Segment,
   Button,
   Icon,
+  Dimmer,
+  Loader,
   Image
 } from 'semantic-ui-react'
-
-
 
 
 
@@ -69,6 +69,8 @@ class LoginPage extends React.Component {
   render() {
     const {loggingIn} = this.props;
     const {username, password, submitted} = this.state;
+    (loggingIn) ? console.log("logging") : console.log("not log")
+
     const loginForm = (<Container className='login-main'>
     <Button animated="animated" onClick={this.faceReg}>
       <Button.Content visible="visible">Face Login</Button.Content>
@@ -91,14 +93,14 @@ class LoginPage extends React.Component {
                 <Icon name='right arrow'/>
               </Button.Content>
             </Button>
-            <button className="ui facebook button">
+            <Button className="ui facebook button">
               <i className="facebook icon"></i>
               Facebook
-            </button>
-            <button className="ui google plus button">
+            </Button>
+            <Button className="ui google plus button">
               <i className="google plus icon"></i>
               Google Plus
-            </button>
+            </Button>
           </div>
         </Segment>
       </Form>
@@ -108,6 +110,7 @@ class LoginPage extends React.Component {
     const loginFace = (
       <Container className='login-main'>
               <Container className='camera center aligned'>
+
                 <Container>
                   <Webcam
                     audio={false}
@@ -127,10 +130,19 @@ class LoginPage extends React.Component {
        </Container>
     )
 
-    return (
-      //loginForm
-      //loginFace
+    const loader = (
+      <div>
+        <Segment>
+          <Dimmer active>
+            <Loader indeterminate>Preparing Files</Loader>
+          </Dimmer>
+          // <Image src='/assets/images/wireframe/short-paragraph.png' />
+        </Segment>
 
+      </div>
+    )
+
+    return (
       (this.state.face) ? loginFace : loginForm
     );
   }

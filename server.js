@@ -13,13 +13,10 @@ const knex = require("knex")(knexConfig[ENV]);
 const morgan = require('morgan');
 const knexLogger = require('knex-logger');
 const datahelper = require('./routes/datahelpers.js')(knex);
-
 const usersRoutes = require("./routes/users");
 
 app.use(morgan('tiny'));
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(bodyParser.json());
 
 app.use(cookieSession({
   name: 'session',
@@ -27,6 +24,9 @@ app.use(cookieSession({
 }));
 
 app.post('/login', (req, res) => {
+  console.log('body------');
+  console.log(req.body.email);
+  console.log(req.body.password);
   knex.select("*").from('users').where({email: req.body.email}).then((data) => {
     if (!data.length){
       return res.status(400);
@@ -34,7 +34,8 @@ app.post('/login', (req, res) => {
       console.log('login success');
       req.session.user_id = data[0].id;
       console.log(req.session.user_id);
-      return res.status(200);
+      //let user = {id: data[0].id}
+      return res.send(200);
     } else {
       console.log('wrong password');
       return res.status(401);
@@ -43,7 +44,7 @@ app.post('/login', (req, res) => {
     console.log(error);
     return res.status(400);
   });
-  
+
 });
 
 app.post('/register', (req, res) => {
