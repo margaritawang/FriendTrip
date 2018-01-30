@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Icon, Image } from 'semantic-ui-react';
 
 
-class CityCard extends React.component{
+class TripBadge extends React.Component {
   constructor(props){
     super(props);
   }
@@ -34,4 +34,4 @@ class CityCard extends React.component{
     )
   }
 }
-export default CityCard;
+export default TripBadge;

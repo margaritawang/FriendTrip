@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { userActions } from '../_actions/user.actions.js';
-import { Form, Container, Input, Field, Segment, Button, Icon, Image, Card } from 'semantic-ui-react';
-import { CityCard } from '../_components';
+import { TripBadge } from '../_components';
+import { Test } from '../_components/test.jsx';
 
 class TripsPage extends React.Component {
   constructor(props){
@@ -18,10 +18,10 @@ class TripsPage extends React.Component {
 
   render() {
     const { user } = this.props;
-    console.log("usereeeeee", user);
     return (
       <div>
         Hello world!!
+          <Test />
       </div>
     );
   }
