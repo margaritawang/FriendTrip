@@ -27,25 +27,36 @@ app.use(cookieSession({
 }));
 
 app.post('/login', (req, res) => {
-  user = knex('user').where('email', req.body.email);
-  if (!user) {
-    return res.status(404);
-  } else if (!bcrypt.compareSync(user.password, req.body.password)){
-    return res.status(401);
-  } else {
-    req.session.user_id = user.id;
-  }
+  knex.select("*").from('users').where({email: req.body.email}).then((data) => {
+    if (!data.length){
+      return res.status(400);
+    } else if (bcrypt.compareSync(req.body.password, data[0].password)) {
+      console.log('login success');
+      req.session.user_id = data[0].id;
+      console.log(req.session.user_id);
+      return res.status(200);
+    } else {
+      console.log('wrong password');
+      return res.status(401);
+    }
+  }).catch((error) => {
+    console.log(error);
+    return res.status(400);
+  });
+  
 });
 
 app.post('/register', (req, res) => {
   user = {
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
+    first_name: req.body.firstname,
+    last_name: req.body.lastname,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 10)
   };
-
-  return knex('user').insert(user);
+  console.log(user);
+  return knex('users').insert(user).then(()=>{
+    res.status(200);
+  });
 })
 
 app.use("/api", usersRoutes(datahelper));
