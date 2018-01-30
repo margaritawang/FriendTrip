@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { userActions } from '../_actions/user.actions.js';
-import { Form, Container, Input, Field, Segment, Button, Icon, Image } from 'semantic-ui-react';
+import { Form, Container, Input, Field, Segment, Button, Icon, Image, Card } from 'semantic-ui-react';
+import { CityCard } from '../_components';
 
 class TripsPage extends React.Component {
   constructor(props){
@@ -21,6 +22,7 @@ class TripsPage extends React.Component {
     return (
       <div>
         Hello world!!
+        <CityCard />
       </div>
     );
   }
