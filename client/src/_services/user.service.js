@@ -13,44 +13,13 @@ export const userService = {
 };
 
 function login(username, password) {
-  // const requestOptions = {
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({ username, password })
-  // };
   const requestOptions = {
     body: {
       email: username,
       password: password
     }
   };
-  // return fetch('/users/authenticate', requestOptions)
-  //     .then(response => {
-  //         if (!response.ok) {
-  //             return Promise.reject(response.statusText);
-  //         }
-  //
-  //         return response.json();
-  //     })
-  //     .then(user => {
-  //          login successful if there's a jwt token in the response
-  //         if (user && user.token) {
-  //              store user details and jwt token in local storage to keep user logged in between page refreshes
-  //             localStorage.setItem('user', JSON.stringify(user));
-  //         }
-  //         return user;
-  //     });
-  let data = {
-    email: 'a@a.com ',
-    password: '1'
-  }
-  let config = {
-    mode: 'no-cors',
-    method: 'POST',
-    headers: {
-      "Accept": "application/json"
-    }
-  }
-  return axios.post('http://localhost:3000/login', {
+  return axios.post('/api/login', {
     email: username,
     password: password
   }).then((response) => {
@@ -112,7 +81,6 @@ function register(user) {
     },
     body: JSON.stringify(user)
   };
-
   return fetch('/users/register', requestOptions).then(handleResponse);
 }
 
