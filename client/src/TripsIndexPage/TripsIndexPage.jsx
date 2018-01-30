@@ -1,18 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { tripActions } from '../_actions/trips.actions.js';
+import { userActions } from '../_actions/user.actions.js';
 import { Form, Container, Input, Field, Segment, Button, Icon, Image } from 'semantic-ui-react';
 
 class TripsPage extends React.Component {
   constructor(props){
     super(props);
-    this.props.dispatch(tripActions.getAllTrips());
     // Bind any functions here.
   }
 
+  componentDidMount(){
+    const { user } = this.props;
+    this.props.dispatch(userActions.getAllTrips(user));
+  }
+
   render() {
-    const { trips } = this.props;
+    const { user } = this.props;
+    console.log("usereeeeee", user);
     return (
       <div>
         Hello world!!
@@ -25,9 +30,10 @@ class TripsPage extends React.Component {
 
 
 function mapStateToProps(state){
-  const { trips } = state.trips;
+  //const { trips } = ;
+  const { user } = state.authentication;
   return {
-    trips
+    user
   };
 }
 

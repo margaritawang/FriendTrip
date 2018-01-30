@@ -46,6 +46,22 @@ export function users(state = {}, action) {
           return user;
         })
       };
+
+    case userConstants.GETALL_TRIPS_REQUEST:
+      return {
+        loading: true
+      };
+    case userConstants.GETALL_TRIPS_SUCCESS:
+      return {
+        trips: action.trips
+      };
+    case userConstants.GETALL_TRIPS_FAILURE:
+      return {
+        error: action.error
+      };
+
+
+
     default:
       return state
   }

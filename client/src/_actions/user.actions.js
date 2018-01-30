@@ -1,5 +1,5 @@
 import { userConstants } from '../_constants';
-import { userService } from '../_services';
+import { userService, tripService } from '../_services';
 import { alertActions } from './';
 import { history } from '../_helpers';
 
@@ -9,7 +9,8 @@ export const userActions = {
     logout,
     register,
     getAll,
-    delete: _delete
+    delete: _delete,
+    getAllTrips
 };
 
 function face(buffer) {
@@ -118,4 +119,25 @@ function _delete(id) {
     function request(id) { return { type: userConstants.DELETE_REQUEST, id } }
     function success(id) { return { type: userConstants.DELETE_SUCCESS, id } }
     function failure(id, error) { return { type: userConstants.DELETE_FAILURE, id, error } }
+}
+
+
+export const tripActions = {
+  getAllTrips
+}
+
+function getAllTrips(user){
+  return dispatch => {
+    dispatch(request());
+
+    tripService.getAllTrips(user)
+      .then(
+          trips => dispatch(success(trips)),
+          error => dispatch(failure(error))
+        );
+  };
+
+  function request() { return { type: userConstants.GETALL_TRIPS_REQUEST } }
+  function success(trips) { return { type: userConstants.GETALL_TRIPS_SUCCESS, trips } }
+  function failure(error) { return { type: userConstants.GETALL_TRIPS_FAILURE, error } }
 }
