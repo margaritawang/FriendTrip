@@ -17,7 +17,7 @@ module.exports = (datahelper) => {
 
 
   // get all trips that belong to a given user
-  router.get('/trips/:uid', (req, res) => {
+  router.get('/users/:uid/trips', (req, res) => {
     user_id = req.params.uid
     console.log(user_id);
     datahelper.queryUserTrips(user_id).then((data) => {
@@ -26,7 +26,7 @@ module.exports = (datahelper) => {
   });
 
   // create a new trip for the user
-  router.post('/trips/:uid', (req, res) => {
+  router.post('/users/:uid/trips', (req, res) => {
     let trip = {
       name: req.body.name,
       location: req.body.location,
@@ -39,7 +39,7 @@ module.exports = (datahelper) => {
   });
 
   // select a single trip
-  router.get('/trip/:tid', (req, res) => {
+  router.get('/trips/:tid', (req, res) => {
     trip_id = req.params.tid;
     console.log(trip_id);
     datahelper.queryTrip(trip_id).
@@ -49,7 +49,7 @@ module.exports = (datahelper) => {
   });
 
   // update a trip
-  router.put('/trip/:tid', (req, res) =>{
+  router.put('/trips/:tid', (req, res) =>{
     let trip = {
       id: req.params.tid,
       name: req.body.name,
@@ -58,14 +58,14 @@ module.exports = (datahelper) => {
   });
 
   // delete a trip
-  router.delete('/trip/:tid', (req, res) => {
+  router.delete('/trips/:tid', (req, res) => {
     datahelper.deleteTrip(req.params.tid).then(()=>{
       return res.status(200);
     });
   });
 
   // get activities within a trip
-  router.get('/trip/:tid/activities', (req, res) => {
+  router.get('/trips/:tid/activities', (req, res) => {
     trip_id = req.params.tid;
     console.log(trip_id);
     datahelper.getActivities(trip_id).
@@ -75,7 +75,7 @@ module.exports = (datahelper) => {
   });
 
   // add activities within a trip
-  router.post('/trip/:tid/activities', (req, res) => {
+  router.post('/trips/:tid/activities', (req, res) => {
     let activity = {
       start_date: req.body.start,
       end_date: req.body.end,
