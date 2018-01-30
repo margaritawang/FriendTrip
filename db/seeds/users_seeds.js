@@ -1,7 +1,9 @@
+const bcrypt = require('bcrypt');
+
 const userData = [
-  {first_name: 'jim', last_name: 'bob', email: 'a@a.com', password: '1'},
-  {first_name: 'joe', last_name: 'bob', email: 'a2@a.com', password: '2'},
-  {first_name: 'john', last_name: 'bob', email: 'a3@a.com', password: '3'}
+  {first_name: 'jim', last_name: 'bob', email: 'a@a.com', password: bcrypt.hashSync('1', 10)},
+  {first_name: 'joe', last_name: 'bob', email: 'a2@a.com', password: bcrypt.hashSync('1', 10)},
+  {first_name: 'john', last_name: 'bob', email: 'a3@a.com', password: bcrypt.hashSync('1', 10)}
 ]
 
 const tripsData = [

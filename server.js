@@ -23,7 +23,7 @@ app.use(cookieSession({
   keys: ['key1', 'key2']
 }));
 
-app.post('/login', (req, res) => {
+app.post('/api/login', (req, res) => {
   console.log('body------');
   console.log(req.body.email);
   console.log(req.body.password);
@@ -48,7 +48,7 @@ app.post('/login', (req, res) => {
 
 });
 
-app.post('/register', (req, res) => {
+app.post('/api/register', (req, res) => {
   user = {
     first_name: req.body.firstname,
     last_name: req.body.lastname,
