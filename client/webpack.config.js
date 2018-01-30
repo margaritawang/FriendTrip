@@ -3,7 +3,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: [
-        'webpack-dev-server/client?http://0.0.0.0:8080',
+        'webpack-dev-server/client?http://localhost:8080',
         './src/index.jsx'],
     output: {
         path: path.resolve('dist'),
@@ -31,7 +31,7 @@ module.exports = {
     })],
     devServer: {
         host: '0.0.0.0',
-        port: 8080,
+        port: 3000,
         historyApiFallback: true
     },
     node: {

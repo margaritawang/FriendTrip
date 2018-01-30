@@ -29,6 +29,7 @@ app.post('/login', (req, res) => {
   console.log(req.body.password);
   knex.select("*").from('users').where({email: req.body.email}).then((data) => {
     if (!data.length){
+      console.log('no user found');
       return res.status(400);
     } else if (bcrypt.compareSync(req.body.password, data[0].password)) {
       console.log('login success');
