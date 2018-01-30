@@ -22,7 +22,6 @@ class TripsPage extends React.Component {
     return (
       <div>
         Hello world!!
-        <CityCard />
       </div>
     );
   }

@@ -3,6 +3,10 @@ import { Card, Icon, Image } from 'semantic-ui-react';
 
 
 class CityCard extends React.component{
+  constructor(props){
+    super(props);
+  }
+
   render() {
     return (
       <Card>
