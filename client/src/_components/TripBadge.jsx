@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Icon, Image } from 'semantic-ui-react';
+import Moment from 'react-moment';
 
 
 export class TripBadge extends React.Component {
@@ -7,17 +8,27 @@ export class TripBadge extends React.Component {
     super(props);
   }
   render() {
-    const trip = this.props;
+    const trip = this.props.trip;
+    // console.log(trip.trip);
+    // let TripDate = null;
+    // if(compareDates(trip.start_date, trip.end_date)){
+    //   TripDate = <Moment format="MMMM, YYYY">{trip.start_date}</Moment>;
+    // }else{
+    //   TripDate = <div>
+    //                     <Moment format="MMMM, YYYY">{trip.start_date}</Moment>
+    //                     <Moment format="MMMM, YYYY">{trip.end_date}</Moment>
+    //                     </div>;
+    // }
     return (
       <Card>
-        <Image src='https://static.pexels.com/photos/109630/pexels-photo-109630.jpeg' />
+        <Image src={trip.imgURL} className="trip-badge-image" />
         <Card.Content>
           <Card.Header>
             {trip.location}
           </Card.Header>
           <Card.Meta>
             <span className='date'>
-              March, 2018
+              {compareDates(trip.start_date, trip.end_date) ? <Moment format="MMMM, YYYY">{trip.start_date}</Moment> : <div><Moment format="MMMM, YYYY">{trip.start_date}</Moment> - <Moment format="MMMM, YYYY">{trip.end_date}</Moment></div>}
             </span>
           </Card.Meta>
         </Card.Content>
@@ -30,4 +41,10 @@ export class TripBadge extends React.Component {
       </Card>
     );
   }
+}
+
+function compareDates(start_date, end_date){
+  const startDateArray = start_date.split('-');
+  const endDateArray = end_date.split('-');
+  return startDateArray[0] === endDateArray[0] && startDateArray[1] === endDateArray[1];
 }

@@ -40,8 +40,8 @@ class TripsPage extends React.Component {
           {
             trips.map(trip => {
               return (
-                <Grid.Column>
-                  <TripBadge location={trip.location}/>
+                <Grid.Column key={trip.id}>
+                  <TripBadge key={trip.id} trip={trip}/>
                 </Grid.Column>
               )
             })
