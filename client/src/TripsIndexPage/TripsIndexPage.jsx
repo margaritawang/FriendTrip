@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { userActions } from '../_actions/user.actions.js';
 import { TripBadge } from '../_components';
 import {
-  Button, Container, Grid, Header, Icon, Image, Item, Label, Menu, Segment, Step, Table, Dropdown
+  Button, Container, Grid, Header, Icon, Image, Item, Label, Menu, Segment, Step, Table, Dropdown, Popup, Form, TextArea, Input
 } from 'semantic-ui-react'
 
 class TripsPage extends React.Component {
@@ -56,24 +56,24 @@ class TripsPage extends React.Component {
             <TripBadge />
           </Grid.Column>
         </Grid>
-        <button className="primary-btn-fab">+</button>
+          <Popup
+            trigger={<Button icon='add' className="primary-btn-fab"/>}
+            content={
+              <Form>
+                <Form.Group widths='equal'>
+                  <Form.Field id='form-input-control-first-name' control={Input} label='First name' placeholder='First name' />
+                  <Form.Field id='form-input-control-last-name' control={Input} label='Last name' placeholder='Last name' />
+                </Form.Group>
+                <Form.Field id='form-textarea-control-opinion' control={TextArea} label='Opinion' placeholder='Opinion' />
+                <Form.Field id='form-button-control-public' control={Button} content='Confirm' label='Label with htmlFor' />
+              </Form>}
+          />
       </div>
     );
   }
-
-
 }
 
-
-const PopupExample = () => (
-  <Popup
-    trigger={<Button icon='add' />}
-    content='Add users to your feed'
-  />
-)
-
 function mapStateToProps(state){
-  //const { trips } = ;
   const { user } = state.authentication;
   return {
     user
