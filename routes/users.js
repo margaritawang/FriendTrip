@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const bodyParser = require("body-parser");
 const nlp = require('./classification.js');
 require('dotenv').config();
 
@@ -33,13 +34,16 @@ module.exports = (datahelper) => {
       owner_id: req.params.uid
     };
 
+    console.log(req.body);
     datahelper.addTrip(trip).then(() =>{
       res.status(200);
     });
   });
-
+    
+  
   // select a single trip
   router.get('/trips/:tid', (req, res) => {
+
     trip_id = req.params.tid;
     console.log(trip_id);
     datahelper.queryTrip(trip_id).

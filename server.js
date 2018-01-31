@@ -10,13 +10,15 @@ const cookieSession = require('cookie-session');
 const bcrypt = require('bcrypt');
 const knexConfig = require("./knexfile");
 const knex = require("knex")(knexConfig[ENV]);
-const morgan = require('morgan');
 const knexLogger = require('knex-logger');
 const datahelper = require('./routes/datahelpers.js')(knex);
 const usersRoutes = require("./routes/users");
+const morgan = require('morgan');
 
 app.use(morgan('tiny'));
 app.use(bodyParser.json());
+app.use(bodyParser({urlencoded: true}));
+app.use(morgan('tiny'));
 
 app.use(cookieSession({
   name: 'session',
