@@ -71,7 +71,7 @@ module.exports = () => {
     return res.status(200).send("Uploading to AWS");
   });
 
-  router.post('/compare', upload.single('file'), (req, res) => {
+  router.post('/face/compare', upload.single('file'), (req, res) => {
     console.log("-----------------",typeof req.body.file);
     console.log("-------------------------------");
     let buffer = req.body.file;

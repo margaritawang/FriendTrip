@@ -14,6 +14,7 @@ const morgan = require('morgan');
 const knexLogger = require('knex-logger');
 const datahelper = require('./routes/datahelpers.js')(knex);
 const usersRoutes = require("./routes/users");
+const faceRoutes = require('./routes/face');
 
 app.use(morgan('tiny'));
 app.use(bodyParser.json());
@@ -38,11 +39,11 @@ app.post('/api/login', (req, res) => {
       return res.json({ user_id: req.session.user_id });
     } else {
       console.log('wrong password');
-      return res.status(401);
+      return res.send(401);
     }
   }).catch((error) => {
     console.log(error);
-    return res.status(400);
+    return res.send(400);
   });
 
 });
@@ -51,16 +52,21 @@ app.post('/api/register', (req, res) => {
   user = {
     first_name: req.body.firstname,
     last_name: req.body.lastname,
-    email: req.body.email,
+    email: req.body.username,
     password: bcrypt.hashSync(req.body.password, 10)
   };
   console.log(user);
-  return knex('users').insert(user).then(()=>{
-    res.status(200);
-  });
+  knex('users').insert(user).then(()=>{
+    console.log("account created");
+    return res.send(200);
+  }).
+  catch((err) => {
+    return res.send(401);
+  })
 })
 
 app.use("/api", usersRoutes(datahelper));
+app.use('/api', faceRoutes());
 
 app.listen(PORT, () => {
   console.log("listening on port " + PORT);
