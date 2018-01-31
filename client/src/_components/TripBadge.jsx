@@ -2,15 +2,12 @@ import React from 'react';
 import { Card, Icon, Image } from 'semantic-ui-react';
 
 
-class TripBadge extends React.Component {
-  constructor(props){
-    super(props);
-  }
+export class TripBadge extends React.Component {
 
   render() {
     return (
       <Card>
-        <Image src='/assets/images/avatar/large/matthew.png' />
+        <Image src='https://static.pexels.com/photos/109630/pexels-photo-109630.jpeg' />
         <Card.Content>
           <Card.Header>
             Berlin
@@ -20,9 +17,6 @@ class TripBadge extends React.Component {
               March, 2018
             </span>
           </Card.Meta>
-          <Card.Description>
-            Berlin is a world class city!
-          </Card.Description>
         </Card.Content>
         <Card.Content extra>
           <a>
@@ -31,7 +25,6 @@ class TripBadge extends React.Component {
           </a>
         </Card.Content>
       </Card>
-    )
+    );
   }
 }
-export default TripBadge;

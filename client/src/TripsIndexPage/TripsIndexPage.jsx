@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { userActions } from '../_actions/user.actions.js';
 import { TripBadge } from '../_components';
-import { Test } from '../_components/test.jsx';
+import {
+  Button, Container, Grid, Header, Icon, Image, Item, Label, Menu, Segment, Step, Table, Dropdown
+} from 'semantic-ui-react'
 
 class TripsPage extends React.Component {
   constructor(props){
@@ -20,8 +22,41 @@ class TripsPage extends React.Component {
     const { user } = this.props;
     return (
       <div>
-        Hello world!!
-          <Test />
+        <Menu fixed='top' inverted>
+          <Container>
+            <Menu.Item as='a' header>
+              <Image
+                size='mini'
+                src='/client/src/assets/img/FriendTripLogo.jpg'
+                style={{ marginRight: '1.5em' }}
+              />
+              FriendTrip
+            </Menu.Item>
+            <Menu.Item as='a' position='right'><Icon name='user' /> Profile</Menu.Item>
+            <Menu.Item as='a'><Icon name='send' />Invite Friends</Menu.Item>
+          </Container>
+        </Menu>
+        <Grid container columns={3} style={{ marginTop: '7em' }} stackable>
+          <Grid.Column>
+            <TripBadge />
+          </Grid.Column>
+          <Grid.Column>
+            <TripBadge />
+          </Grid.Column>
+          <Grid.Column>
+            <TripBadge />
+          </Grid.Column>
+          <Grid.Column>
+            <TripBadge />
+          </Grid.Column>
+          <Grid.Column>
+            <TripBadge />
+          </Grid.Column>
+          <Grid.Column>
+            <TripBadge />
+          </Grid.Column>
+        </Grid>
+        <button className="primary-btn-fab">+</button>
       </div>
     );
   }
@@ -29,6 +64,13 @@ class TripsPage extends React.Component {
 
 }
 
+
+const PopupExample = () => (
+  <Popup
+    trigger={<Button icon='add' />}
+    content='Add users to your feed'
+  />
+)
 
 function mapStateToProps(state){
   //const { trips } = ;
