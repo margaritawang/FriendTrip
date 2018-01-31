@@ -7,9 +7,9 @@ const userData = [
 ]
 
 const tripsData = [
-  {name: 'First Friend Trip!', location: 'Seattle', owner: 'jim'},
-  {name: 'Second Friend Trip!', location: 'Portland', owner: 'jim'},
-  {name: 'Third Friend Trip!', location: 'San Diego', owner: 'jim'}
+  { location: 'Seattle', owner: 'jim', start_date: '2017-12-01', end_date: '2017-12-15', imgURL: 'https://static.pexels.com/photos/656195/pexels-photo-656195.jpeg'},
+  { location: 'Portland', owner: 'jim', start_date: '2018-02-01', end_date: '2018-02-15', imgURL: 'https://static.pexels.com/photos/710908/pexels-photo-710908.jpeg'},
+  { location: 'San Francisco', owner: 'jim', start_date: '2018-05-01', end_date: '2018-08-15', imgURL: 'https://static.pexels.com/photos/7653/pexels-photo.jpeg'}
 ]
 
 const usersTripsData = [
@@ -39,9 +39,11 @@ exports.seed = function(knex, Promise) {
           knex('users').where('first_name', owner).first()
             .then( (userRecord) => {
               return knex('trips').insert({
-                name: trip.name,
                 location: trip.location,
-                owner_id: userRecord.id
+                owner_id: userRecord.id,
+                start_date: trip.start_date,
+                end_date: trip.end_date,
+                imgURL: trip.imgURL
               })
             })
           );
