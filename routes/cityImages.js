@@ -21,7 +21,7 @@
 const cityImages = {
   "Vancouver": "https://images.pexels.com/photos/63332/science-world-false-creek-vancouver-british-columbia-63332.jpeg?w=940&h=650&auto=compress&cs=tinysrgb",
   "Seattle": "https://static.pexels.com/photos/656195/pexels-photo-656195.jpeg",
-  "San Fransisco": "https://static.pexels.com/photos/7653/pexels-photo.jpeg",
+  "San Francisco": "https://static.pexels.com/photos/7653/pexels-photo.jpeg",
   "New York": "https://static.pexels.com/photos/450597/pexels-photo-450597.jpeg",
   "Portland": "https://static.pexels.com/photos/710908/pexels-photo-710908.jpeg",
   "Boston": "https://images.pexels.com/photos/275606/pexels-photo-275606.jpeg?w=940&h=650&auto=compress&cs=tinysrgb",

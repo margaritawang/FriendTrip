@@ -10,14 +10,16 @@ const cookieSession = require('cookie-session');
 const bcrypt = require('bcrypt');
 const knexConfig = require("./knexfile");
 const knex = require("knex")(knexConfig[ENV]);
-const morgan = require('morgan');
 const knexLogger = require('knex-logger');
 const datahelper = require('./routes/datahelpers.js')(knex);
 const usersRoutes = require("./routes/users");
+const morgan = require('morgan');
 const faceRoutes = require('./routes/face');
 
 app.use(morgan('tiny'));
 app.use(bodyParser.json());
+app.use(bodyParser({urlencoded: true}));
+app.use(morgan('tiny'));
 
 app.use(cookieSession({
   name: 'session',
@@ -30,6 +32,7 @@ app.post('/api/login', (req, res) => {
   console.log(req.body.password);
   knex.select("*").from('users').where({email: req.body.email}).then((data) => {
     if (!data.length){
+      console.log('no user found');
       return res.status(400);
     } else if (bcrypt.compareSync(req.body.password, data[0].password)) {
       console.log('login success');

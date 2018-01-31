@@ -1,5 +1,5 @@
 .env
 node_modules/
 .vscode/
-/client/webpack.config.js
+./client/webpack.config.js
 .DS_Store
