@@ -81,7 +81,7 @@ class LoginPage extends React.Component {
       <Form className="large loginForm" onSubmit={this.handleSubmit}>
         <Segment className='stacked'>
           <div className='field'>
-            <Input icon="user" name='email' iconPosition='left' placeholder='Account number' onChange={this.handleChange}/> {submitted && !username && <div className="help-block">Username is required</div>}
+            <Input icon="user" name='username' iconPosition='left' placeholder='Account number' onChange={this.handleChange}/> {submitted && !username && <div className="help-block">Username is required</div>}
           </div>
           <div className='field'>
             <Input icon="certificate" name='password' iconPosition='left' placeholder='Password' onChange={this.handleChange}/> {submitted && !password && <div className="help-block">Password is required</div>}
