@@ -1,6 +1,6 @@
 import { userConstants } from '../_constants';
 
-export function users(state = {}, action) {
+export function users(state = { trips: [] }, action) {
   //console.log("i m state",state);
   //console.log("i m ...state", ...state);
   switch (action.type) {
@@ -46,6 +46,26 @@ export function users(state = {}, action) {
           return user;
         })
       };
+
+    case userConstants.GETALL_TRIPS_REQUEST:
+      return {
+        ...state,
+        loading: true
+      };
+    case userConstants.GETALL_TRIPS_SUCCESS:
+      return {
+        ...state,
+        trips: action.trips,
+        loading: false
+      };
+    case userConstants.GETALL_TRIPS_FAILURE:
+      return {
+        ...state,
+        error: action.error,
+        loading: false
+      }
+
+
     default:
       return state
   }
