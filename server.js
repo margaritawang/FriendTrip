@@ -36,7 +36,7 @@ app.post('/api/login', (req, res) => {
       req.session.user_id = data[0].id;
       console.log(req.session.user_id);
       //let user = {id: data[0].id}
-      return res.send(200);
+      return res.json({ user_id: req.session.user_id });
     } else {
       console.log('wrong password');
       return res.send(401);
