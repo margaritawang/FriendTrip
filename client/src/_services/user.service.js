@@ -24,8 +24,9 @@ function login(username, password) {
     password: password
   }).then((response) => {
     console.log('res', response);
-    localStorage.setItem('user', JSON.stringify({user: username, token: 'fake-jwt-token'}));
-    return Promise.resolve({user: username, token: 'fake-jwt-token'});
+    const user = {user: username, token: 'fake-jwt-token', id: response.data.user_id };
+    localStorage.setItem('user', JSON.stringify(user));
+    return Promise.resolve(user);
   })
 }
 

@@ -129,10 +129,8 @@ function getAllTrips(user){
     dispatch(request());
 
     tripService.getAllTrips(user)
-      .then(
-          trips => dispatch(success(trips)),
-          error => dispatch(failure(error))
-        );
+      .then(trips => dispatch(success(trips)))
+      .catch(error => dispatch(failure(error)));
   };
 
   function request() { return { type: userConstants.GETALL_TRIPS_REQUEST } }

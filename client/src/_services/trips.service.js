@@ -7,7 +7,7 @@ function getAllTrips(user) {
     method: 'GET'
   };
 
-  return fetch(`http://localhost:3000/api/users/${user.id}/trips`, requestOptions).then(handleResponse);
+  return fetch(`/api/users/${user.id}/trips`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response){

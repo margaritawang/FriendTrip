@@ -19,7 +19,7 @@ class TripsPage extends React.Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { user, trips } = this.props;
     return (
       <div>
         <Menu fixed='top' inverted>
@@ -27,7 +27,7 @@ class TripsPage extends React.Component {
             <Menu.Item as='a' header>
               <Image
                 size='mini'
-                src='/client/src/assets/img/FriendTripLogo.jpg'
+                src='./client/src/assets/img/FriendTripLogo.jpg'
                 style={{ marginRight: '1.5em' }}
               />
               FriendTrip
@@ -37,35 +37,23 @@ class TripsPage extends React.Component {
           </Container>
         </Menu>
         <Grid container columns={3} style={{ marginTop: '7em' }} stackable>
-          <Grid.Column>
-            <TripBadge />
-          </Grid.Column>
-          <Grid.Column>
-            <TripBadge />
-          </Grid.Column>
-          <Grid.Column>
-            <TripBadge />
-          </Grid.Column>
-          <Grid.Column>
-            <TripBadge />
-          </Grid.Column>
-          <Grid.Column>
-            <TripBadge />
-          </Grid.Column>
-          <Grid.Column>
-            <TripBadge />
-          </Grid.Column>
+          {
+            trips.map(trip => {
+              return (
+                <Grid.Column>
+                  <TripBadge />
+                </Grid.Column>
+              )
+            })
+          }
         </Grid>
           <Popup
             trigger={<Button icon='add' className="primary-btn-fab"/>}
             content={
-              <Form>
-                <Form.Group widths='equal'>
-                  <Form.Field id='form-input-control-first-name' control={Input} label='First name' placeholder='First name' />
-                  <Form.Field id='form-input-control-last-name' control={Input} label='Last name' placeholder='Last name' />
-                </Form.Group>
-                <Form.Field id='form-textarea-control-opinion' control={TextArea} label='Opinion' placeholder='Opinion' />
-                <Form.Field id='form-button-control-public' control={Button} content='Confirm' label='Label with htmlFor' />
+              <Form action={`http://localhost:3000/api/users/${user.id}/trips`}>
+                <Form.Field id='form-input-control-first-name' control={Input} name='location' label='Location' placeholder='Location' />
+                <Form.Field id='form-input-control-first-name' control={Input} name='month' label='Month' placeholder='Month' />
+                <Form.Field id='form-button-control-public' control={Button} content='Create'/>
               </Form>}
           />
       </div>
@@ -75,11 +63,20 @@ class TripsPage extends React.Component {
 
 function mapStateToProps(state){
   const { user } = state.authentication;
+  const { trips } = state.users;
   return {
-    user
+    user,
+    trips
   };
 }
 
 const connectedTripsPage = connect(mapStateToProps)(TripsPage);
 export { connectedTripsPage as TripsPage };
 // export { TripsPage };
+
+          // {user.trips.map(function(trip) => {
+          //   return (
+          //     <Grid.Column>
+          //       <TripBadge />
+          //     </Grid.Column>)
+          // })}
