@@ -10,6 +10,12 @@ module.exports = function makeDataHelpers(db) {
       return db('trips').insert(tripinfo);
     },
 
+    // get friends on the trip
+    getFriends: function(tripid) {
+      return db.table('users').innerJoin('users_trips','users.id', 'users_trips.user_id').where('users_trips.trip_id', tripid);
+    },
+
+
     // Select a single trip
     queryTrip: function(tripid){
       return db.select('*').from('trips').where('id', tripid);

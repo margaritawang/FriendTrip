@@ -17,15 +17,34 @@ const usersTripsData = [
   {trip: 'First Friend Trip!', user: 'john'}
 ]
 
+const friends = [
+  {trip: 'Seattle', user: 'joe'},
+  {trip: 'Seattle', user: 'john'}
+]
 
+
+function returnData(knex, data) {
+  let query = data.map((data) => {
+    let user = data.user;
+    let trip = data.trip;
+    let userpromise = knex('users').where('first_name', user).first();
+    let trippromise = knex('trips').where('location', trip).first();
+    return Promise.all([userpromise, trippromise]).then((result) => {
+      return {
+        user_id: result[0].id,
+        trip_id: result[1].id
+      }
+    })
+  })
+  return Promise.all(query);
+}
 
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
   return knex('users_trips').del()
     .then(() => {
       return knex('trips').del()
-    })
-    .then( () => {
+    }).then(() => {
       return knex('users').del()
     })
     .then( () => {
@@ -49,20 +68,19 @@ exports.seed = function(knex, Promise) {
           );
       })
       return Promise.all(tripPromises);
+    }).then(() => {
+      return returnData(knex, friends).then((result) => {
+        console.log(result);
+        let promises = result.map((item) => {
+          console.log(item);
+          return knex('users_trips').insert(item);
+          // return knex('users_trips').insert({user_id: 105, trip_id: 103})  
+        })
+        return Promise.all(promises);
+      }).then(() => {
+        return knex('users_trips');
+      }).then((result) => {
+        console.log(result);
+      })
     })
-    // .then(() => {
-    //   let usersTripsPromises = [];
-    //   usersTripsData.forEach((userTrip) => {
-    //     usersTripsPromises.push(
-    //       knex('users').where('first_name', userTrip.user).first()
-    //       .then( (userRecord) => {
-    //         return knex('users_trips').insert({
-    //           user_id: userRecord.id,
-    //           trip_id:
-    //         })
-    //       })
-    //       )
-    //   })
-
-    // })
 };
