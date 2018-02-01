@@ -10,6 +10,7 @@ import { LoginPage } from '../LoginPage';
 import { RegisterPage } from '../RegisterPage';
 import { TripsPage } from '../TripsIndexPage';
 import { PlanPage } from '../PlanPage';
+import { TripPage } from '../TripPage';
 
 class App extends React.Component {
     constructor(props) {
@@ -30,7 +31,7 @@ class App extends React.Component {
                     <Route path="/login" component={LoginPage} />
                     <Route path="/register" component={RegisterPage} />
                     <Route path="/trips" component={TripsPage} />
-
+                    <Route path="/trips/:id" component={TripPage} />
                     <Route path="/plan" component={PlanPage} />
                   </div>
                 </Router>
