@@ -11,7 +11,8 @@ export const userActions = {
     getAll,
     delete: _delete,
     getAllTrips,
-    createNewTrip
+    createNewTrip,
+    getAllActivities
 };
 
 function face(buffer) {
@@ -42,7 +43,7 @@ function login(username, password) {
             .then(
                 user => {
                     dispatch(success(user));
-                    history.push('/');
+                    history.push('/trips');
                 },
                 error => {
                     dispatch(failure(error));
@@ -136,7 +137,6 @@ function getAllTrips(user){
 }
 
 function createNewTrip(user, tripInfo){
-    console.log(tripInfo);
     return dispatch => {
         dispatch(request());
 
@@ -149,4 +149,19 @@ function createNewTrip(user, tripInfo){
   function request() { return { type: userConstants.CREATE_NEW_TRIP_REQUEST } }
   function success(trip) { return { type: userConstants.CREATE_NEW_TRIP_SUCCESS, trip } }
   function failure(error) { return { type: userConstants.CREATE_NEW_TRIP_FAILURE, error } }
+}
+
+function getAllActivities(user, trip){
+    console.log(user, trip);
+    return dispatch => {
+        dispatch(request());
+    
+        tripService.getAllActivities(trip)
+          .then(activities => dispatch(success(activities)))
+          .catch(error => dispatch(failure(error)));
+      };
+    
+      function request() { return { type: userConstants.GETALL_TRIP_ACTIVITIES_REQUEST } }
+      function success(activities) { return { type: userConstants.GETALL_TRIP_ACTIVITIES_SUCCESS, activities } }
+      function failure(error) { return { type: userConstants.GETALL_TRIP_ACTIVITIES_FAILURE, error } }
 }

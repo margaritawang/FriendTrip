@@ -1,6 +1,6 @@
 import { userConstants } from '../_constants';
 
-export function users(state = { trips: [] }, action) {
+export function users(state = { trips: [], activities: [] }, action) {
   //console.log("i m state",state);
   //console.log("i m ...state", ...state);
   switch (action.type) {
@@ -83,7 +83,7 @@ export function users(state = { trips: [] }, action) {
       return{
         ...state,
         loading: false,
-        error: 'Something went wrong.'
+        error: action.error
       }
 
     default:

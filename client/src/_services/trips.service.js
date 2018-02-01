@@ -1,6 +1,7 @@
 export const tripService = {
   getAllTrips,
-  createNewTrip
+  createNewTrip,
+  getAllActivities
 }
 
 function getAllTrips(user) {
@@ -34,4 +35,13 @@ function createNewTrip(user, trip){
   }).then((response) => {
     console.log('Success: ', response);
   })
+}
+
+function getAllActivities(trip) {
+  console.log(trip);
+  const requestOptions = {
+    method: 'GET'
+  };
+
+  return fetch(`/api/trips/${trip.id}/activities`, requestOptions).then(handleResponse);
 }
