@@ -10,21 +10,12 @@ export class TripBadge extends React.Component {
   }
   render() {
     const trip = this.props.trip;
-    // console.log(trip.trip);
-    // let TripDate = null;
-    // if(compareDates(trip.start_date, trip.end_date)){
-    //   TripDate = <Moment format="MMMM, YYYY">{trip.start_date}</Moment>;
-    // }else{
-    //   TripDate = <div>
-    //                     <Moment format="MMMM, YYYY">{trip.start_date}</Moment>
-    //                     <Moment format="MMMM, YYYY">{trip.end_date}</Moment>
-    //                     </div>;
-    // }
+    
     return (
       <Card>
         <Image src={trip.imgURL} className="trip-badge-image" />
         <Card.Content>
-          <Card.Header as={Link} to='/trips/'>
+          <Card.Header as={Link} to={`/trips/${trip.id}`}>
             {trip.location}
           </Card.Header>
           <Card.Meta>
