@@ -36,7 +36,7 @@ class TripPage extends React.Component {
 
   componentDidMount(){
     const { user, trip } = this.props;
-    this.props.dispatch(userActions.getAllActivities(user, trip));
+//
   }
 
 
@@ -44,8 +44,9 @@ class TripPage extends React.Component {
   render() {
     const { user, trip } = this.props;
     const { description } = this.state;
-    return ( 
+    return (
       <div>
+        TripPage
         <Menu fixed='top' inverted>
           <Container>
             <Menu.Item as='a' header>
@@ -94,9 +95,7 @@ function mapStateToProps(state){
   const trip = state.users.trips[0];
   const { activities } = state.users;
   return {
-    user,
-    trip,
-    activities
+    user
   };
 }
 

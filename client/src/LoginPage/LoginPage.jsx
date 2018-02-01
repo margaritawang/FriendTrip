@@ -140,7 +140,6 @@ class LoginPage extends React.Component {
 
       </div>
     )
-
     return (
       (this.state.face) ? loginFace : loginForm
     );

@@ -1,3 +1,3 @@
 export * from './alert.constants';
 export * from './user.constants';
-export * from './plan.constants.js';
+export * from './trip.constants.js';

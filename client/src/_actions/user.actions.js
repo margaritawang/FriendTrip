@@ -155,12 +155,12 @@ function getAllActivities(user, trip){
     console.log(user, trip);
     return dispatch => {
         dispatch(request());
-    
+
         tripService.getAllActivities(trip)
           .then(activities => dispatch(success(activities)))
           .catch(error => dispatch(failure(error)));
       };
-    
+
       function request() { return { type: userConstants.GETALL_TRIP_ACTIVITIES_REQUEST } }
       function success(activities) { return { type: userConstants.GETALL_TRIP_ACTIVITIES_SUCCESS, activities } }
       function failure(error) { return { type: userConstants.GETALL_TRIP_ACTIVITIES_FAILURE, error } }
