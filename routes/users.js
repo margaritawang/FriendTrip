@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require("body-parser");
 const nlp = require('./classification.js');
+const place = require('./placehelpers.js')();
 require('dotenv').config();
 
 
@@ -46,10 +47,10 @@ module.exports = (datahelper) => {
 
     let trip_id = req.params.tid;
     console.log(trip_id);
-    datahelper.queryTrip(trip_id).
-    then((data) => {
-      return res.json(data);
-    });
+    datahelper.queryTrip(trip_id)
+      .then((data) => {
+        res.json(data);
+    })
   });
 
   // update a trip
@@ -93,7 +94,20 @@ module.exports = (datahelper) => {
     });
   });
 
+  router.get('/recommendations/:tid', (req, res) => {
+    let tripid = req.params.tid;
 
+    let name = '';
+    datahelper.queryTrip(tripid).then((data) => {
+      // console.log(data[0].location);
+      name = data[0].location;
+      //  console.log(name);
+      place.getPlaceID(`things to do in ${name}`).then((data) => {
+        return res.json(data);
+      })
+    })
+  })
+  
   // get comments from an activity
   router.get('/activities/:aid/comments', (req, res) => {
     let activity_id = req.params.tid;
