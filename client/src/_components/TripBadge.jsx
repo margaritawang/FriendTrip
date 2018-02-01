@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Icon, Image } from 'semantic-ui-react';
 import Moment from 'react-moment';
+import { Link } from 'react-router-dom'
 
 
 export class TripBadge extends React.Component {
@@ -23,12 +24,12 @@ export class TripBadge extends React.Component {
       <Card>
         <Image src={trip.imgURL} className="trip-badge-image" />
         <Card.Content>
-          <Card.Header>
+          <Card.Header as={Link} to='/trips/'>
             {trip.location}
           </Card.Header>
           <Card.Meta>
             <span className='date'>
-              {compareDates(trip.start_date, trip.end_date) ? <Moment format="MMMM, YYYY">{trip.start_date}</Moment> : <div><Moment format="MMMM, YYYY">{trip.start_date}</Moment> - <Moment format="MMMM, YYYY">{trip.end_date}</Moment></div>}
+              {compareDates(trip.start_date, trip.end_date) ? <Moment format="MMMM, YYYY">{trip.start_date}</Moment> : <div><Moment format="MMMM, YYYY">{trip.start_date}</Moment> - &nbsp;<Moment format="MMMM, YYYY">{trip.end_date}</Moment></div>}
             </span>
           </Card.Meta>
         </Card.Content>
