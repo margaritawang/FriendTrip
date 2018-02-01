@@ -92,6 +92,8 @@ module.exports = () => {
         return res.send(err);
       } else {
         console.log("data------------",data);
+        console.log("data------------",data.FaceMatches[0].Face);
+        // modify the return data later
         let sim = data.FaceMatches[0].Similarity;
         console.log("sim----", sim);
         return res.send(JSON.stringify(data));
