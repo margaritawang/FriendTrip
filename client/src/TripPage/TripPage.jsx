@@ -27,24 +27,28 @@ class TripPage extends React.Component {
     e.preventDefault();
     const { description } = this.state
     const { dispatch, user } = this.props;
+    const tripId = this.props.match.params.id;
     const activityInfo = {
+      tripId: tripId,
       description: description
     };
-    dispatch(userActions.createNewActivity(user , activityInfo))
+    dispatch(userActions.createNewActivity(user, activityInfo))
     this.setState({ submittedDescription: description })
   }
 
   componentDidMount(){
-    const { user, trip } = this.props;
-    this.props.dispatch(userActions.getAllActivities(user, trip));
+    const { user } = this.props;
+    const tripId = this.props.match.params.id;
+    this.props.dispatch(userActions.getAllActivities(user, tripId));
   }
 
 
 
   render() {
-    const { user, trip } = this.props;
+    const { user } = this.props;
     const { description } = this.state;
-    return ( 
+    const tripId = this.props.match.params.id;
+    return (
       <div>
         <Menu fixed='top' inverted>
           <Container>
@@ -91,11 +95,9 @@ function mapStateToProps(state){
   // Get Trip id from params -> pass it in as OwnProps
   // Use a filter to then grab that specific trip with TripID
   // Set a new state: selectedTrip: []; or overwrite the trips state.
-  const trip = state.users.trips[0];
   const { activities } = state.users;
   return {
     user,
-    trip,
     activities
   };
 }
