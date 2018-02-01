@@ -110,7 +110,6 @@ class LoginPage extends React.Component {
     const loginFace = (
       <Container className='login-main'>
               <Container className='camera center aligned'>
-
                 <Container>
                   <Webcam
                     audio={false}
