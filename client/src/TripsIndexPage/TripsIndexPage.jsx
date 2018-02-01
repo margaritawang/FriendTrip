@@ -31,11 +31,11 @@ class TripsPage extends React.Component {
   handleSubmit(e){
     e.preventDefault();
     const { location, start_date, end_date } = this.state
-    const { dispatch } = this.props;
+    const { dispatch, user } = this.props;
     const tripInfo = {
       location: location, start_date: start_date, end_date: end_date
     };
-    dispatch(userActions.createNewTrip(tripInfo))
+    dispatch(userActions.createNewTrip(user ,tripInfo))
     this.setState({ submittedLocation: location, submittedStart_date: start_date, submittedEnd_date: end_date })
   }
 
