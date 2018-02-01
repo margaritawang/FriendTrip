@@ -65,6 +65,26 @@ export function users(state = { trips: [] }, action) {
         loading: false
       }
 
+    case userConstants.CREATE_NEW_TRIP_REQUEST:
+      return{
+        ...state,
+        loading: true
+      }
+    case userConstants.CREATE_NEW_TRIP_SUCCESS:
+      const { trips } = state;
+      return{
+        ...state,
+        trips: [...trips, action.trip],
+        loading: false,
+        error: ''
+      }
+
+    case userConstants.CREATE_NEW_TRIP_FAILURE:
+      return{
+        ...state,
+        loading: false,
+        error: 'Something went wrong.'
+      }
 
     default:
       return state

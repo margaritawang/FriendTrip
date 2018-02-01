@@ -10,7 +10,8 @@ export const userActions = {
     register,
     getAll,
     delete: _delete,
-    getAllTrips
+    getAllTrips,
+    createNewTrip
 };
 
 function face(buffer) {
@@ -120,11 +121,6 @@ function _delete(id) {
     function failure(id, error) { return { type: userConstants.DELETE_FAILURE, id, error } }
 }
 
-
-export const tripActions = {
-  getAllTrips
-}
-
 function getAllTrips(user){
   return dispatch => {
     dispatch(request());
@@ -137,4 +133,20 @@ function getAllTrips(user){
   function request() { return { type: userConstants.GETALL_TRIPS_REQUEST } }
   function success(trips) { return { type: userConstants.GETALL_TRIPS_SUCCESS, trips } }
   function failure(error) { return { type: userConstants.GETALL_TRIPS_FAILURE, error } }
+}
+
+function createNewTrip(user, tripInfo){
+    console.log(tripInfo);
+    return dispatch => {
+        dispatch(request());
+
+        //tripService.createNewTrip(user, tripInfo)
+            //.then(() => dispatch(success(tripInfo)))
+            //.catch(error => dispatch(failure(error)));
+        dispatch(success(tripInfo));
+        dispatch(failure(tripInfo));
+    };
+  function request() { return { type: userConstants.CREATE_NEW_TRIP_REQUEST } }
+  function success(trip) { return { type: userConstants.CREATE_NEW_TRIP_SUCCESS, trip } }
+  function failure(error) { return { type: userConstants.CREATE_NEW_TRIP_FAILURE, error } }
 }

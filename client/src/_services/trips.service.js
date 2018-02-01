@@ -1,5 +1,6 @@
 export const tripService = {
-  getAllTrips
+  getAllTrips,
+  createNewTrip
 }
 
 function getAllTrips(user) {
@@ -16,4 +17,21 @@ function handleResponse(response){
   }
 
   return response.json();
+}
+
+function createNewTrip(user, trip){
+  const requestOptions = {
+    body: {
+      location: trip.location,
+      start_date: trip.start_date,
+      end_date: trip.end_date
+    }
+  };
+  return axios.post('/api/trips', {
+    location: trip.location,
+    start_date: trip.start_date,
+    end_date: trip.end_date
+  }).then((response) => {
+    console.log('Success: ', response);
+  })
 }
