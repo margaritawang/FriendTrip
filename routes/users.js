@@ -11,7 +11,7 @@ module.exports = (datahelper) => {
   });
   
   router.get('/friends/:tid', (req, res) => {
-    trip_id = req.params.tid;
+    let trip_id = req.params.tid;
     datahelper.getFriends(trip_id).then((data) => {
       return res.json(data);
     })
@@ -20,8 +20,7 @@ module.exports = (datahelper) => {
 
   // get all trips that belong to a given user
   router.get('/users/:uid/trips', (req, res) => {
-    user_id = req.params.uid
-    console.log(user_id);
+    let user_id = req.params.uid
     datahelper.queryUserTrips(user_id).then((data) => {
       return res.json(data);
     });
@@ -45,7 +44,7 @@ module.exports = (datahelper) => {
   // select a single trip
   router.get('/trips/:tid', (req, res) => {
 
-    trip_id = req.params.tid;
+    let trip_id = req.params.tid;
     console.log(trip_id);
     datahelper.queryTrip(trip_id).
     then((data) => {
@@ -71,7 +70,7 @@ module.exports = (datahelper) => {
 
   // get activities within a trip
   router.get('/trips/:tid/activities', (req, res) => {
-    trip_id = req.params.tid;
+    let trip_id = req.params.tid;
     console.log(trip_id);
     datahelper.getActivities(trip_id).
     then((data) => {
@@ -97,7 +96,7 @@ module.exports = (datahelper) => {
 
   // get comments from an activity
   router.get('/activities/:aid/comments', (req, res) => {
-    activity_id = req.params.tid;
+    let activity_id = req.params.tid;
     console.log(activity_id);
     datahelper.getComments(activity_id).
     then((data) => {

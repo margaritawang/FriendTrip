@@ -52,7 +52,7 @@ app.post('/api/login', (req, res) => {
 });
 
 app.post('/api/register', (req, res) => {
-  user = {
+  let user = {
     first_name: req.body.firstname,
     last_name: req.body.lastname,
     email: req.body.username,
