@@ -82,12 +82,12 @@ module.exports = (datahelper) => {
   // add activities within a trip
   router.post('/trips/:tid/activities', (req, res) => {
     let activity = {
-      start_date: req.body.start,
-      end_date: req.body.end,
+      // start_date: req.body.start,
+      // end_date: req.body.end,
       description: req.body.description,
       trip_id: req.params.trip_id,
-      owner_id: req.session.user_id,
-      category: nlp.getcategory(req.body.description)
+      owner_id: req.body.user_id,
+      category: nlp.getCategory(req.body.description)
     };
     datahelper.addActivities(activity).then(() =>{
       return res.status(200);
@@ -107,7 +107,7 @@ module.exports = (datahelper) => {
       })
     })
   })
-  
+
   // get comments from an activity
   router.get('/activities/:aid/comments', (req, res) => {
     let activity_id = req.params.tid;
