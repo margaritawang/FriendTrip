@@ -36,15 +36,19 @@ class TripsPage extends React.Component {
       location: location, start_date: start_date, end_date: end_date
     };
     dispatch(userActions.createNewTrip(user ,tripInfo))
-    this.setState({ submittedLocation: location, submittedStart_date: start_date, submittedEnd_date: end_date })
+
+    this.setState({
+      submittedLocation: location,
+      submittedStart_date: start_date,
+      submittedEnd_date: end_date,
+      modalOpen: false
+    })
   }
 
   componentDidMount(){
     const { user } = this.props;
     this.props.dispatch(userActions.getAllTrips(user));
   }
-
-
 
   render() {
     const { user, trips } = this.props;

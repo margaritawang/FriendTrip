@@ -44,9 +44,9 @@ class TripPage extends React.Component {
   }
 
   sendMessage(e) {
-    const { dispatch } = this.props
+    const { dispatch, user } = this.props
     console.log(this.state.message);
-    dispatch(userActions.sendMessage(this.state.message));
+    dispatch(userActions.sendMessage({user: user.user,message:this.state.message}));
   }
 
   changeMessage(e) {
@@ -132,7 +132,17 @@ class TripPage extends React.Component {
               </Form>
             </Modal.Content>
           </Modal>
-
+          <br/>
+        <Container>
+          <MessageList messages={msgs} />
+          <Form onSubmit={this.sendMessage}>
+            <Form.Field>
+              <label></label>
+              <input placeholder='Write Something Here...' onChange={this.changeMessage}/>
+            </Form.Field>
+            <Button type='submit'>Submit</Button>
+          </Form>
+        </Container>
       </div>
     );
   }
@@ -142,9 +152,6 @@ function mapStateToProps(state){
   const { user } = state.authentication;
   const { trips } = state.users;
   const { msgs } = state.chat;
-  // Get Trip id from params -> pass it in as OwnProps
-  // Use a filter to then grab that specific trip with TripID
-  // Set a new state: selectedTrip: []; or overwrite the trips state.
   const { activities } = state.users;
   return {
     user,
