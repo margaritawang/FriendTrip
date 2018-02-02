@@ -115,14 +115,6 @@ class TripPage extends React.Component {
               console.log(item.plan, index);
             })
           }
-        <Form onSubmit={this.sendMessage}>
-          <Form.Field>
-            <label></label>
-            <input placeholder='Write Something Here...' onChange={this.changeMessage}/>
-          </Form.Field>
-          <Button type='submit'>Submit</Button>
-        </Form>
-        <MessageList messages={msgs} />
           <Modal trigger={<Button icon='add' className="primary-btn-fab"/>}>
             <Modal.Header>Create an Activity</Modal.Header>
             <Modal.Content>
