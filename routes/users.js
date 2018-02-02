@@ -30,14 +30,16 @@ module.exports = (datahelper) => {
   // create a new trip for the user
   router.post('/users/:uid/trips', (req, res) => {
     let trip = {
-      name: req.body.name,
       location: req.body.location,
-      owner_id: req.params.uid
+      owner_id: req.params.uid,
+      start_date: req.body.start_date,
+      end_date: req.body.end_date
     };
 
-    console.log(req.body);
-    datahelper.addTrip(trip).then(() =>{
-      res.status(200);
+    console.log(trip);
+    datahelper.addTrip(trip).then((data) =>{
+      trip.id = data[0];
+      res.send(trip);
     });
   });
 
@@ -83,15 +85,17 @@ module.exports = (datahelper) => {
   // add activities within a trip
   router.post('/trips/:tid/activities', (req, res) => {
     let activity = {
-      start_date: req.body.start,
-      end_date: req.body.end,
+      // start_date: req.body.start,
+      // end_date: req.body.end,
       description: req.body.description,
       trip_id: req.params.tid,
       owner_id: req.session.user_id,
       category: nlp.getCategory(req.body.description)
     };
-    datahelper.addActivities(activity).then(() =>{
-      return res.send(200);
+    datahelper.addActivities(activity).then((data) =>{
+      activity.id = data[0];
+      res.send(activity);
+      //res.redirect(`/trips/${req.params.tid}`)
     });
   });
 

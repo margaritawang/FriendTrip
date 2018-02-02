@@ -35,7 +35,6 @@ export class ActivityBadge extends React.Component {
           </Card.Meta>
         </Card.Content>
         <Card.Content extra>
-          <Header as='h3' dividing></Header>
           <CommentContainer/>
         </Card.Content>
       </Card>

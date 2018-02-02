@@ -29,11 +29,14 @@ class TripPage extends React.Component {
     super(props);
     this.state = {
       description: '',
+      modalOpen: false,
       message: ''
     };
     // Bind any functions here.
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
     this.changeMessage = this.changeMessage.bind(this);
   }
@@ -63,7 +66,24 @@ class TripPage extends React.Component {
       description: description
     };
     dispatch(userActions.createNewActivity(user, activityInfo))
-    this.setState({ submittedDescription: description })
+    this.setState({
+      submittedDescription: description,
+      modalOpen: false
+    })
+  }
+
+  handleOpen() {
+    this.setState({
+      ...this.state,
+      modalOpen: true
+    })
+  }
+
+  handleClose() {
+    this.setState({
+      ...this.state,
+      modalOpen: false
+    })
   }
 
   componentDidMount(){
@@ -76,9 +96,9 @@ class TripPage extends React.Component {
     const { user } = this.props;
     const { description } = this.state;
     const { activities } = this.props;
+    const tripId = this.props.match.params.id;
     const { msgs } = this.props;
     console.log('amy', activities);
-    const tripId = this.props.match.params.id;
     return (
       <div>
         TripPage
@@ -107,22 +127,10 @@ class TripPage extends React.Component {
             })
           }
         </Grid>
-
-        <br/>
-          {
-            msgs.forEach( (item,index)  => {
-              console.log(item.plan, index);
-            })
-          }
-        <Form onSubmit={this.sendMessage}>
-          <Form.Field>
-            <label></label>
-            <input placeholder='Write Something Here...' onChange={this.changeMessage}/>
-          </Form.Field>
-          <Button type='submit'>Submit</Button>
-        </Form>
-
-          <Modal trigger={<Button icon='add' className="primary-btn-fab"/>}>
+          <Modal trigger={<Button icon='add' onClick={this.handleOpen} className="primary-btn-fab"/>}
+              open={this.state.modalOpen}
+              onClose={this.handleClose}
+            >
             <Modal.Header>Create an Activity</Modal.Header>
             <Modal.Content>
               <Form onSubmit={this.handleSubmit}>
@@ -131,6 +139,14 @@ class TripPage extends React.Component {
               </Form>
             </Modal.Content>
           </Modal>
+          <br/>
+          <Form onSubmit={this.sendMessage}>
+            <Form.Field>
+              <label></label>
+              <input placeholder='Write Something Here...' onChange={this.changeMessage}/>
+            </Form.Field>
+            <Button type='submit'>Submit</Button>
+          </Form>
       </div>
     );
   }
