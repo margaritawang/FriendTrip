@@ -10,7 +10,7 @@ module.exports = (datahelper) => {
   router.get('/', (req, res) => {
     return res.send('home page');
   });
-  
+
   router.get('/friends/:tid', (req, res) => {
     let trip_id = req.params.tid;
     datahelper.getFriends(trip_id).then((data) => {
@@ -40,8 +40,8 @@ module.exports = (datahelper) => {
       res.status(200);
     });
   });
-    
-  
+
+
   // select a single trip
   router.get('/trips/:tid', (req, res) => {
 
@@ -75,6 +75,7 @@ module.exports = (datahelper) => {
     console.log(trip_id);
     datahelper.getActivities(trip_id).
     then((data) => {
+      console.log(data);
       return res.json(data);
     });
   });
@@ -85,12 +86,12 @@ module.exports = (datahelper) => {
       start_date: req.body.start,
       end_date: req.body.end,
       description: req.body.description,
-      trip_id: req.params.trip_id,
+      trip_id: req.params.tid,
       owner_id: req.session.user_id,
-      category: nlp.getcategory(req.body.description)
+      category: nlp.getCategory(req.body.description)
     };
     datahelper.addActivities(activity).then(() =>{
-      return res.status(200);
+      return res.send(200);
     });
   });
 
@@ -107,7 +108,7 @@ module.exports = (datahelper) => {
       })
     })
   })
-  
+
   // get comments from an activity
   router.get('/activities/:aid/comments', (req, res) => {
     let activity_id = req.params.tid;

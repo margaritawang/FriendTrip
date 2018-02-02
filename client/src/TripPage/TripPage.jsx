@@ -47,6 +47,8 @@ class TripPage extends React.Component {
   render() {
     const { user } = this.props;
     const { description } = this.state;
+    const { activities } = this.props;
+    console.log('amy', activities);
     const tripId = this.props.match.params.id;
     return (
       <div>
@@ -66,15 +68,15 @@ class TripPage extends React.Component {
           </Container>
         </Menu>
         <Grid container columns={3} style={{ marginTop: '7em' }} stackable>
-          {/* {
+          {
             activities.map(activity => {
               return (
                 <Grid.Column key={activity.id}>
-                  <TripBadge key={activity.id} activity={activity}/>
+                  <ActivityBadge key={activity.id} activity={activity}/>
                 </Grid.Column>
               )
             })
-          } */}
+          }
         </Grid>
           <Modal trigger={<Button icon='add' className="primary-btn-fab"/>}>
             <Modal.Header>Create an Activity</Modal.Header>

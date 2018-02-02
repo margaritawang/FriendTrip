@@ -1,7 +1,10 @@
+import axios from 'axios';
+
 export const tripService = {
   getAllTrips,
   createNewTrip,
-  getAllActivities
+  getAllActivities,
+  createNewActivity
 }
 
 function getAllTrips(user) {
@@ -38,10 +41,19 @@ function createNewTrip(user, trip){
 }
 
 function getAllActivities(trip) {
-  console.log(trip);
+  console.log("TRIP", trip);
   const requestOptions = {
     method: 'GET'
   };
 
-  return fetch(`/api/trips/${trip.id}/activities`, requestOptions).then(handleResponse);
+  return fetch(`/api/trips/${trip}/activities`, requestOptions).then(handleResponse);
+}
+
+function createNewActivity(user, activityInfo){
+  const info = {
+    trip_id: activityInfo.tripId,
+    description: activityInfo.description,
+    owner_id: user.id
+  }
+  return axios.post(`/api/trips/${activityInfo.tripId}/activities`, info);
 }

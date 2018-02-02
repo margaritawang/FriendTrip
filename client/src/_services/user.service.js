@@ -13,12 +13,12 @@ export const userService = {
 };
 
 function login(username, password) {
-  const requestOptions = {
-    body: {
-      email: username,
-      password: password
-    }
-  };
+  // const requestOptions = {
+  //   body: {
+  //     email: username,
+  //     password: password
+  //   }
+  // };
   return axios.post('/api/login', {
     email: username,
     password: password

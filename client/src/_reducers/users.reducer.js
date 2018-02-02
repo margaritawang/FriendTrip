@@ -86,6 +86,48 @@ export function users(state = { trips: [], activities: [] }, action) {
         error: action.error
       }
 
+    case userConstants.GETALL_TRIP_ACTIVITIES_REQUEST:
+      return{
+        ...state,
+        loading: true,
+        error: ''
+      }
+
+    case userConstants.GETALL_TRIP_ACTIVITIES_SUCCESS:
+      return{
+        ...state,
+        activities: action.activities,
+        loading: false,
+        error: ''
+      }
+
+    case userConstants.GETALL_TRIP_ACTIVITIES_FAILURE:
+      return{
+        ...state,
+        error: action.error
+      }
+
+    case userConstants.CREATE_NEW_ACTIVITY_REQUEST:
+      return{
+        ...state,
+        loading: true
+      }
+
+    case userConstants.CREATE_NEW_ACTIVITY_SUCCESS:
+      const { activities } = state;
+      return {
+        ...state,
+        activities: [...activities, action.activities],
+        loading: false,
+        error: ''
+      }
+
+    case userConstants.CREATE_NEW_ACTIVITY_FAILURE:
+      return{
+        ...state,
+        error: action.error
+      }
+
     default:
       return state
   }
