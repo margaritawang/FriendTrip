@@ -29,7 +29,7 @@ const cityImages = {
   "London": "https://static.pexels.com/photos/50632/pexels-photo-50632.jpeg",
   "Berlin": "https://static.pexels.com/photos/109630/pexels-photo-109630.jpeg",
   "Cape Town": "https://static.pexels.com/photos/259447/pexels-photo-259447.jpeg",
-  "Cancun": "https://www.pexels.com/photo/beach-beautiful-bridge-carribean-449627/",
+  "Cancun": "https://images.pexels.com/photos/449627/pexels-photo-449627.jpeg?w=940&h=650&dpr=2&auto=compress&cs=tinysrgb",
   "Seoul": "https://static.pexels.com/photos/237211/pexels-photo-237211.jpeg",
   "Tokyo":"https://static.pexels.com/photos/34142/pexels-photo.jpg"
 }

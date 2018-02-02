@@ -42,6 +42,8 @@ module.exports = (datahelper) => {
     // console.log(imghelper.cityImages[location]);
     if (imghelper.cityImages[location]) {
       trip.imgURL = imghelper.cityImages[location];
+    } else {
+      trip.imgURL =  'https://www.freevector.com/uploads/vector/preview/6318/FreeVector-New-York-Skyline-1.jpg';
     }
     console.log(trip);
     datahelper.addTrip(trip).then((data) =>{
