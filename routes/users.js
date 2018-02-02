@@ -3,6 +3,7 @@ const router = express.Router();
 const bodyParser = require("body-parser");
 const nlp = require('./classification.js');
 const place = require('./placehelpers.js')();
+const imghelper = require('./cityImages.js');
 require('dotenv').config();
 
 
@@ -35,7 +36,13 @@ module.exports = (datahelper) => {
       start_date: req.body.start_date,
       end_date: req.body.end_date
     };
-
+    let location = req.body.location;
+    // console.log('location:', location);
+    // console.log('imageeeeeeeeeeee', imghelper.cityImages);
+    // console.log(imghelper.cityImages[location]);
+    if (imghelper.cityImages[location]) {
+      trip.imgURL = imghelper.cityImages[location];
+    }
     console.log(trip);
     datahelper.addTrip(trip).then((data) =>{
       trip.id = data[0];
