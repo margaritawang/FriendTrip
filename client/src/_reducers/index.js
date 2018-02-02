@@ -6,14 +6,15 @@ import { users } from './users.reducer';
 import { alert } from './alert.reducer';
 import { trips } from './trips.reducer';
 import { trip } from './trip.reducer';
-
+import { chat } from './chat.reducer';
 
 const rootReducer = combineReducers({
   authentication,
   registration,
   users,
   alert,
-  trip
+  trip,
+  chat
 });
 
 export default rootReducer;

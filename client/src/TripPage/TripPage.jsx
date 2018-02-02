@@ -4,23 +4,53 @@ import { connect } from 'react-redux';
 import { userActions } from '../_actions/user.actions.js';
 import { ActivityBadge } from '../_components';
 import {
-  Button, Container, Grid, Header, Icon, Image, Item, Label, Menu, Segment, Step, Table, Dropdown, Popup, Form, TextArea, Input, Modal
+  Button,
+  Container,
+  Grid,
+  Header,
+  Icon,
+  Image,
+  Item,
+  Label,
+  Menu,
+  Segment,
+  Step,
+  Table,
+  Dropdown,
+  Popup,
+  Form,
+  TextArea,
+  Input,
+  Modal
 } from 'semantic-ui-react'
 
 class TripPage extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      description: ''
+      description: '',
+      message: ''
     };
     // Bind any functions here.
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.sendMessage = this.sendMessage.bind(this);
+    this.changeMessage = this.changeMessage.bind(this);
   }
-
 
   handleChange(e, { name, value }){
     this.setState({ [name]: value })
+  }
+
+  sendMessage(e) {
+    const { dispatch } = this.props
+    console.log(this.state.message);
+    dispatch(userActions.sendMessage(this.state.message));
+  }
+
+  changeMessage(e) {
+    const { value } = e.target
+    this.setState({message: value});
   }
 
   handleSubmit(e){
@@ -42,12 +72,11 @@ class TripPage extends React.Component {
     this.props.dispatch(userActions.getAllActivities(user, tripId));
   }
 
-
-
   render() {
     const { user } = this.props;
     const { description } = this.state;
     const { activities } = this.props;
+    const { msgs } = this.props;
     console.log('amy', activities);
     const tripId = this.props.match.params.id;
     return (
@@ -78,6 +107,21 @@ class TripPage extends React.Component {
             })
           }
         </Grid>
+
+        <br/>
+          {
+            msgs.forEach( (item,index)  => {
+              console.log(item.plan, index);
+            })
+          }
+        <Form onSubmit={this.sendMessage}>
+          <Form.Field>
+            <label></label>
+            <input placeholder='Write Something Here...' onChange={this.changeMessage}/>
+          </Form.Field>
+          <Button type='submit'>Submit</Button>
+        </Form>
+
           <Modal trigger={<Button icon='add' className="primary-btn-fab"/>}>
             <Modal.Header>Create an Activity</Modal.Header>
             <Modal.Content>
@@ -95,13 +139,15 @@ class TripPage extends React.Component {
 function mapStateToProps(state){
   const { user } = state.authentication;
   const { trips } = state.users;
+  const { msgs } = state.chat;
   // Get Trip id from params -> pass it in as OwnProps
   // Use a filter to then grab that specific trip with TripID
   // Set a new state: selectedTrip: []; or overwrite the trips state.
   const { activities } = state.users;
   return {
     user,
-    activities
+    activities,
+    msgs
   };
 }
 

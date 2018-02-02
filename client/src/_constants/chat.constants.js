@@ -1,0 +1,4 @@
+export const chatConstants = {
+  INCOMING_MESSAGE: 'INCOMING_MESSAGE',
+  SENDING_MESSAGE: 'SENDING_MESSAGE',
+}

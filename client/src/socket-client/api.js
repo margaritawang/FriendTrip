@@ -1,28 +1,31 @@
 import openSocket from 'socket.io-client';
 import io from 'socket.io-client';
-import { planActions } from '../_actions';
+import {userActions} from '../_actions';
+import {chatConstants} from '../_constants';
 //const socket = openSocket('http://localhost:8090');
-//
-function subscribeToTimer(cb) {
-//   socket.on('timer', timestamp => cb(null, timestamp));
-//   socket.emit('subscribeToTimer', 1000);
-//
- }
 
-function addNewPlan(cb, plan) {
-  socket.on('added', plans => cb(null, plans));
-  socket.emit('addNewPlan', plan);
+let socket = null;
+
+export function chatMiddleware(store) {
+  return next => action => {
+    const result = next(action);
+    console.log('action type', action.type);
+    if (socket && action.type === chatConstants.SENDING_MESSAGE) {
+      let message = action.message;
+      socket.emit('client', message);
+    }
+    return result;
+  }
 }
 
-
-function wrapStore(store) {
-  const socket =  openSocket('http://localhost:8090');
-  console.log("try to connnect")
+export default function wrapStore(store) {
+  socket = io.connect(`http://localhost:8090`);
+  console.log("try to connnect 1")
   socket.on('message', message => {
-    store.dispatch(planActions.addNewPlan(message))
+    store.dispatch(userActions.receiveMessage(message))
   })
 }
 
-
-
-export { wrapStore }
+export {
+  wrapStore
+}

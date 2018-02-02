@@ -5,10 +5,10 @@ var plans = [];
 io.on('connection', (client) => {
   console.log('connected');
   client.emit("message", {plan: 'new'});
-  client.on('addNewPlan', (plan) => {
-    console.log('new plan', plan);
+  client.on('client', (plan) => {
+    console.log('new message', plan);
     plans.push(plan);
-    client.broadcast.emit('added', plans);
+    client.emit('message', 'hiii');
   })
 });
 
