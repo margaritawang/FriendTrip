@@ -27,25 +27,32 @@ class TripPage extends React.Component {
     e.preventDefault();
     const { description } = this.state
     const { dispatch, user } = this.props;
+    const tripId = this.props.match.params.id;
     const activityInfo = {
+      tripId: tripId,
       description: description
     };
-    dispatch(userActions.createNewActivity(user , activityInfo))
+    dispatch(userActions.createNewActivity(user, activityInfo))
     this.setState({ submittedDescription: description })
   }
 
   componentDidMount(){
-    const { user, trip } = this.props;
-    this.props.dispatch(userActions.getAllActivities(user, trip));
+    const { user } = this.props;
+    const tripId = this.props.match.params.id;
+    this.props.dispatch(userActions.getAllActivities(user, tripId));
   }
 
 
 
   render() {
-    const { user, trip } = this.props;
+    const { user } = this.props;
     const { description } = this.state;
-    return ( 
+    const { activities } = this.props;
+    console.log('amy', activities);
+    const tripId = this.props.match.params.id;
+    return (
       <div>
+        TripPage
         <Menu fixed='top' inverted>
           <Container>
             <Menu.Item as='a' header>
@@ -61,15 +68,15 @@ class TripPage extends React.Component {
           </Container>
         </Menu>
         <Grid container columns={3} style={{ marginTop: '7em' }} stackable>
-          {/* {
+          {
             activities.map(activity => {
               return (
                 <Grid.Column key={activity.id}>
-                  <TripBadge key={activity.id} activity={activity}/>
+                  <ActivityBadge key={activity.id} activity={activity}/>
                 </Grid.Column>
               )
             })
-          } */}
+          }
         </Grid>
           <Modal trigger={<Button icon='add' className="primary-btn-fab"/>}>
             <Modal.Header>Create an Activity</Modal.Header>
@@ -91,11 +98,9 @@ function mapStateToProps(state){
   // Get Trip id from params -> pass it in as OwnProps
   // Use a filter to then grab that specific trip with TripID
   // Set a new state: selectedTrip: []; or overwrite the trips state.
-  const trip = state.users.trips[0];
   const { activities } = state.users;
   return {
     user,
-    trip,
     activities
   };
 }
