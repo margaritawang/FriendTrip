@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { userActions } from '../_actions/user.actions.js';
 import { ActivityBadge } from '../_components';
+import { MessageList } from '../_components';
 import {
   Button,
   Container,
@@ -121,7 +122,7 @@ class TripPage extends React.Component {
           </Form.Field>
           <Button type='submit'>Submit</Button>
         </Form>
-
+        <MessageList messages={msgs} />
           <Modal trigger={<Button icon='add' className="primary-btn-fab"/>}>
             <Modal.Header>Create an Activity</Modal.Header>
             <Modal.Content>
@@ -131,6 +132,7 @@ class TripPage extends React.Component {
               </Form>
             </Modal.Content>
           </Modal>
+
       </div>
     );
   }
