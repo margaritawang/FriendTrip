@@ -137,15 +137,18 @@ function getAllTrips(user){
   function failure(error) { return { type: userConstants.GETALL_TRIPS_FAILURE, error } }
 }
 
-function createNewTrip(user, tripInfo){
+function createNewTrip(user, tripInfo) {
     return dispatch => {
         dispatch(request());
 
-        //tripService.createNewTrip(user, tripInfo)
-            //.then(() => dispatch(success(tripInfo)))
-            //.catch(error => dispatch(failure(error)));
-        dispatch(success(tripInfo));
-        dispatch(failure(tripInfo));
+        tripService.createNewTrip(user, tripInfo)
+            .then((response) => {
+                console.log(response.data);
+                dispatch(success(response.data));
+            })
+            .catch(error => dispatch(failure(error)));
+        // dispatch(success(tripInfo));
+        // dispatch(failure(tripInfo));
     };
   function request() { return { type: userConstants.CREATE_NEW_TRIP_REQUEST } }
   function success(trip) { return { type: userConstants.CREATE_NEW_TRIP_SUCCESS, trip } }
@@ -168,11 +171,17 @@ function getAllActivities(user, trip){
 }
 
 function createNewActivity(user, activityInfo){
+  console.log('info',activityInfo);
   return dispatch => {
     dispatch(request());
 
     tripService.createNewActivity(user, activityInfo)
-      .then(response => dispatch(success()))
+      .then((response) => {
+          console.log(response.data);
+          dispatch(success(response.data));
+        //   history.push('/');
+
+        })
       .catch(error => dispatch(failure(error)));
   }
 

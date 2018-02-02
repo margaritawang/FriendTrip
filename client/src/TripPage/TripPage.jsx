@@ -11,11 +11,14 @@ class TripPage extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      description: ''
+      description: '',
+      modalOpen: false
     };
     // Bind any functions here.
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
 
@@ -33,7 +36,24 @@ class TripPage extends React.Component {
       description: description
     };
     dispatch(userActions.createNewActivity(user, activityInfo))
-    this.setState({ submittedDescription: description })
+    this.setState({ 
+      submittedDescription: description,
+      modalOpen: false
+    })
+  }
+
+  handleOpen() {
+    this.setState({
+      ...this.state,
+      modalOpen: true
+    })
+  }
+
+  handleClose() {
+    this.setState({
+      ...this.state,
+      modalOpen: false
+    })
   }
 
   componentDidMount(){
@@ -48,7 +68,6 @@ class TripPage extends React.Component {
     const { user } = this.props;
     const { description } = this.state;
     const { activities } = this.props;
-    console.log('amy', activities);
     const tripId = this.props.match.params.id;
     return (
       <div>
@@ -78,7 +97,10 @@ class TripPage extends React.Component {
             })
           }
         </Grid>
-          <Modal trigger={<Button icon='add' className="primary-btn-fab"/>}>
+          <Modal trigger={<Button icon='add' onClick={this.handleOpen} className="primary-btn-fab"/>}
+              open={this.state.modalOpen}
+              onClose={this.handleClose}
+            >
             <Modal.Header>Create an Activity</Modal.Header>
             <Modal.Content>
               <Form onSubmit={this.handleSubmit}>

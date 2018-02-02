@@ -24,20 +24,15 @@ function handleResponse(response){
 }
 
 function createNewTrip(user, trip){
-  const requestOptions = {
-    body: {
-      location: trip.location,
-      start_date: trip.start_date,
-      end_date: trip.end_date
-    }
-  };
-  return axios.post('/api/trips', {
+  console.log('trip',trip);
+  return axios.post(`/api/users/${user.id}/trips`, {
     location: trip.location,
     start_date: trip.start_date,
     end_date: trip.end_date
-  }).then((response) => {
-    console.log('Success: ', response);
   })
+  // .then((response) => {
+  //   return response;
+  // })
 }
 
 function getAllActivities(trip) {

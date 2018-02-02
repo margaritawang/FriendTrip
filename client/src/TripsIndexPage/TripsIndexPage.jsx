@@ -17,15 +17,32 @@ class TripsPage extends React.Component {
       submittedLocation: '',
       submittedStart_date: '',
       submittedEnd_date: '',
+      modalOpen: false
     };
     // Bind any functions here.
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
 
   handleChange(e, { name, value }){
     this.setState({ [name]: value })
+  }
+
+  handleOpen() {
+    this.setState({
+      ...this.state,
+      modalOpen: true
+    })
+  }
+
+  handleClose() {
+    this.setState({
+      ...this.state,
+      modalOpen: false
+    })
   }
 
   handleSubmit(e){
@@ -36,7 +53,12 @@ class TripsPage extends React.Component {
       location: location, start_date: start_date, end_date: end_date
     };
     dispatch(userActions.createNewTrip(user ,tripInfo))
-    this.setState({ submittedLocation: location, submittedStart_date: start_date, submittedEnd_date: end_date })
+    this.setState({ 
+      submittedLocation: location, 
+      submittedStart_date: start_date, 
+      submittedEnd_date: end_date,
+      modalOpen: false
+    })
   }
 
   componentDidMount(){
@@ -76,7 +98,10 @@ class TripsPage extends React.Component {
             })
           }
         </Grid>
-          <Modal trigger={<Button icon='add' className="primary-btn-fab"/>}>
+          <Modal trigger={<Button icon='add' onClick={this.handleOpen} className="primary-btn-fab"/>}
+              open={this.state.modalOpen}
+              onClose={this.handleClose}
+            >
             <Modal.Header>Create a Trip</Modal.Header>
             <Modal.Content>
               <Form onSubmit={this.handleSubmit}>
@@ -87,15 +112,6 @@ class TripsPage extends React.Component {
               </Form>
             </Modal.Content>
           </Modal>
-          {/*<Popup
-            trigger={<Button icon='add' className="primary-btn-fab"/>}
-            content={
-              <Form action={`http://localhost:3000/api/users/${user.id}/trips`}>
-                <Form.Field id='form-input-control-first-name' control={Input} name='location' label='Location' placeholder='Location' />
-                <Form.Field id='form-input-control-first-name' control={Input} name='month' label='Month' placeholder='Month' />
-                <Form.Field id='form-button-control-public' control={Button} content='Create'/>
-              </Form>}
-          />*/}
       </div>
     );
   }
