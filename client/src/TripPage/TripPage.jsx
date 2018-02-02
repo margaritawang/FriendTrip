@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { userActions } from '../_actions/user.actions.js';
 import { ActivityBadge } from '../_components';
+import { MessageList } from '../_components';
 import {
   Button,
   Container,
@@ -147,6 +148,7 @@ class TripPage extends React.Component {
             </Form.Field>
             <Button type='submit'>Submit</Button>
           </Form>
+          <MessageList messages={msgs} />
       </div>
     );
   }
