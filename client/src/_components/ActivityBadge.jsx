@@ -4,10 +4,36 @@ import Moment from 'react-moment';
 import { Link } from 'react-router-dom'
 import { CommentContainer} from './CommentContainer.jsx'
 
+function renderCategory (category) {
+  if (category === "Restaurant") {
+    return ( 
+      <Label as='a' color='blue' image>
+        Restaurant
+      </Label>
+    )
+  } else if  (category === "Attraction") {
+    return (
+      <Label as='a' color='teal' image>
+        Attraction
+      </Label>
+    )
+  } else {
+    return (
+      <Label as='a' color='yellow' image>
+        Accommodation
+      </Label>
+    )
+  }
+}
+
+
+
+
 export class ActivityBadge extends React.Component {
   constructor(props){
     super(props);
   }
+
   render() {
     const activity = this.props.activity;
     // console.log(activity);
@@ -22,25 +48,7 @@ export class ActivityBadge extends React.Component {
               {activity.start_date}
             </span>
             <div>
-            {((activity) => {
-              switch (activity.category) {
-                case "Restaurant": return (
-                  <Label as='a' color='blue' image>
-                    Restaurant
-                  </Label>
-                );
-                case "Attraction": return(
-                  <Label as='a' color='teal' image>
-                    Attraction
-                  </Label>
-                );
-                case "Accommodation": return(
-                  <Label as='a' color='yellow' image>
-                    Accommodation
-                  </Label>
-                )
-              }
-            })}
+            {renderCategory(activity.category)}
             </div>
           </Card.Meta>
         </Card.Content>
