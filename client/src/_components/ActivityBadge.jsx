@@ -3,11 +3,20 @@ import { Card, Icon, Image, Header, Label } from 'semantic-ui-react';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom'
 import { CommentContainer} from './CommentContainer.jsx'
+import { connect } from 'react-redux';
+import { userActions } from '../_actions/user.actions.js';
 
-export class ActivityBadge extends React.Component {
+class ActivityBadge extends React.Component {
   constructor(props){
     super(props);
   }
+
+  componentDidMount(){
+    const { activity, user } = this.props;
+    this.props.dispatch(userActions.getAllComments(user, activity));
+  }
+
+
   render() {
     const activity = this.props.activity;
 
@@ -35,9 +44,20 @@ export class ActivityBadge extends React.Component {
           </Card.Meta>
         </Card.Content>
         <Card.Content extra>
-          <CommentContainer/>
+          <CommentContainer activityId={activity.id} comments={[]}/>
         </Card.Content>
       </Card>
     );
   }
 }
+
+
+function mapStateToProps(state){
+  const { user } = state.authentication;
+  return {
+    user
+  }
+}
+
+const connectedActivityBadge = connect(mapStateToProps)(ActivityBadge);
+export { connectedActivityBadge as ActivityBadge };

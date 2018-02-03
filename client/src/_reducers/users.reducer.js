@@ -1,6 +1,6 @@
 import { userConstants } from '../_constants';
 
-export function users(state = { trips: [], activities: [] }, action) {
+export function users(state = { trips: [], activities: [], comments: [] }, action) {
   //console.log("i m state",state);
   //console.log("i m ...state", ...state);
   switch (action.type) {
@@ -125,6 +125,51 @@ export function users(state = { trips: [], activities: [] }, action) {
     case userConstants.CREATE_NEW_ACTIVITY_FAILURE:
       return{
         ...state,
+        error: action.error
+      }
+
+    case userConstants.GETALL_COMMENTS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: ''
+      }
+
+    case userConstants.GETALL_COMMENTS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        comments: [ action.comments ],
+        error: ''
+      }
+
+    case userConstants.GETALL_COMMENTS_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      }
+
+    case userConstants.CREATE_NEW_COMMENT_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: ''
+      }
+
+    case userConstants.CREATE_NEW_COMMENT_SUCCESS:
+      const { comments } = state;
+      return {
+        ...state,
+        loading: false,
+        comments: [...comments, actions.comment],
+        error: ''
+      }
+
+    case userConstants.CREATE_NEW_COMMENT_FAILURE:
+      return {
+        ...state,
+        loading: false,
         error: action.error
       }
 

@@ -48,7 +48,6 @@ class TripPage extends React.Component {
 
   sendMessage(e) {
     const { dispatch } = this.props
-    console.log(this.state.message);
     dispatch(userActions.sendMessage(this.state.message));
   }
 
@@ -69,6 +68,7 @@ class TripPage extends React.Component {
     dispatch(userActions.createNewActivity(user, activityInfo))
     this.setState({
       submittedDescription: description,
+      description: '',
       modalOpen: false
     })
   }
@@ -99,7 +99,6 @@ class TripPage extends React.Component {
     const { activities } = this.props;
     const tripId = this.props.match.params.id;
     const { msgs } = this.props;
-    console.log('amy', activities);
     return (
       <div>
         TripPage

@@ -15,6 +15,8 @@ export const userActions = {
   createNewTrip,
   getAllActivities,
   createNewActivity,
+  getAllComments,
+  createNewComment,
   receiveMessage,
   sendMessage
 };
@@ -221,6 +223,54 @@ function createNewActivity(user, activityInfo){
   }
 }
 
+function getAllComments(user, activity){
+  return dispatch => {
+    dispatch(request());
+
+
+    tripService.getAllComments(user, activity)
+      .then((response) => {
+        dispatch(success(response.data));
+      })
+      .catch(error => dispatch(failure(error)));
+  }
+
+  function request() {
+    return {type: userConstants.GETALL_COMMENTS_REQUEST}
+  }
+  function success(comments) {
+    return {type: userConstants.GETALL_COMMENTS_SUCCESS, comments}
+  }
+  function failure(error) {
+    return {type: userConstants.GETALL_COMMENTS_FAILURE, error}
+  }
+
+}
+
+function createNewComment(user, activityId, comment){
+  return dispatch => {
+    dispatch(request());
+
+    tripService.createNewComment(user, activityId, comment)
+      .then((response) => {
+        dispatch(success(response.data));
+      })
+      .catch((error) => {
+        dispatch(failure(error));
+      })
+  }
+
+  function request(){
+    return { type: userConstants.CREATE_NEW_COMMENT_REQUEST }
+  }
+  function success(comment) {
+    return {type: userConstants.CREATE_NEW_COMMENT_SUCCESS, comment}
+  }
+  function failure(error) {
+    return {type: userConstants.CREATE_NEW_COMMENT_FAILURE, error}
+  }
+}
+
 function receiveMessage(message) {
   return dispatch => {
     dispatch(receive(message));
@@ -240,3 +290,4 @@ function sendMessage(message) {
     return {type: chatConstants.SENDING_MESSAGE, message}
   }
 }
+

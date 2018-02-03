@@ -4,7 +4,9 @@ export const tripService = {
   getAllTrips,
   createNewTrip,
   getAllActivities,
-  createNewActivity
+  createNewActivity,
+  getAllComments,
+  createNewComment
 }
 
 function getAllTrips(user) {
@@ -51,4 +53,23 @@ function createNewActivity(user, activityInfo){
     owner_id: user.id
   }
   return axios.post(`/api/trips/${activityInfo.tripId}/activities`, info);
+}
+
+
+function getAllComments(user, activity){
+  const requestOptions = {
+    method: 'GET'
+  };
+
+  return fetch(`/api/activities/${activity.id}/comments`, requestOptions);
+}
+
+function createNewComment(user, activityId, comment){
+  const info = {
+    owner_id: user.id,
+    description: comment,
+    activity_id: activityId
+  }
+  console.log("INFO --------", info);
+  return axios.post(`/api/activities/${activityId}/comments`);
 }
