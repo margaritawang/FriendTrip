@@ -24,6 +24,7 @@ class TripsPage extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
 
@@ -64,6 +65,12 @@ class TripsPage extends React.Component {
     })
   }
 
+  handleDelete(tripid){
+    console.log('clicked delete', tripid);
+    const { dispatch } = this.props;
+    dispatch(userActions.deleteTrip(tripid));
+  }
+
   componentDidMount(){
     const { user } = this.props;
     this.props.dispatch(userActions.getAllTrips(user));
@@ -95,7 +102,7 @@ class TripsPage extends React.Component {
             trips.map(trip => {
               return (
                 <Grid.Column key={trip.id}>
-                  <TripBadge key={trip.id} trip={trip}/>
+                  <TripBadge key={trip.id} trip={trip} handleDelete={this.handleDelete}/>
                 </Grid.Column>
               )
             })

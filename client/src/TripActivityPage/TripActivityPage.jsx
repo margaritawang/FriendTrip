@@ -25,7 +25,7 @@ import {
   Modal
 } from 'semantic-ui-react'
 
-class TripPage extends React.Component {
+class TripActivityPage extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -99,7 +99,6 @@ class TripPage extends React.Component {
     const { activities } = this.props;
     const tripId = this.props.match.params.id;
     const { msgs } = this.props;
-
     return (
       <div>
         TripPage
@@ -169,5 +168,5 @@ function mapStateToProps(state){
   };
 }
 
-const connectedTripPage = connect(mapStateToProps)(TripPage);
-export { connectedTripPage as TripPage };
+const connectedTripPage = connect(mapStateToProps)(TripActivityPage);
+export { connectedTripPage as TripActivityPage };

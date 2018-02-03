@@ -6,7 +6,8 @@ export const tripService = {
   getAllActivities,
   createNewActivity,
   getAllComments,
-  createNewComment
+  createNewComment,
+  deleteTrip
 }
 
 function getAllTrips(user) {
@@ -31,10 +32,12 @@ function createNewTrip(user, trip){
     location: trip.location,
     start_date: trip.start_date,
     end_date: trip.end_date
-  })
-  // .then((response) => {
-  //   return response;
-  // })
+  });
+}
+
+function deleteTrip(tripid) {
+  console.log(`/api/trips/${tripid}`);
+  return axios.delete(`/api/trips/${tripid}`);
 }
 
 function getAllActivities(trip) {
@@ -43,7 +46,7 @@ function getAllActivities(trip) {
     method: 'GET'
   };
 
-  return fetch(`/api/trips/${trip}/activities`, requestOptions).then(handleResponse);
+  return fetch(`/api/trips/${trip.id}/activities`, requestOptions).then(handleResponse);
 }
 
 function createNewActivity(user, activityInfo){
@@ -52,6 +55,8 @@ function createNewActivity(user, activityInfo){
     description: activityInfo.description,
     owner_id: user.id
   }
+
+  console.log('activityinfo', activityInfo);
   return axios.post(`/api/trips/${activityInfo.tripId}/activities`, info);
 }
 

@@ -6,6 +6,31 @@ import { CommentContainer} from './CommentContainer.jsx'
 import { connect } from 'react-redux';
 import { userActions } from '../_actions/user.actions.js';
 
+function renderCategory (category) {
+  if (category === "Restaurant") {
+    return (
+      <Label as='a' color='blue' image>
+        Restaurant
+      </Label>
+    )
+  } else if  (category === "Attraction") {
+    return (
+      <Label as='a' color='teal' image>
+        Attraction
+      </Label>
+    )
+  } else {
+    return (
+      <Label as='a' color='yellow' image>
+        Accommodation
+      </Label>
+    )
+  }
+}
+
+
+
+
 class ActivityBadge extends React.Component {
   constructor(props){
     super(props);
@@ -32,15 +57,7 @@ class ActivityBadge extends React.Component {
               {activity.start_date}
             </span>
             <div>
-              <Label as='a' color='blue' image>
-                Restaurant
-              </Label>
-              <Label as='a' color='teal' image>
-                Attraction
-              </Label>
-              <Label as='a' color='yellow' image>
-                Highly Rated!
-              </Label>
+            {renderCategory(activity.category)}
             </div>
           </Card.Meta>
         </Card.Content>

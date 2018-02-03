@@ -35,7 +35,10 @@ module.exports = function makeDataHelpers(db) {
 
     // delete a trip
     deleteTrip: function(tripid){
-      return db('trips').where({ id: tripid }).del();
+      return db('activities').where('trip_id', tripid).del()
+        .then(() => {
+          return db('trips').where({ id: tripid }).del();
+        })
     },
 
     // Get activities within a trip

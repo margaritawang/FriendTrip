@@ -15,12 +15,13 @@ const datahelper = require('./routes/datahelpers.js')(knex);
 const usersRoutes = require("./routes/users");
 const morgan = require('morgan');
 const faceRoutes = require('./routes/face');
+const methodOverride = require('method-override')
 
 app.use(morgan('tiny'));
 app.use(bodyParser.json());
 app.use(bodyParser({urlencoded: true}));
 app.use(morgan('tiny'));
-
+app.use(methodOverride('X-HTTP-Method-Override'));
 
 app.use(cookieSession({
   name: 'session',
