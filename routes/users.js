@@ -116,9 +116,9 @@ module.exports = (datahelper) => {
   // get comments from an activity
   router.get('/activities/:aid/comments', (req, res) => {
     let activity_id = req.params.aid;
-    console.log(activity_id);
     datahelper.getComments(activity_id).
     then((data) => {
+      console.log("Comments: ", data);
       return res.json(data);
     });
   });
@@ -130,8 +130,9 @@ module.exports = (datahelper) => {
       activity_id: req.params.aid,
       owner_id: req.session.user_id
     };
-    datahelper.postComments(comment).then(() =>{
-      return res.send(200);
+    datahelper.postComments(comment).then((data) => {
+      comment.id = data[0];
+      res.send(comment);
     });
   });
 

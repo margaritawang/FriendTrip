@@ -61,7 +61,7 @@ function getAllComments(user, activity){
     method: 'GET'
   };
 
-  return fetch(`/api/activities/${activity.id}/comments`, requestOptions);
+  return fetch(`/api/activities/${activity.id}/comments`, requestOptions).then(handleResponse);
 }
 
 function createNewComment(user, activityId, comment){
@@ -71,5 +71,5 @@ function createNewComment(user, activityId, comment){
     activity_id: activityId
   }
   console.log("INFO --------", info);
-  return axios.post(`/api/activities/${activityId}/comments`);
+  return axios.post(`/api/activities/${activityId}/comments`, info);
 }

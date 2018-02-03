@@ -19,6 +19,7 @@ class ActivityBadge extends React.Component {
 
   render() {
     const activity = this.props.activity;
+    const { comments } = this.props;
 
     return (
       <Card>
@@ -44,7 +45,7 @@ class ActivityBadge extends React.Component {
           </Card.Meta>
         </Card.Content>
         <Card.Content extra>
-          <CommentContainer activityId={activity.id} comments={[]}/>
+          <CommentContainer activityId={activity.id} comments={comments}/>
         </Card.Content>
       </Card>
     );
@@ -54,8 +55,10 @@ class ActivityBadge extends React.Component {
 
 function mapStateToProps(state){
   const { user } = state.authentication;
+  const { comments } = state.users;
   return {
-    user
+    user,
+    comments
   }
 }
 

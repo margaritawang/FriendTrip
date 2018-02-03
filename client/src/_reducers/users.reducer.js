@@ -139,7 +139,7 @@ export function users(state = { trips: [], activities: [], comments: [] }, actio
       return {
         ...state,
         loading: false,
-        comments: [ action.comments ],
+        comments: action.comments,
         error: ''
       }
 
@@ -162,7 +162,7 @@ export function users(state = { trips: [], activities: [], comments: [] }, actio
       return {
         ...state,
         loading: false,
-        comments: [...comments, actions.comment],
+        comments: [...comments, action.comment],
         error: ''
       }
 

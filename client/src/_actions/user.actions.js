@@ -75,7 +75,6 @@ function register(user) {
     dispatch(request(user));
 
     userService.register(user).then(user => {
-      console.log('userrr-----', user);
       dispatch(success(user));
       history.push('/login');
       dispatch(alertActions.success('Registration successful'));
@@ -164,7 +163,6 @@ function createNewTrip(user, tripInfo) {
 
         tripService.createNewTrip(user, tripInfo)
             .then((response) => {
-                console.log(response.data);
                 dispatch(success(response.data));
             })
             .catch(error => dispatch(failure(error)));
@@ -204,7 +202,6 @@ function createNewActivity(user, activityInfo){
 
     tripService.createNewActivity(user, activityInfo)
       .then((response) => {
-          console.log(response.data);
           dispatch(success(response.data));
         //   history.push('/');
 
@@ -230,7 +227,7 @@ function getAllComments(user, activity){
 
     tripService.getAllComments(user, activity)
       .then((response) => {
-        dispatch(success(response.data));
+        dispatch(success(response));
       })
       .catch(error => dispatch(failure(error)));
   }

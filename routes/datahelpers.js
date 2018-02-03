@@ -58,7 +58,10 @@ module.exports = function makeDataHelpers(db) {
 
     // add a new comment for an activity
     postComments: function(commentinfo) {
-      return db('comments').insert(commentinfo);
+      return db('comments').returning('id').insert(commentinfo)
+        .then((id) => {
+          return id;
+        })
     }
   }
 }
