@@ -84,7 +84,7 @@ module.exports = (datahelper) => {
   // get activities within a trip
   router.get('/trips/:tid/activities', (req, res) => {
     let trip_id = req.params.tid;
-    console.log(trip_id);
+    console.log('selecting activities in ',trip_id);
     datahelper.getActivities(trip_id).
     then((data) => {
       console.log(data);

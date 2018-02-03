@@ -41,12 +41,12 @@ function deleteTrip(tripid) {
 }
 
 function getAllActivities(trip) {
-  console.log("TRIP", trip);
+  console.log("TRIPPPP", trip);
   const requestOptions = {
     method: 'GET'
   };
 
-  return fetch(`/api/trips/${trip.id}/activities`, requestOptions).then(handleResponse);
+  return fetch(`/api/trips/${trip}/activities`, requestOptions).then(handleResponse);
 }
 
 function createNewActivity(user, activityInfo){

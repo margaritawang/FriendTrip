@@ -65,6 +65,8 @@ class TripPage extends React.Component {
       tripId: tripId,
       description: description
     };
+
+    console.log('activityyyyyyyy', activityInfo);
     dispatch(userActions.createNewActivity(user, activityInfo))
     this.setState({
       submittedDescription: description,

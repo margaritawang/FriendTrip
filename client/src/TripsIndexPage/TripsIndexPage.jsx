@@ -53,6 +53,8 @@ class TripsPage extends React.Component {
     const tripInfo = {
       location: location, start_date: start_date, end_date: end_date
     };
+
+    // console.log('tripinfo', tripInfo);
     dispatch(userActions.createNewTrip(user ,tripInfo))
     this.setState({
       submittedLocation: location,
