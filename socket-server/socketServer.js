@@ -6,9 +6,22 @@ io.on('connection', (client) => {
   console.log('connected');
   client.on('client', (data) => {
     console.log('new message', data);
+    let sendData = {
+      type: 'message',
+      data: data
+    }
     plans.push(data);
-    client.emit('message', data);
-    client.broadcast.emit('message', data);
+    client.emit('message', sendData);
+    client.broadcast.emit('message', sendData);
+  })
+  client.on('activity', (data) => {
+    console.log('new activity', data);
+    let sendData = {
+      type: 'activity',
+      data: data
+    }
+    // client.emit('message', sendData);
+    client.broadcast.emit('message', sendData);
   })
 });
 

@@ -15,6 +15,13 @@ export function chat(state = { msgs: []}, action) {
         ...state,
           sending: true
       }
+
+    case chatConstants.SENDING_ACTIVITY:
+      return {
+        ...state,
+        item: action.activity,
+        sending: true
+      }
     default:
       return state
   }

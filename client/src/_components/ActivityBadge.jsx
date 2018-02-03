@@ -19,7 +19,7 @@ export class ActivityBadge extends React.Component {
           </Card.Header>
           <Card.Meta>
             <span className='date'>
-              {activity.start_date}
+              
             </span>
             <div>
               <Label as='a' color='blue' image>

@@ -16,7 +16,9 @@ export const userActions = {
   getAllActivities,
   createNewActivity,
   receiveMessage,
-  sendMessage
+  sendMessage,
+  sendActivity,
+  receiveActivity
 };
 
 function face(buffer) {
@@ -203,7 +205,11 @@ function createNewActivity(user, activityInfo) {
     dispatch(request());
 
     tripService.createNewActivity(user, activityInfo)
-    .then(response => dispatch(success()))
+    .then((response) => {
+         console.log(response.data);
+         dispatch(success(activityInfo));
+       //   history.push('/');
+       })
     .catch(error => dispatch(failure(error)));
   }
 
@@ -236,4 +242,26 @@ function sendMessage(message) {
   function send(message) {
     return {type: chatConstants.SENDING_MESSAGE, message}
   }
+}
+
+function receiveActivity(activity) {
+  return dispatch => {
+    let sendData = {
+      description: activity
+    }
+    dispatch(receive(sendData));
+  }
+  function receive(activity) {
+    return { type: chatConstants.INCOMING_ACTIVITY, activity}
+  }
+}
+
+function sendActivity(activity) {
+  return dispatch => {
+    dispatch(send(activity));
+  }
+  function send(activity) {
+    return { type: chatConstants.SENDING_ACTIVITY, activity}
+  }
+
 }

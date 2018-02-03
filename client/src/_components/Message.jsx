@@ -3,8 +3,7 @@ import {Button, Comment, Form, Header} from 'semantic-ui-react'
 
 class Message extends Component {
   render() {
-    return (
-    <Comment>
+    return (<Comment>
       <Comment.Content>
         <Comment.Author as='a'>{this.props.msg.user}</Comment.Author>
         <Comment.Metadata>
