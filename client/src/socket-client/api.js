@@ -14,6 +14,10 @@ export function chatMiddleware(store) {
       let message = action.message;
       socket.emit('client', message);
     }
+    if (socket && action.type === chatConstants.SENDING_ACTIVITY) {
+      let activity = action.activity;
+      socket.emit('activity', activity);
+    }
     return result;
   }
 }
@@ -21,9 +25,23 @@ export function chatMiddleware(store) {
 export default function wrapStore(store) {
   socket = io.connect(`http://localhost:8090`);
   console.log("try to connnect 1")
-  socket.on('message', message => {
-    store.dispatch(userActions.receiveMessage(message))
-  })
+  socket.on('message', data => {
+    if (data.type === 'message') {
+      console.log(data);
+      store.dispatch(userActions.receiveMessage(data.data))
+    }
+    if (data.type === 'activity') {
+      console.log("receive ac", data)
+      store.dispatch(userActions.receiveActivity(data.data))
+    }
+  });
+  // socket.on('message', data => {
+  //   if (data.type === 'activity') {
+  //     console.log('receive act---------------', data);
+  //     store.dispatch(userActions.receiveActivity(data.activity))
+  //   }
+
+  // })
 }
 
 export {

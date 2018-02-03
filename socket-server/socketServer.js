@@ -4,11 +4,24 @@ var plans = [];
 
 io.on('connection', (client) => {
   console.log('connected');
-  client.emit("message", 'connected');
-  client.on('client', (plan) => {
-    console.log('new message', plan);
-    plans.push(plan);
-    client.emit('message', plan + ' ok');
+  client.on('client', (data) => {
+    console.log('new message', data);
+    let sendData = {
+      type: 'message',
+      data: data
+    }
+    plans.push(data);
+    client.emit('message', sendData);
+    client.broadcast.emit('message', sendData);
+  })
+  client.on('activity', (data) => {
+    console.log('new activity', data);
+    let sendData = {
+      type: 'activity',
+      data: data
+    }
+    // client.emit('message', sendData);
+    client.broadcast.emit('message', sendData);
   })
 });
 

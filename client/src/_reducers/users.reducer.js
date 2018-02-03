@@ -1,8 +1,10 @@
 import { userConstants } from '../_constants';
+import { chatConstants } from '../_constants';
 
 export function users(state = { trips: [], activities: [] }, action) {
   //console.log("i m state",state);
   //console.log("i m ...state", ...state);
+  const { activities } = state;
   switch (action.type) {
     case userConstants.GETALL_REQUEST:
       return {
@@ -114,7 +116,6 @@ export function users(state = { trips: [], activities: [] }, action) {
       }
 
     case userConstants.CREATE_NEW_ACTIVITY_SUCCESS:
-      const { activities } = state;
       return {
         ...state,
         activities: [...activities, action.activities],
@@ -128,6 +129,14 @@ export function users(state = { trips: [], activities: [] }, action) {
         error: action.error
       }
 
+    case chatConstants.INCOMING_ACTIVITY:
+      console.log("reducued", action.activity);
+      return {
+        ...state,
+        activities: [...activities, action.activity.description],
+        loading: false,
+        error: ''
+      }
     default:
       return state
   }
