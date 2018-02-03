@@ -15,7 +15,6 @@ export function chat(state = { msgs: []}, action) {
         ...state,
           sending: true
       }
-
     case chatConstants.SENDING_ACTIVITY:
       return {
         ...state,
