@@ -99,7 +99,7 @@ class TripPage extends React.Component {
     const { activities } = this.props;
     const tripId = this.props.match.params.id;
     const { msgs } = this.props;
-    console.log('amy', activities);
+    // console.log('amy', activities);
     return (
       <div>
         TripPage

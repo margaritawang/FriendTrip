@@ -4,6 +4,7 @@ export const tripService = {
   getAllTrips,
   createNewTrip,
   getAllActivities,
+  deleteTrip,
   createNewActivity
 }
 
@@ -29,10 +30,12 @@ function createNewTrip(user, trip){
     location: trip.location,
     start_date: trip.start_date,
     end_date: trip.end_date
-  })
-  // .then((response) => {
-  //   return response;
-  // })
+  });
+}
+
+function deleteTrip(tripid) {
+  console.log(`/api/trips/${tripid}`);
+  return axios.delete(`/api/trips/${tripid}`);
 }
 
 function getAllActivities(trip) {

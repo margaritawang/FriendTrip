@@ -76,7 +76,8 @@ module.exports = (datahelper) => {
   // delete a trip
   router.delete('/trips/:tid', (req, res) => {
     datahelper.deleteTrip(req.params.tid).then(()=>{
-      return res.status(200);
+      console.log('deleted');
+      return res.send(200);
     });
   });
 
@@ -124,7 +125,7 @@ module.exports = (datahelper) => {
 
   // get comments from an activity
   router.get('/activities/:aid/comments', (req, res) => {
-    let activity_id = req.params.tid;
+    let activity_id = req.params.aid;
     console.log(activity_id);
     datahelper.getComments(activity_id).
     then((data) => {
@@ -133,14 +134,14 @@ module.exports = (datahelper) => {
   });
 
   // add a new comment for an activity
-  router.post('/activites/:aid/comments', (req, res) => {
+  router.post('/activities/:aid/comments', (req, res) => {
     let comment = {
       description: req.body.description,
       activity_id: req.params.aid,
       owner_id: req.session.user_id
     };
     datahelper.postComments(comment).then(() =>{
-      return res.status(200);
+      return res.send(200);
     });
   });
 

@@ -13,6 +13,7 @@ export const userActions = {
   delete: _delete,
   getAllTrips,
   createNewTrip,
+  deleteTrip,
   getAllActivities,
   createNewActivity,
   receiveMessage,
@@ -172,6 +173,25 @@ function createNewTrip(user, tripInfo) {
   function request() { return { type: userConstants.CREATE_NEW_TRIP_REQUEST } }
   function success(trip) { return { type: userConstants.CREATE_NEW_TRIP_SUCCESS, trip } }
   function failure(error) { return { type: userConstants.CREATE_NEW_TRIP_FAILURE, error } }
+}
+
+function deleteTrip(tripid) {
+  return dispatch => {
+    dispatch(request());
+
+    tripService.deleteTrip(tripid)
+      .then((r) => {
+        dispatch(success(tripid));
+      }).catch(error => {
+        dispatch(failure());
+      });
+      // dispatch(success(tripid));
+      // dispatch(failure());
+  }
+
+  function request() { return { type: userConstants.DELETE_TRIP_REQUEST } }
+  function success(tripid) { return { type: userConstants.DELETE_TRIP_SUCCESS, tripid } }
+  function failure() { return { type: userConstants.DELETE_TRIP_FAILURE } }
 }
 
 function getAllActivities(user, trip) {

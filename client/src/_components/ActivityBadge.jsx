@@ -10,7 +10,7 @@ export class ActivityBadge extends React.Component {
   }
   render() {
     const activity = this.props.activity;
-
+    // console.log(activity);
     return (
       <Card>
         <Card.Content>
@@ -22,15 +22,25 @@ export class ActivityBadge extends React.Component {
               {activity.start_date}
             </span>
             <div>
-              <Label as='a' color='blue' image>
-                Restaurant
-              </Label>
-              <Label as='a' color='teal' image>
-                Attraction
-              </Label>
-              <Label as='a' color='yellow' image>
-                Highly Rated!
-              </Label>
+            {((activity) => {
+              switch (activity.category) {
+                case "Restaurant": return (
+                  <Label as='a' color='blue' image>
+                    Restaurant
+                  </Label>
+                );
+                case "Attraction": return(
+                  <Label as='a' color='teal' image>
+                    Attraction
+                  </Label>
+                );
+                case "Accommodation": return(
+                  <Label as='a' color='yellow' image>
+                    Accommodation
+                  </Label>
+                )
+              }
+            })}
             </div>
           </Card.Meta>
         </Card.Content>
