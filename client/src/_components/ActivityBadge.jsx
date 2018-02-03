@@ -10,7 +10,6 @@ export class ActivityBadge extends React.Component {
   }
   render() {
     const activity = this.props.activity;
-
     return (
       <Card>
         <Card.Content>
@@ -19,7 +18,7 @@ export class ActivityBadge extends React.Component {
           </Card.Header>
           <Card.Meta>
             <span className='date'>
-              
+
             </span>
             <div>
               <Label as='a' color='blue' image>

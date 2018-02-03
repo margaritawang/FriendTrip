@@ -11,7 +11,6 @@ export class TripBadge extends React.Component {
   }
   render() {
     const trip = this.props.trip;
-
     return (
       <Card>
         <Image src={trip.imgURL} className="trip-badge-image" />

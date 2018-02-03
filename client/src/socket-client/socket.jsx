@@ -11,10 +11,6 @@ class Socket extends React.Component {
         this.state = {
           timestamp: 'no timestamp yet'
         }
-      // subscribeToTimer(function(err, timestamp)
-      // {
-      //   console.log(timestamp);
-      // });
       subscribeToTimer((err, timestamp) => this.setState({
         timestamp
       }));

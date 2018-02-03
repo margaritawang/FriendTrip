@@ -35,13 +35,6 @@ export default function wrapStore(store) {
       store.dispatch(userActions.receiveActivity(data.data))
     }
   });
-  // socket.on('message', data => {
-  //   if (data.type === 'activity') {
-  //     console.log('receive act---------------', data);
-  //     store.dispatch(userActions.receiveActivity(data.activity))
-  //   }
-
-  // })
 }
 
 export {

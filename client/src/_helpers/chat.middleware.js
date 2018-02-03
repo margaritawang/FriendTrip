@@ -13,12 +13,3 @@ export function chatMiddleware(store) {
     return result;
   }
 }
-
-// 
-// export default function wrapStore(store) {
-//   const socket =  openSocket('http://localhost:8090');
-//   console.log("try to connnect")
-//   socket.on('message', message => {
-//     store.dispatch(userActions.receiveMessage(message))
-//   })
-// }

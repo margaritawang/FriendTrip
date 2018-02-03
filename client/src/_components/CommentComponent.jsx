@@ -1,12 +1,10 @@
 import React from 'react';
 import { Button, Comment, Form, Header } from 'semantic-ui-react';
 
-
 export class CommentComponent extends React.Component{
   constructor(props){
     super(props);
   }
-
   render(){
     return(
       <Comment>

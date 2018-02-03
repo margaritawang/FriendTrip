@@ -1,6 +1,5 @@
 import { chatConstants } from '../_constants';
 
-
 export const chatActions = {
     receving,
     received

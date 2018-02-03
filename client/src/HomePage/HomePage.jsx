@@ -31,10 +31,7 @@ class HomePage extends React.Component {
              <Header component='h2'className='inverted vertical center aligned'>
                Do whatever you want when you want to.
              </Header>
-
            </Container>
-
-
           </Segment>
         );
     }
