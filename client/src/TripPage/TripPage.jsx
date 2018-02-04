@@ -105,7 +105,7 @@ class TripPage extends React.Component {
     const panes = [
       { menuItem: 'Recommendations', render: () => <Tab.Pane>Tab 1 Content</Tab.Pane> },
       { menuItem: 'Saved Activities', render: () => <Tab.Pane><TripActivityPage activities={activities} /></Tab.Pane> },
-      { menuItem: 'My Trip', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
+      { menuItem: 'My Trip', render: () => <Tab.Pane><Calendar /></Tab.Pane> },
     ];
 
 
