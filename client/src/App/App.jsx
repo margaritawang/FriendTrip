@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 import {history} from '../_helpers';
 import {alertActions} from '../_actions';
-import {PrivateRoute} from '../_components';
+import {PrivateRoute, Recommendation } from '../_components';
 import {HomePage} from '../HomePage';
 import {LoginPage} from '../LoginPage';
 import {RegisterPage} from '../RegisterPage';
@@ -32,6 +32,7 @@ class App extends React.Component {
         <Route exact="exact" path="/trips" component={TripsPage}/>
         <Route exact="exact" path="/trips/:id" component={TripPage}/>
         <Route exact="exact" path="/plan" component={PlanPage}/>
+        <Route exact="exact" path="/re" component={Recommendation}/>
       </div>
     </Router>);
   }

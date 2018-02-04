@@ -3,6 +3,7 @@ import {chatConstants} from '../_constants';
 import {userService, tripService} from '../_services';
 import {alertActions} from './';
 import {history} from '../_helpers';
+import { apiService } from '../_services';
 
 export const userActions = {
   face,
@@ -18,7 +19,8 @@ export const userActions = {
   receiveMessage,
   sendMessage,
   sendActivity,
-  receiveActivity
+  receiveActivity,
+  getRecommendation
 };
 
 function face(buffer) {
@@ -261,5 +263,28 @@ function sendActivity(activity) {
   function send(activity) {
     return { type: chatConstants.SENDING_ACTIVITY, activity}
   }
+}
 
+function getRecommendation(tripID) {
+  return dispatch => {
+    dispatch(request(tripID))
+    apiService.getRecommend(tripID).
+    then((data) => {
+      dispatch(success(data));
+    }).
+    catch((err) => {
+      dispatch(failure(err));
+    })
+  }
+
+
+  function request(tripID) {
+    return {type: userConstants.GET_RECOMMENDATION_REQUEST, tripID}
+  }
+  function success(recommendations) {
+    return {type: userConstants.GET_RECOMMENDATION_SUCCESS, recommendations}
+  }
+  function failure(error) {
+    return {type: userConstants.GET_RECOMMENDATION_FAILURE, error: error}
+  }
 }

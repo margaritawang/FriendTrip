@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {userActions} from '../_actions/user.actions.js';
 import {ActivityBadge} from '../_components';
 import {MessageList} from '../_components';
+import { Recommendation } from '../_components';
 import {
   Button,
   Container,
@@ -88,6 +89,7 @@ class TripPage extends React.Component {
     const {user} = this.props;
     const tripId = this.props.match.params.id;
     this.props.dispatch(userActions.getAllActivities(user, tripId));
+    this.props.dispatch(userActions.getRecommendation(this.props.match.params.id));
   }
 
   render() {
@@ -95,6 +97,7 @@ class TripPage extends React.Component {
     const {description} = this.state;
     const {activities} = this.props;
     const {msgs} = this.props;
+    const { recommendations } = this.props;
     const tripId = this.props.match.params.id;
     return (<div>
       TripPage
@@ -138,6 +141,7 @@ class TripPage extends React.Component {
         </Modal.Content>
       </Modal>
       <br/>
+
       <Container>
         <MessageList messages={msgs}/>
         <Form onSubmit={this.sendMessage}>
@@ -148,6 +152,8 @@ class TripPage extends React.Component {
           <Button type='submit'>Submit</Button>
         </Form>
       </Container>
+      <Recommendation recommendations={recommendations}/>
+
     </div>);
   }
 }
@@ -156,8 +162,8 @@ function mapStateToProps(state) {
   const {user} = state.authentication;
   const {trips} = state.users;
   const {msgs} = state.chat;
-  const {activities} = state.users;
-  return {user, activities, msgs};
+  const {activities, recommendations} = state.users;
+  return {user, activities, msgs, recommendations};
 }
 
 const connectedTripPage = connect(mapStateToProps)(TripPage);
