@@ -18,7 +18,7 @@ export class RecommendationCard extends Component {
     const info = this.props.info;
     return(
       <Card>
-        <Image size='mini' src={info.icon}/>
+        <img src={'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='+ info.reference +'&key=AIzaSyAiNKWqw1War5KlsaCnkyig2Niafvi4zXg'}/>
           <Card.Header>
             {info.name}
           </Card.Header>
