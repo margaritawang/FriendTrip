@@ -1,7 +1,7 @@
 import { userConstants } from '../_constants';
 import { chatConstants } from '../_constants';
 
-export function users(state = { trips: [], activities: [], recommendations: []}, action) {
+export function users(state = { trips: [], activities: [], recommendations: [], comments: []}, action) {
   const { activities } = state;
   const { recommendations } = state;
   switch (action.type) {
@@ -81,6 +81,27 @@ export function users(state = { trips: [], activities: [], recommendations: []},
         error: action.error
       }
 
+    case userConstants.DELETE_TRIP_REQUEST:
+      return {
+        ...state,
+        loading: true
+      }
+
+    case userConstants.DELETE_TRIP_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: '',
+        trips: state.trips.filter(trip => trip.id !== action.tripid)
+      }
+
+    case userConstants.DELETE_TRIP_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      }
+
     case userConstants.GETALL_TRIP_ACTIVITIES_REQUEST:
       return{
         ...state,
@@ -121,35 +142,132 @@ export function users(state = { trips: [], activities: [], recommendations: []},
         ...state,
         error: action.error
       }
-
-    case chatConstants.INCOMING_ACTIVITY:
-      console.log("reducued", action.activity);
+    case userConstants.GETALL_COMMENTS_REQUEST:
       return {
         ...state,
-        activities: [...activities, action.activity.description],
-        loading: false,
+        loading: true,
         error: ''
       }
 
-    case userConstants.GET_RECOMMENDATION_REQUEST:
-      return {
-        ...state,
-        loading: true
-      }
+    case userConstants.GETALL_COMMENTS_SUCCESS:
+      const currentComments = state.comments;
 
-    case userConstants.GET_RECOMMENDATION_SUCCESS:
+      // const filterNewComments = ((stateComments, actionComments) => {
+      //   if (stateComments.length === 0) {
+
+
+      //     // console.log('statecomments:', currentComments);
+      //     return actionComments;
+      //   }else{
+      //     let result = [];
+      //     for(let i = 0; i < stateComments.length; i++){
+      //       for(let j = 0; j < actionComments.length; j++){
+      //         // console.log("I element: ", actionComments[i].id)
+      //         // console.log("J element: ", stateComments[j].id)
+      //         console.log("RESULT", result);
+      //         if(stateComments[i].id !== actionComments[j].id){
+      //           result.push(actionComments[i]);
+      //         }
+      //       }
+      //     }
+      //     return stateComments.concat(result);
+      //   }
+
+          // return actionComments.filter((comment) => {
+          //   for(let element of stateComments){
+          //     console.log('element--------', element);
+          //     if(element !== comment){
+          //       return true;
+          //     }
+          //   }
+          // })
+      // })
+
+      // console.log(filterNewComments(currentComments, action.comments));
+
+      // const filteredNewComments = action.comments.filter((comment) => {
+      //   if(state.comments.length > 0){
+      //     for(let element of currentComments){
+      //       if(element.id !== comment.id){
+      //         return comment;
+      //       }
+      //     }
+      //   }else{
+      //     return comment;
+      //   }
+      // })
+      // console.log("Filtered New Comments: ", filteredNewComments);
       return {
         ...state,
-        recommendations: action.recommendations,
         loading: false,
+        comments: currentComments.concat(action.comments),
         error: ''
       }
 
-    case userConstants.GET_RECOMMENDATION_FAILURE:
+    case userConstants.GETALL_COMMENTS_FAILURE:
       return {
         ...state,
+        loading: false,
         error: action.error
       }
+
+    case userConstants.CREATE_NEW_COMMENT_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: ''
+      }
+
+    case userConstants.CREATE_NEW_COMMENT_SUCCESS:
+      const { comments } = state;
+      return {
+        ...state,
+        loading: false,
+        comments: [...comments, action.comment],
+        error: ''
+      }
+
+    case userConstants.CREATE_NEW_COMMENT_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      }
+
+    case userConstants.CLEAR_ALL_COMMENTS:
+      return {
+        ...state,
+        comments: action.comments
+      }
+
+      case chatConstants.INCOMING_ACTIVITY:
+        console.log("reducued", action.activity);
+        return {
+          ...state,
+          activities: [...activities, action.activity.description],
+          loading: false,
+          error: ''
+        }
+
+      case userConstants.GET_RECOMMENDATION_REQUEST:
+        return {
+          ...state,
+          loading: true
+        }
+
+      case userConstants.GET_RECOMMENDATION_SUCCESS:
+        return {
+          ...state,
+          recommendations: action.recommendations,
+          loading: false,
+          error: ''
+        }
+
+      case userConstants.GET_RECOMMENDATION_FAILURE:
+        return {
+          ...state,
+          error: action.error
+        }
     default:
       return state
   }
