@@ -227,8 +227,9 @@ function createNewActivity(user, activityInfo){
 
     tripService.createNewActivity(user, activityInfo)
     .then((response) => {
-         console.log(response.data);
-         dispatch(success(activityInfo));
+         console.log('createNewActivityresponse:', response.data);
+         console.log('activityinfoooooooo', activityInfo);
+         dispatch(success(response.data));
        //   history.push('/');
        })
     .catch(error => dispatch(failure(error)));
