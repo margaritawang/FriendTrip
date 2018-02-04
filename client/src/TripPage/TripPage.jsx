@@ -121,7 +121,7 @@ class TripPage extends React.Component {
     const { msgs } = this.props;
     const { recommendations } = this.props;
     const panes = [
-      { menuItem: 'Recommendations', render: () => <Tab.Pane>Tab 1 Content</Tab.Pane> },
+      { menuItem: 'Recommendations', render: () => <Tab.Pane><Recommendation recommendations={recommendations}/></Tab.Pane> },
       { menuItem: 'Saved Activities', render: () => <Tab.Pane><TripActivityPage activities={activities} /></Tab.Pane> },
       { menuItem: 'My Trip', render: () => <Tab.Pane><Calendar /></Tab.Pane> },
     ];
@@ -166,7 +166,7 @@ class TripPage extends React.Component {
             <Button type='submit'>Submit</Button>
           </Form>
           <MessageList messages={msgs} />
-          <Recommendation recommendations={recommendations}/>
+          
       </div>
     );
   }

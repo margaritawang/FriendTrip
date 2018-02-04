@@ -19,7 +19,7 @@ export class Recommendation extends Component {
       <Card.Group>
         {
           this.props.recommendations.map((item,index) => {
-            console.log('render'+ index);
+            // console.log('render'+ index);
             return (<RecommendationCard info={item}/>)
           })
         }
