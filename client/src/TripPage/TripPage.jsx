@@ -22,8 +22,10 @@ import {
   Form,
   TextArea,
   Input,
-  Modal
+  Modal,
+  Tab
 } from 'semantic-ui-react'
+import { TripActivityPage } from '../TripActivityPage'
 
 class TripPage extends React.Component {
   constructor(props){
@@ -100,6 +102,12 @@ class TripPage extends React.Component {
     const { activities } = this.props;
     const tripId = this.props.match.params.id;
     const { msgs } = this.props;
+    const panes = [
+      { menuItem: 'Recommendations', render: () => <Tab.Pane>Tab 1 Content</Tab.Pane> },
+      { menuItem: 'Saved Activities', render: () => <Tab.Pane><TripActivityPage activities={activities} /></Tab.Pane> },
+      { menuItem: 'My Trip', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
+    ];
+
 
     return (
       <div>
@@ -118,17 +126,7 @@ class TripPage extends React.Component {
             <Menu.Item as='a'><Icon name='send' />Invite Friends</Menu.Item>
           </Container>
         </Menu>
-        <Grid container columns={3} style={{ marginTop: '7em' }} stackable>
-          {
-            activities.map(activity => {
-              return (
-                <Grid.Column key={activity.id}>
-                  <ActivityBadge key={activity.id} activity={activity}/>
-                </Grid.Column>
-              )
-            })
-          }
-        </Grid>
+        <Tab panes={panes} style={{ marginTop: '7em' }} />
           <Modal trigger={<Button icon='add' onClick={this.handleOpen} className="primary-btn-fab"/>}
               open={this.state.modalOpen}
               onClose={this.handleClose}
