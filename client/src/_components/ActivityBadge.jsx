@@ -41,6 +41,9 @@ class ActivityBadge extends React.Component {
     this.props.dispatch(userActions.getAllComments(user, activity));
   }
 
+  componentWillUnmount(){
+    this.props.dispatch(userActions.clearAllComments());
+  }
 
   render() {
     const activity = this.props.activity;

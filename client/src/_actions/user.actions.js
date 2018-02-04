@@ -19,7 +19,8 @@ export const userActions = {
   getAllComments,
   createNewComment,
   receiveMessage,
-  sendMessage
+  sendMessage,
+  clearAllComments
 };
 
 function face(buffer) {
@@ -306,5 +307,15 @@ function sendMessage(message) {
   function send(message) {
     return {type: chatConstants.SENDING_MESSAGE, message}
   }
+}
+
+function clearAllComments(){
+  return dispatch => {
+    dispatch(clear());
+  }
+  function clear(){
+    return { type: userConstants.CLEAR_ALL_COMMENTS, comments: []};
+  }
+
 }
 

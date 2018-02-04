@@ -44,7 +44,9 @@ class CommentContainer extends React.Component {
       <Comment.Group size='small'>
         <Header>Comments</Header>
         {comments.map((comment) => {
-          return (<CommentComponent key={comment.id} comment={comment} />)
+          if(Number(comment.activity_id) === activityId ){
+            return (<CommentComponent key={comment.id} comment={comment} />)
+          }
         })}
       <Form reply size='mini' onSubmit={this.handleSubmit}>
         <Form.TextArea style={{height: '50px'}} name='post' value={post} onChange={this.handleChange} />

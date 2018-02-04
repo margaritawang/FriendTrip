@@ -99,7 +99,7 @@ export function users(state = { trips: [], activities: [], comments: [] }, actio
         error: '',
         trips: state.trips.filter(trip => trip.id !== action.tripid)
       }
-    
+
     case userConstants.DELETE_TRIP_FAILURE:
       return {
         ...state,
@@ -157,10 +157,57 @@ export function users(state = { trips: [], activities: [], comments: [] }, actio
       }
 
     case userConstants.GETALL_COMMENTS_SUCCESS:
+      const currentComments = state.comments;
+
+      // const filterNewComments = ((stateComments, actionComments) => {
+      //   if (stateComments.length === 0) {
+
+
+      //     // console.log('statecomments:', currentComments);
+      //     return actionComments;
+      //   }else{
+      //     let result = [];
+      //     for(let i = 0; i < stateComments.length; i++){
+      //       for(let j = 0; j < actionComments.length; j++){
+      //         // console.log("I element: ", actionComments[i].id)
+      //         // console.log("J element: ", stateComments[j].id)
+      //         console.log("RESULT", result);
+      //         if(stateComments[i].id !== actionComments[j].id){
+      //           result.push(actionComments[i]);
+      //         }
+      //       }
+      //     }
+      //     return stateComments.concat(result);
+      //   }
+
+          // return actionComments.filter((comment) => {
+          //   for(let element of stateComments){
+          //     console.log('element--------', element);
+          //     if(element !== comment){
+          //       return true;
+          //     }
+          //   }
+          // })
+      // })
+
+      // console.log(filterNewComments(currentComments, action.comments));
+
+      // const filteredNewComments = action.comments.filter((comment) => {
+      //   if(state.comments.length > 0){
+      //     for(let element of currentComments){
+      //       if(element.id !== comment.id){
+      //         return comment;
+      //       }
+      //     }
+      //   }else{
+      //     return comment;
+      //   }
+      // })
+      // console.log("Filtered New Comments: ", filteredNewComments);
       return {
         ...state,
         loading: false,
-        comments: action.comments,
+        comments: currentComments.concat(action.comments),
         error: ''
       }
 
@@ -192,6 +239,12 @@ export function users(state = { trips: [], activities: [], comments: [] }, actio
         ...state,
         loading: false,
         error: action.error
+      }
+
+    case userConstants.CLEAR_ALL_COMMENTS:
+      return {
+        ...state,
+        comments: action.comments
       }
 
     default:
