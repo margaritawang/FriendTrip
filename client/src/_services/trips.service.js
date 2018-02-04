@@ -4,7 +4,10 @@ export const tripService = {
   getAllTrips,
   createNewTrip,
   getAllActivities,
-  createNewActivity
+  createNewActivity,
+  getAllComments,
+  createNewComment,
+  deleteTrip
 }
 
 function getAllTrips(user) {
@@ -24,24 +27,21 @@ function handleResponse(response){
 }
 
 function createNewTrip(user, trip){
-  const requestOptions = {
-    body: {
-      location: trip.location,
-      start_date: trip.start_date,
-      end_date: trip.end_date
-    }
-  };
-  return axios.post('/api/trips', {
+  console.log('trip',trip);
+  return axios.post(`/api/users/${user.id}/trips`, {
     location: trip.location,
     start_date: trip.start_date,
     end_date: trip.end_date
-  }).then((response) => {
-    console.log('Success: ', response);
-  })
+  });
+}
+
+function deleteTrip(tripid) {
+  console.log(`/api/trips/${tripid}`);
+  return axios.delete(`/api/trips/${tripid}`);
 }
 
 function getAllActivities(trip) {
-  console.log("TRIP", trip);
+  console.log("TRIPPPP", trip);
   const requestOptions = {
     method: 'GET'
   };
@@ -55,5 +55,26 @@ function createNewActivity(user, activityInfo){
     description: activityInfo.description,
     owner_id: user.id
   }
+
+  console.log('activityinfo', activityInfo);
   return axios.post(`/api/trips/${activityInfo.tripId}/activities`, info);
+}
+
+
+function getAllComments(user, activity){
+  const requestOptions = {
+    method: 'GET'
+  };
+
+  return fetch(`/api/activities/${activity.id}/comments`, requestOptions).then(handleResponse);
+}
+
+function createNewComment(user, activityId, comment){
+  const info = {
+    owner_id: user.id,
+    description: comment,
+    activity_id: activityId
+  }
+  console.log("INFO --------", info);
+  return axios.post(`/api/activities/${activityId}/comments`, info);
 }

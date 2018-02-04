@@ -14,13 +14,17 @@ export const userActions = {
   delete: _delete,
   getAllTrips,
   createNewTrip,
+  deleteTrip,
   getAllActivities,
   createNewActivity,
+  getAllComments,
+  createNewComment,
   receiveMessage,
   sendMessage,
   sendActivity,
   receiveActivity,
-  getRecommendation
+  getRecommendation,
+  clearAllComments
 };
 
 function face(buffer) {
@@ -77,7 +81,6 @@ function register(user) {
     dispatch(request(user));
 
     userService.register(user).then(user => {
-      console.log('userrr-----', user);
       dispatch(success(user));
       history.push('/login');
       dispatch(alertActions.success('Registration successful'));
@@ -161,24 +164,39 @@ function getAllTrips(user) {
 }
 
 function createNewTrip(user, tripInfo) {
+    return dispatch => {
+        dispatch(request());
+
+        tripService.createNewTrip(user, tripInfo)
+            .then((response) => {
+                dispatch(success(response.data));
+            })
+            .catch(error => dispatch(failure(error)));
+        // dispatch(success(tripInfo));
+        // dispatch(failure(tripInfo));
+    };
+  function request() { return { type: userConstants.CREATE_NEW_TRIP_REQUEST } }
+  function success(trip) { return { type: userConstants.CREATE_NEW_TRIP_SUCCESS, trip } }
+  function failure(error) { return { type: userConstants.CREATE_NEW_TRIP_FAILURE, error } }
+}
+
+function deleteTrip(tripid) {
   return dispatch => {
     dispatch(request());
 
-    //tripService.createNewTrip(user, tripInfo)
-    //.then(() => dispatch(success(tripInfo)))
-    //.catch(error => dispatch(failure(error)));
-    dispatch(success(tripInfo));
-    dispatch(failure(tripInfo));
-  };
-  function request() {
-    return {type: userConstants.CREATE_NEW_TRIP_REQUEST}
+    tripService.deleteTrip(tripid)
+      .then((r) => {
+        dispatch(success(tripid));
+      }).catch(error => {
+        dispatch(failure());
+      });
+      // dispatch(success(tripid));
+      // dispatch(failure());
   }
-  function success(trip) {
-    return {type: userConstants.CREATE_NEW_TRIP_SUCCESS, trip}
-  }
-  function failure(error) {
-    return {type: userConstants.CREATE_NEW_TRIP_FAILURE, error}
-  }
+
+  function request() { return { type: userConstants.DELETE_TRIP_REQUEST } }
+  function success(tripid) { return { type: userConstants.DELETE_TRIP_SUCCESS, tripid } }
+  function failure() { return { type: userConstants.DELETE_TRIP_FAILURE } }
 }
 
 function getAllActivities(user, trip) {
@@ -202,7 +220,8 @@ function getAllActivities(user, trip) {
   }
 }
 
-function createNewActivity(user, activityInfo) {
+function createNewActivity(user, activityInfo){
+  console.log('info',activityInfo);
   return dispatch => {
     dispatch(request());
 
@@ -223,6 +242,54 @@ function createNewActivity(user, activityInfo) {
   }
   function failure(error) {
     return {type: userConstants.CREATE_NEW_ACTIVITY_FAILURE, error}
+  }
+}
+
+function getAllComments(user, activity){
+  return dispatch => {
+    dispatch(request());
+
+
+    tripService.getAllComments(user, activity)
+      .then((response) => {
+        dispatch(success(response));
+      })
+      .catch(error => dispatch(failure(error)));
+  }
+
+  function request() {
+    return {type: userConstants.GETALL_COMMENTS_REQUEST}
+  }
+  function success(comments) {
+    return {type: userConstants.GETALL_COMMENTS_SUCCESS, comments}
+  }
+  function failure(error) {
+    return {type: userConstants.GETALL_COMMENTS_FAILURE, error}
+  }
+
+}
+
+function createNewComment(user, activityId, comment){
+  return dispatch => {
+    dispatch(request());
+
+    tripService.createNewComment(user, activityId, comment)
+      .then((response) => {
+        dispatch(success(response.data));
+      })
+      .catch((error) => {
+        dispatch(failure(error));
+      })
+  }
+
+  function request(){
+    return { type: userConstants.CREATE_NEW_COMMENT_REQUEST }
+  }
+  function success(comment) {
+    return {type: userConstants.CREATE_NEW_COMMENT_SUCCESS, comment}
+  }
+  function failure(error) {
+    return {type: userConstants.CREATE_NEW_COMMENT_FAILURE, error}
   }
 }
 
@@ -289,4 +356,15 @@ function getRecommendation(tripID) {
   function failure(error) {
     return {type: userConstants.GET_RECOMMENDATION_FAILURE, error: error}
   }
+}
+
+
+function clearAllComments(){
+  return dispatch => {
+    dispatch(clear());
+  }
+  function clear(){
+    return { type: userConstants.CLEAR_ALL_COMMENTS, comments: []};
+  }
+
 }

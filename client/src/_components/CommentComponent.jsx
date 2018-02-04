@@ -6,15 +6,16 @@ export class CommentComponent extends React.Component{
     super(props);
   }
   render(){
+    const comment = this.props.comment;
     return(
       <Comment>
         <Comment.Avatar src='https://react.semantic-ui.com/assets/images/avatar/small/matt.jpg' />
         <Comment.Content>
-          <Comment.Author as='a'>Matt</Comment.Author>
+          <Comment.Author>{comment.first_name}</Comment.Author>
           <Comment.Metadata>
-            <div>Today at 5:42PM</div>
+            <div>{comment.createdDate}</div>
           </Comment.Metadata>
-          <Comment.Text>How artistic!</Comment.Text>
+          <Comment.Text>{comment.description}</Comment.Text>
         </Comment.Content>
       </Comment>
     )

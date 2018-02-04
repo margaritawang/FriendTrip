@@ -3,6 +3,7 @@ const router = express.Router();
 const bodyParser = require("body-parser");
 const nlp = require('./classification.js');
 const place = require('./placehelpers.js')();
+const imghelper = require('./cityImages.js');
 require('dotenv').config();
 
 
@@ -30,14 +31,24 @@ module.exports = (datahelper) => {
   // create a new trip for the user
   router.post('/users/:uid/trips', (req, res) => {
     let trip = {
-      name: req.body.name,
       location: req.body.location,
-      owner_id: req.params.uid
+      owner_id: req.params.uid,
+      start_date: req.body.start_date,
+      end_date: req.body.end_date
     };
-
-    console.log(req.body);
-    datahelper.addTrip(trip).then(() =>{
-      res.status(200);
+    let location = req.body.location;
+    // console.log('location:', location);
+    // console.log('imageeeeeeeeeeee', imghelper.cityImages);
+    // console.log(imghelper.cityImages[location]);
+    if (imghelper.cityImages[location]) {
+      trip.imgURL = imghelper.cityImages[location];
+    } else {
+      trip.imgURL =  'https://www.freevector.com/uploads/vector/preview/6318/FreeVector-New-York-Skyline-1.jpg';
+    }
+    console.log(trip);
+    datahelper.addTrip(trip).then((data) =>{
+      trip.id = data[0];
+      res.send(trip);
     });
   });
 
@@ -65,14 +76,15 @@ module.exports = (datahelper) => {
   // delete a trip
   router.delete('/trips/:tid', (req, res) => {
     datahelper.deleteTrip(req.params.tid).then(()=>{
-      return res.status(200);
+      console.log('deleted');
+      return res.send(200);
     });
   });
 
   // get activities within a trip
   router.get('/trips/:tid/activities', (req, res) => {
     let trip_id = req.params.tid;
-    console.log(trip_id);
+    console.log('selecting activities in ',trip_id);
     datahelper.getActivities(trip_id).
     then((data) => {
       console.log(data);
@@ -83,15 +95,17 @@ module.exports = (datahelper) => {
   // add activities within a trip
   router.post('/trips/:tid/activities', (req, res) => {
     let activity = {
-      start_date: req.body.start,
-      end_date: req.body.end,
+      // start_date: req.body.start,
+      // end_date: req.body.end,
       description: req.body.description,
       trip_id: req.params.tid,
       owner_id: req.session.user_id,
       category: nlp.getCategory(req.body.description)
     };
-    datahelper.addActivities(activity).then(() =>{
-      return res.send(200);
+    datahelper.addActivities(activity).then((data) =>{
+      activity.id = data[0];
+      res.send(activity);
+      //res.redirect(`/trips/${req.params.tid}`)
     });
   });
 
@@ -112,23 +126,24 @@ module.exports = (datahelper) => {
 
   // get comments from an activity
   router.get('/activities/:aid/comments', (req, res) => {
-    let activity_id = req.params.tid;
-    console.log(activity_id);
+    let activity_id = req.params.aid;
     datahelper.getComments(activity_id).
     then((data) => {
+      console.log("Comments: ", data);
       return res.json(data);
     });
   });
 
   // add a new comment for an activity
-  router.post('/activites/:aid/comments', (req, res) => {
+  router.post('/activities/:aid/comments', (req, res) => {
     let comment = {
       description: req.body.description,
       activity_id: req.params.aid,
       owner_id: req.session.user_id
     };
-    datahelper.postComments(comment).then(() =>{
-      return res.status(200);
+    datahelper.postComments(comment).then((data) => {
+      comment.id = data[0];
+      res.send(comment);
     });
   });
 

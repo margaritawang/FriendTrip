@@ -23,8 +23,10 @@ import {
   Form,
   TextArea,
   Input,
-  Modal
+  Modal,
+  Tab
 } from 'semantic-ui-react'
+import { TripActivityPage } from '../TripActivityPage'
 
 class TripPage extends React.Component {
   constructor(props) {
@@ -66,9 +68,28 @@ class TripPage extends React.Component {
       tripId: tripId,
       description: description
     };
-    dispatch(userActions.createNewActivity(user, activityInfo));
+
+    dispatch(userActions.createNewActivity(user, activityInfo))
     dispatch(userActions.sendActivity(activityInfo));
-    this.setState({submittedDescription: description})
+    this.setState({
+      submittedDescription: description,
+      description: '',
+      modalOpen: false
+    })
+  }
+
+  handleOpen() {
+    this.setState({
+      ...this.state,
+      modalOpen: true
+    })
+  }
+
+  handleClose() {
+    this.setState({
+      ...this.state,
+      modalOpen: false
+    })
   }
 
   handleOpen() {
@@ -93,68 +114,61 @@ class TripPage extends React.Component {
   }
 
   render() {
-    const {user} = this.props;
-    const {description} = this.state;
-    const {activities} = this.props;
-    const {msgs} = this.props;
-    const { recommendations } = this.props;
+    const { user } = this.props;
+    const { description } = this.state;
+    const { activities } = this.props;
     const tripId = this.props.match.params.id;
-    return (<div>
-      TripPage
-      <Menu fixed='top' inverted="inverted">
-        <Container>
-          <Menu.Item as='a' header="header">
-            <Image size='mini' src='./client/src/assets/img/FriendTripLogo.jpg' style={{
-                marginRight: '1.5em'
-              }}/>
-            FriendTrip
-          </Menu.Item>
-          <Menu.Item as='a' position='right'><Icon name='user'/>
-            Profile</Menu.Item>
-          <Menu.Item as='a'><Icon name='send'/>Invite Friends</Menu.Item>
-        </Container>
-      </Menu>
-      <Grid container="container" columns={3} style={{
-          marginTop: '7em'
-        }} stackable="stackable">
-        {
-          activities.map(activity => {
-            return (<Grid.Column key={activity.id}>
-              <ActivityBadge key={activity.id} activity={activity}/>
-            </Grid.Column>)
-          })
-        }
-      </Grid>
+    const { msgs } = this.props;
+    const { recommendations } = this.props;
+    const panes = [
+      { menuItem: 'Recommendations', render: () => <Tab.Pane>Tab 1 Content</Tab.Pane> },
+      { menuItem: 'Saved Activities', render: () => <Tab.Pane><TripActivityPage activities={activities} /></Tab.Pane> },
+      { menuItem: 'My Trip', render: () => <Tab.Pane><Calendar /></Tab.Pane> },
+    ];
 
-      <br/> {
-        msgs.forEach((item, index) => {
-          console.log(item.plan, index);
-        })
-      }
-      <Modal trigger={<Button icon = 'add' className = "primary-btn-fab" />}>
-        <Modal.Header>Create an Activity</Modal.Header>
-        <Modal.Content>
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Field id='form-input-control-description' control={TextArea} name='description' label='Description' placeholder='Activity!!' value={description} onChange={this.handleChange} required="required"/>
-            <Form.Field id='form-button-control-public' control={Button} content='Create'/>
+
+    return (
+      <div>
+        TripPage
+        <Menu fixed='top' inverted>
+          <Container>
+            <Menu.Item as='a' header>
+              <Image
+                size='mini'
+                src='./client/src/assets/img/FriendTripLogo.jpg'
+                style={{ marginRight: '1.5em' }}
+              />
+              FriendTrip
+            </Menu.Item>
+            <Menu.Item as='a' position='right'><Icon name='user' /> Profile</Menu.Item>
+            <Menu.Item as='a'><Icon name='send' />Invite Friends</Menu.Item>
+          </Container>
+        </Menu>
+        <Tab panes={panes} style={{ marginTop: '7em' }} />
+          <Modal trigger={<Button icon='add' onClick={this.handleOpen} className="primary-btn-fab"/>}
+              open={this.state.modalOpen}
+              onClose={this.handleClose}
+            >
+            <Modal.Header>Create an Activity</Modal.Header>
+            <Modal.Content>
+              <Form onSubmit={this.handleSubmit}>
+                <Form.Field id='form-input-control-description' control={TextArea} name='description' label='Description' placeholder='Activity!!' value={description} onChange={this.handleChange} required/>
+                <Form.Field id='form-button-control-public' control={Button} content='Create'/>
+              </Form>
+            </Modal.Content>
+          </Modal>
+          <br/>
+          <Form onSubmit={this.sendMessage}>
+            <Form.Field>
+              <label></label>
+              <input placeholder='Write Something Here...' onChange={this.changeMessage}/>
+            </Form.Field>
+            <Button type='submit'>Submit</Button>
           </Form>
-        </Modal.Content>
-      </Modal>
-      <br/>
-
-      <Container>
-        <MessageList messages={msgs}/>
-        <Form onSubmit={this.sendMessage}>
-          <Form.Field>
-            <label></label>
-            <input placeholder='Write Something Here...' onChange={this.changeMessage}/>
-          </Form.Field>
-          <Button type='submit'>Submit</Button>
-        </Form>
-      </Container>
-      <Recommendation recommendations={recommendations}/>
-
-    </div>);
+          <MessageList messages={msgs} />
+          <Recommendation recommendations={recommendations}/>
+      </div>
+    );
   }
 }
 

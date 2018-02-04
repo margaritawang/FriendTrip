@@ -7,7 +7,10 @@ module.exports = function makeDataHelpers(db) {
 
     //create a new trip for a given user
     addTrip: function(tripinfo){
-      return db('trips').insert(tripinfo);
+      return db('trips').returning('id').insert(tripinfo)
+      .then((id) => {
+        return id;
+      })
     },
 
     // get friends on the trip
@@ -32,7 +35,10 @@ module.exports = function makeDataHelpers(db) {
 
     // delete a trip
     deleteTrip: function(tripid){
-      return db('trips').where({ id: tripid }).del();
+      return db('activities').where('trip_id', tripid).del()
+        .then(() => {
+          return db('trips').where({ id: tripid }).del();
+        })
     },
 
     // Get activities within a trip
@@ -42,17 +48,26 @@ module.exports = function makeDataHelpers(db) {
 
     // add activities within a trip
     addActivities: function(activityinfo) {
-      return db('activities').insert(activityinfo);
+      return db('activities').returning('id').insert(activityinfo)
+      .then((id) => {
+        return id;
+      })
     },
 
     // Get comments from an activity
     getComments: function(activityid){
-      return db.select("*").from('comments').where('activity_id', activityid);
+      return db.table('users').innerJoin('comments', 'users.id', 'comments.owner_id').where('comments.activity_id', activityid);
+
+
+      // db.select("*").from('comments').where('activity_id', activityid);
     },
 
     // add a new comment for an activity
     postComments: function(commentinfo) {
-      return db('comments').insert(commentinfo);
+      return db('comments').returning('id').insert(commentinfo)
+        .then((id) => {
+          return id;
+        })
     }
   }
 }
