@@ -1,8 +1,9 @@
 import { userConstants } from '../_constants';
 import { chatConstants } from '../_constants';
 
-export function users(state = { trips: [], activities: [] }, action) {
+export function users(state = { trips: [], activities: [], recommendations: []}, action) {
   const { activities } = state;
+  const { recommendations } = state;
   switch (action.type) {
     case userConstants.GETALL_REQUEST:
       return {
@@ -128,6 +129,26 @@ export function users(state = { trips: [], activities: [] }, action) {
         activities: [...activities, action.activity.description],
         loading: false,
         error: ''
+      }
+
+    case userConstants.GET_RECOMMENDATION_REQUEST:
+      return {
+        ...state,
+        loading: true
+      }
+
+    case userConstants.GET_RECOMMENDATION_SUCCESS:
+      return {
+        ...state,
+        recommendations: action.recommendations,
+        loading: false,
+        error: ''
+      }
+
+    case userConstants.GET_RECOMMENDATION_FAILURE:
+      return {
+        ...state,
+        error: action.error
       }
     default:
       return state
