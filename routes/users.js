@@ -142,8 +142,9 @@ module.exports = (datahelper) => {
       owner_id: req.session.user_id
     };
     datahelper.postComments(comment).then((data) => {
-      comment.id = data[0];
-      res.send(comment);
+      // comment.id = data[0];
+      // res.send(comment);
+      res.send(data[0]);
     });
   });
 
