@@ -37,9 +37,9 @@ function faceCompare(buffer) {
   data.append('file', buffer);
   data.append('name', 'what');
   return axios.post('api/face/compare', data, config).then((resposne) => {
-    // console.log(resposne);
-    localStorage.setItem('user', JSON.stringify({name: 'sen'}));
-    return Promise.resolve(resposne);
+    console.log('face response',resposne.data);
+    localStorage.setItem('user', JSON.stringify(resposne.data));
+    return Promise.resolve(resposne.data);
   })
 }
 

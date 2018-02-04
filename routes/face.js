@@ -60,7 +60,6 @@ function getBinary(encodedFile) {
         for (var i = 0; i < length; i++) {
           ua[i] = binaryImg.charCodeAt(i);
         }
-        //var blob = new Blob([ab]);
         return ab;
       }
 
@@ -88,15 +87,15 @@ module.exports = () => {
       'MaxFaces': 1
     }, (err, data) => {
       if (err) {
-        console.log(err);
-        return res.send(err);
+        return res.send({error: 'Invalid face'});
       } else {
-        console.log("data------------",data);
-        console.log("data------------",data.FaceMatches[0].Face);
-        // modify the return data later
         let sim = data.FaceMatches[0].Similarity;
         console.log("sim----", sim);
-        return res.send(JSON.stringify(data));
+        let user = {
+          user: 's@s',
+          id: 34
+        }
+        return res.send(JSON.stringify(user));
       }
     })
   })
