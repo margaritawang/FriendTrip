@@ -13,7 +13,7 @@ export class CommentComponent extends React.Component{
       <Comment>
         <Comment.Avatar src='https://react.semantic-ui.com/assets/images/avatar/small/matt.jpg' />
         <Comment.Content>
-          <Comment.Author>{comment.owner_id}</Comment.Author>
+          <Comment.Author>{comment.first_name}</Comment.Author>
           <Comment.Metadata>
             <div>{comment.createdDate}</div>
           </Comment.Metadata>

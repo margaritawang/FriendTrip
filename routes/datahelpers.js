@@ -56,7 +56,10 @@ module.exports = function makeDataHelpers(db) {
 
     // Get comments from an activity
     getComments: function(activityid){
-      return db.select("*").from('comments').where('activity_id', activityid);
+      return db.table('users').innerJoin('comments', 'users.id', 'comments.owner_id').where('comments.activity_id', activityid);
+
+
+      // db.select("*").from('comments').where('activity_id', activityid);
     },
 
     // add a new comment for an activity
