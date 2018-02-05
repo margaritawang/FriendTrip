@@ -14,13 +14,17 @@ export class Recommendation extends Component {
   }
 
   render() {
-    {console.log("recomend data", this.props.recommendations)}
+    // console.log("user", this.props.user);
+    const user = this.props.user;
+    const tripId = this.props.tripid;
+    const dispatch = this.props.dispatch;
+    // console.log('tripid', this.props.tripid);
     return (
       <Card.Group>
         {
           this.props.recommendations.map((item,index) => {
             // console.log('render'+ index);
-            return (<RecommendationCard info={item}/>)
+            return (<RecommendationCard  dispatch={dispatch} user={user} tripid={tripId} info={item}/>)
           })
         }
       </Card.Group>

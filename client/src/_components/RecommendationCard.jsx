@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import {userActions} from '../_actions/user.actions.js';
 import {Button,
         Comment,
         Form,
@@ -12,6 +12,20 @@ import {Button,
 export class RecommendationCard extends Component {
   constructor(props) {
     super(props);
+    this.addRecommendation = this.addRecommendation.bind(this);
+  }
+
+  addRecommendation(activity) {
+    console.log('clicked::::', activity);
+    const tripid = this.props.tripid;
+    console.log('tripid::::', tripid);
+    const {dispatch, user} = this.props;
+    const activityInfo = {
+      tripId: tripid,
+      description: activity
+    };
+    dispatch(userActions.createNewActivity(user, activityInfo))
+    dispatch(userActions.sendActivity(activityInfo));
   }
 
   render() {
@@ -27,7 +41,7 @@ export class RecommendationCard extends Component {
           </Card.Description>
           <Card.Content extra>
             <div className='ui two buttons'>
-              <Button basic color='green'>Save to my activities</Button>
+              <Button onClick={() => this.addRecommendation(info.name)}basic color='green'>Save to Activities</Button>
             </div>
           </Card.Content>
       </Card>
