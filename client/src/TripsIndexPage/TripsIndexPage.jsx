@@ -21,7 +21,8 @@ import {
   Form,
   TextArea,
   Input,
-  Modal
+  Modal,
+  Tab
 } from 'semantic-ui-react'
 
 class TripsPage extends React.Component {
@@ -98,7 +99,35 @@ class TripsPage extends React.Component {
 
   render() {
     const { user, trips } = this.props;
+    console.log(user);
+    console.log(trips);
+    const ownedTrips = trips.filter(trip => trip.owner_id === user.id);
+    const invitedTrips = trips.filter(trip => trip.owner_id !== user.id);
     const { location, start_date, end_date, submittedLocation, submittedStart_date, submittedEnd_date } = this.state;
+    const panes = [
+      { menuItem: 'My Trips', render: () => <Tab.Pane>{
+        <Grid container columns={3} style={{ marginTop: '2em' }} stackable>
+          {ownedTrips.map(trip => {
+            return (
+              <Grid.Column key={trip.id}>
+                <TripBadge key={trip.id} trip={trip} handleDelete={this.handleDelete}/>
+              </Grid.Column>
+            )
+          })}
+        </Grid>}
+      </Tab.Pane>},
+      { menuItem: "Invited Trips", render: () => <Tab.Pane>{
+        <Grid container columns={3} style={{ marginTop: '2em' }} stackable>
+        {invitedTrips.map(trip => {
+          return (
+            <Grid.Column key={trip.id}>
+              <TripBadge key={trip.id} trip={trip} handleDelete={this.handleDelete}/>
+            </Grid.Column>
+          )
+        })}
+        </Grid>}
+      </Tab.Pane>}
+    ];
     return (
       <div>
         <Menu fixed='top' inverted color='blue'>
@@ -115,7 +144,8 @@ class TripsPage extends React.Component {
             <Menu.Item as='a'><Icon name='send' />Invite Friends</Menu.Item>
           </Container>
         </Menu>
-        <Grid container columns={3} style={{ marginTop: '7em' }} stackable>
+        <Tab panes={panes} style={{ marginTop: '7em' }} />
+        {/* <Grid container columns={3} style={{ marginTop: '7em' }} stackable>
           {
             trips.map(trip => {
               return (
@@ -125,7 +155,7 @@ class TripsPage extends React.Component {
               )
             })
           }
-        </Grid>
+        </Grid> */}
           <Modal trigger={<Button icon='add' onClick={this.handleOpen} className="primary-btn-fab"/>}
               open={this.state.modalOpen}
               onClose={this.handleClose}
