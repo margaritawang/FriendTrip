@@ -18,6 +18,10 @@ export function chatMiddleware(store) {
       let activity = action.activity;
       socket.emit('activity', activity);
     }
+    if (socket && action.type === chatConstants.SENDING_COMMENT) {
+      let comment = action.comment;
+      socket.emit('comment', comment);
+    }
     return result;
   }
 }
@@ -33,6 +37,10 @@ export default function wrapStore(store) {
     if (data.type === 'activity') {
       console.log("receive ac", data)
       store.dispatch(userActions.receiveActivity(data.data))
+    }
+    if (data.type === 'comment') {
+      console.log("receive comment", data)
+      store.dispatch(userActions.receiveComment(data.data))
     }
   });
 }

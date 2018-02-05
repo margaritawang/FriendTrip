@@ -23,6 +23,15 @@ io.on('connection', (client) => {
     // client.emit('message', sendData);
     client.broadcast.emit('message', sendData);
   })
+  client.on('comment', (data) => {
+    console.log('new comment', data);
+    let sendData = {
+      type: 'comment',
+      data: data
+    }
+    
+    client.broadcast.emit('message', sendData);
+  })
 });
 
 

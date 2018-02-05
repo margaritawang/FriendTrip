@@ -4,6 +4,7 @@ import { chatConstants } from '../_constants';
 export function users(state = { trips: [], activities: [], recommendations: [], comments: []}, action) {
   const { activities } = state;
   const { recommendations } = state;
+  const { comments } = state;
   switch (action.type) {
     case userConstants.GETALL_REQUEST:
       return {
@@ -219,7 +220,7 @@ export function users(state = { trips: [], activities: [], recommendations: [], 
       }
 
     case userConstants.CREATE_NEW_COMMENT_SUCCESS:
-      const { comments } = state;
+
       return {
         ...state,
         loading: false,
@@ -268,6 +269,18 @@ export function users(state = { trips: [], activities: [], recommendations: [], 
           ...state,
           error: action.error
         }
+
+      case chatConstants.INCOMING_COMMENT:
+
+        console.log("state comments", comments);
+        console.log("reducued", action.comment);
+        return {
+          ...state,
+          comments: [...comments, action.comment],
+          loading: false,
+          error: ''
+        }
+
     default:
       return state
   }
