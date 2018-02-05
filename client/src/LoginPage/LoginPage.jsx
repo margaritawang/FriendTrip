@@ -13,9 +13,11 @@ import {
   Icon,
   Dimmer,
   Loader,
-  Image
+  Image,
+  Grid,
+  Message,
+  Header
 } from 'semantic-ui-react'
-
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -63,19 +65,20 @@ class LoginPage extends React.Component {
     this.setState({face: true});
   }
 
-
   render() {
     const {loggingIn} = this.props;
     const {username, password, submitted} = this.state;
-    (loggingIn) ? console.log("logging") : console.log("not log")
+    (loggingIn)
+      ? console.log("logging")
+      : console.log("not log")
 
     const loginForm = (<Container className='login-main'>
-    <Button animated="animated" onClick={this.faceReg}>
-      <Button.Content visible="visible">Face Login</Button.Content>
-      <Button.Content hidden="hidden">
-        <Icon name='right arrow'/>
-      </Button.Content>
-    </Button>
+      <Button animated="animated" onClick={this.faceReg}>
+        <Button.Content visible="visible">Face Login</Button.Content>
+        <Button.Content hidden="hidden">
+          <Icon name='right arrow'/>
+        </Button.Content>
+      </Button>
       <Form className="large loginForm" onSubmit={this.handleSubmit}>
         <Segment className='stacked'>
           <div className='field'>
@@ -104,43 +107,85 @@ class LoginPage extends React.Component {
       </Form>
     </Container>)
 
+    const LoginForm = (
+      <Container fluid className='login-main'>
+      <Grid className='login-container' textAlign='center' style={{
+          height: '100%'
+        }} verticalAlign='middle'>
+        <Grid.Column style={{
+            maxWidth: 450
+          }}>
+          <Segment inverted color='blue' textAlign='center'>
+            <Image src='/logo.png'/> {' '}Log-in to your account
+          </Segment>
+          <Form size='large' onSubmit={this.handleSubmit}>
+            <Segment  stacked="stacked">
 
-    const loginFace = (
-      <Container className='login-main'>
-              <Container className='camera center aligned'>
-                <Container>
-                  <Webcam
-                    audio={false}
-                    height={500}
-                    ref={this.setRef}
-                    width={400}
-                    screenshotFormat="image/jpeg"
-                    />
-                </Container>
-                <Button animated="animated" onClick={this.capture}>
-                  <Button.Content visible="visible">Log In</Button.Content>
-                  <Button.Content hidden="hidden">
-                    <Icon name='right arrow'/>
-                  </Button.Content>
-                </Button>
-             </Container>
-       </Container>
-    )
 
-    const loader = (
-      <div>
-        <Segment>
-          <Dimmer active>
-            <Loader indeterminate>Preparing Files</Loader>
-          </Dimmer>
-          // <Image src='/assets/images/wireframe/short-paragraph.png' />
-        </Segment>
+              <Form.Input name='username' fluid="fluid" icon='user' iconPosition='left' placeholder='Account Number' onChange={this.handleChange}/> {submitted && !username && <div className="help-block">Username is required</div>}
+              <Form.Input name='password' onChange={this.handleChange} fluid="fluid" icon='lock' iconPosition='left' placeholder='Password' type='password'/> {submitted && !password && <div className="help-block">Password is required</div>}
+              <Button animated="animated">
+                <Button.Content visible="visible">Log In</Button.Content>
+                <Button.Content hidden="hidden">
+                  <Icon name='right arrow'/>
+                </Button.Content>
+              </Button>
 
-      </div>
-    )
+
+              <Button animated="animated" onClick={this.faceReg}>
+                <Button.Content visible="visible">Face Login</Button.Content>
+                <Button.Content hidden="hidden">
+                  <Icon name='right arrow'/>
+                </Button.Content>
+              </Button>
+              <Button className="ui facebook button">
+                <i className="facebook icon"></i>
+                Facebook
+              </Button>
+            </Segment>
+          </Form>
+
+
+            <Segment secondary inverted color='blue' textAlign='center'>
+
+                New to us?
+                Sign Up
+
+            </Segment>
+
+
+        </Grid.Column>
+      </Grid>
+    </Container>)
+
+    const loginFace = (<Container className='login-main'>
+      <Container className='camera center aligned'>
+        <Container>
+          <Webcam audio={false} height={500} ref={this.setRef} width={400} screenshotFormat="image/jpeg"/>
+        </Container>
+        <Button animated="animated" onClick={this.capture}>
+          <Button.Content visible="visible">Log In</Button.Content>
+          <Button.Content hidden="hidden">
+            <Icon name='right arrow'/>
+          </Button.Content>
+        </Button>
+      </Container>
+    </Container>)
+
+    const loader = (<div>
+      <Segment>
+        <Dimmer active="active">
+          <Loader indeterminate="indeterminate">Preparing Files</Loader>
+        </Dimmer>
+        //
+        <Image src='/assets/images/wireframe/short-paragraph.png'/>
+      </Segment>
+
+    </div>)
     return (
-      (this.state.face) ? loginFace : loginForm
-    );
+      (this.state.face)
+      ? loginFace
+      : LoginForm);
   }
 }
 
