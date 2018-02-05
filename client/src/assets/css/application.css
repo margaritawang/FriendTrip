@@ -6,7 +6,8 @@
 
 
 .mainSeg {
-  height: 100vh;
+  min-height: 700px;
+  padding: '1em 0em';
 }
 
 .nav {

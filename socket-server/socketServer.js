@@ -29,7 +29,7 @@ io.on('connection', (client) => {
       type: 'comment',
       data: data
     }
-    
+
     client.broadcast.emit('message', sendData);
   })
 });
