@@ -103,3 +103,7 @@
 .trip-badge-image{
   /*height: 80px;*/
 }
+
+.delete-button:hover {
+  color: red;
+}
