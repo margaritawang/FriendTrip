@@ -6,8 +6,15 @@
 
 
 .mainSeg {
+  width: 100%;
   min-height: 700px;
-  padding: '1em 0em';
+  padding: 1em 0em;
+  background-color:  #1FA5FF;
+}
+
+
+.home-content {
+  background-color: #f2f2f2;
 }
 
 .nav {
@@ -37,10 +44,22 @@
 .login-main {
     height: 100vh;
     margin: auto;
-    background-image: url('../img/loginLayout.png') !important;
     background-size: 100%;
-    background-repeat: no-repeat;
 }
+
+.login-container {
+  background-color: #1FA5FF;
+}
+
+.login-form {
+  padding-top: 50px;
+}
+
+
+.login-form-message {
+  background-color: black;
+}
+
 
 .loginForm {
   width: 400px;

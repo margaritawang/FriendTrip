@@ -31,7 +31,7 @@ const HomepageHeading = () => (<Container text="text">
       fontWeight: 'normal',
       marginTop: '1.5em'
     }}/>
-  <Button primary="primary" size='huge'>
+  <Button  inverted size='huge'>
     Get Started
     <Icon name='right arrow'/>
   </Button>
@@ -53,9 +53,9 @@ const HomepageNavbar = () => (<Container>
 
 
 const HomepageContent = () => (
-  <Segment style={{
+  <Container fluid style={{
       padding: '8em 0em'
-    }} vertical="vertical">
+    }} vertical="vertical" className='home-content'>
     <Grid container="container" stackable="stackable" verticalAlign='middle'>
       <Grid.Row>
         <Grid.Column width={8}>
@@ -86,11 +86,7 @@ const HomepageContent = () => (
         </Grid.Column>
       </Grid.Row>
     </Grid>
-  </Segment>)
-
-
-
-
+  </Container>)
 
 class HomePage extends React.Component {
   componentDidMount() {
@@ -103,10 +99,10 @@ class HomePage extends React.Component {
     const {user, users} = this.props;
     return (
       <Responsive>
-        <Segment className="mainSeg inverted vertical center aligned">
+        <Container fluid className="mainSeg vertical center aligned">
           <HomepageNavbar/>
           <HomepageHeading/>
-        </Segment>
+        </Container>
         <HomepageContent />
       </Responsive>)
   }
