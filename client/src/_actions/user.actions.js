@@ -34,10 +34,17 @@ export const userActions = {
 function face(buffer) {
   return dispatch => {
     userService.faceCompare(buffer).then((data) => {
-      console.log("data", data);
-      dispatch(success({name: 'sen'}));
-      history.push('/');
-    }, error => {
+      console.log("face back data", data);
+      if (data.error) {
+        console.log('face error',data);
+        dispatch(failure("error"));
+        dispatch(alertActions.error("error"));
+      }
+      else {
+        dispatch(success(data));
+        history.push('/');
+      }
+      }, error => {
       dispatch(failure("error"));
       dispatch(alertActions.error("error"));
     })

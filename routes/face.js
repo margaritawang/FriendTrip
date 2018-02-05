@@ -64,15 +64,13 @@ function getBinary(encodedFile) {
       }
 
 //endpoints
-module.exports = () => {
+module.exports = (datahelper) => {
   router.post('/saveimage/:id', upload.single('data'), (req, res, next) => {
     indexFaces(req.file.buffer, req.params.id);
     return res.status(200).send("Uploading to AWS");
   });
 
   router.post('/face/compare', upload.single('file'), (req, res) => {
-    console.log("-----------------",typeof req.body.file);
-    console.log("-------------------------------");
     let buffer = req.body.file;
     let bitmap = buffer.split(',')[1];
     console.log('bitmap--------', bitmap);
@@ -86,16 +84,37 @@ module.exports = () => {
       },
       'MaxFaces': 1
     }, (err, data) => {
+      console.log("AWS face data", data);
       if (err) {
         return res.send({error: 'Invalid face'});
-      } else {
-        let sim = data.FaceMatches[0].Similarity;
-        console.log("sim----", sim);
-        let user = {
-          user: 's@s',
-          id: 34
+      }
+      if (data.FaceMatches.length === 0){
+        return res.send({error: 'Invalid face'});
+      }
+      else {
+        if (data.FaceMatches[0].Similarity) {
+          let sim = data.FaceMatches[0].Similarity;
+          console.log("sim----", sim);
+          datahelper.getUserByEmail("s@s").
+          then((data) => {
+            console.log("db matched user data", data[0]);
+            let user = {
+              user: data[0].email,
+              id: data[0].id
+            }
+            return res.send(JSON.stringify(user));
+          }).
+          catch((err) => {
+            return res.send({error: 'Invalid face'});
+          })
+          // let user = {
+          //   user: data[0].email,
+          //   id: data[0].id
+          // }
+          // return res.send(JSON.stringify(user));
+        } else if (ata.FaceMatches[0].Similarity) {
+          return res.send({error: 'Invalid face'});
         }
-        return res.send(JSON.stringify(user));
       }
     })
   })
