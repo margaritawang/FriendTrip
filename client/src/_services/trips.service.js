@@ -5,6 +5,7 @@ export const tripService = {
   createNewTrip,
   getAllActivities,
   createNewActivity,
+  deleteActivity,
   getAllComments,
   createNewComment,
   deleteTrip
@@ -60,6 +61,10 @@ function createNewActivity(user, activityInfo){
   return axios.post(`/api/trips/${activityInfo.tripId}/activities`, info);
 }
 
+function deleteActivity(activityid) {
+  // console.log(`/api/trips/${tripid}`);
+  return axios.delete(`/api/activities/${activityid}`);
+}
 
 function getAllComments(user, activity){
   const requestOptions = {

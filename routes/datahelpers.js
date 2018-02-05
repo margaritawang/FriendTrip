@@ -67,7 +67,7 @@ module.exports = function makeDataHelpers(db) {
     },
 
     // delete activities
-    deleteActivities: function(activityid) {
+    deleteActivity: function(activityid) {
       return db('comments').where('activity_id', activityid).del()
         .then(() => {
           return db('activities').where({ id: activityid }).del();

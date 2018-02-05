@@ -113,17 +113,17 @@ module.exports = (datahelper) => {
     let tripid = req.params.tid;
     console.log('trip id',tripid);
     let name = '';
-    datahelper.queryTrip(tripid).then((data) => {
-      // console.log(data[0].location);
+    // datahelper.queryTrip(tripid).then((data) => {
+    //   // console.log(data[0].location);
 
-      name = data[0].location;
-       console.log('placename:::::::', name);
-      place.getPlaceID(`things to do in ${name}`).then((data) => {
-        console.log('api return data', data);
-        console.log("back data", data.results);
-        return res.json(data.results);
-      })
-    })
+    //   name = data[0].location;
+    //    console.log('placename:::::::', name);
+    //   place.getPlaceID(`things to do in ${name}`).then((data) => {
+    //     console.log('api return data', data);
+    //     console.log("back data", data.results);
+    //     return res.json(data.results);
+    //   })
+    // })
   })
 
   // get comments from an activity
@@ -133,6 +133,14 @@ module.exports = (datahelper) => {
     then((data) => {
       console.log("Comments: ", data);
       return res.json(data);
+    });
+  });
+
+  router.delete('/activities/:aid', (req, res) => {
+    console.log('heerrr');
+    datahelper.deleteActivity(req.params.aid).then(()=>{
+      console.log('deleted activity');
+      return res.send(200);
     });
   });
 

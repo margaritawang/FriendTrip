@@ -9,7 +9,7 @@ function TripActivityPage(props){
             props.activities.map(activity => {
               return (
                 <Grid.Column key={activity.id}>
-                  <ActivityBadge key={activity.id} activity={activity}/>
+                  <ActivityBadge handleDelete={props.handleDelete} key={activity.id} activity={activity}/>
                 </Grid.Column>
               )
             })
