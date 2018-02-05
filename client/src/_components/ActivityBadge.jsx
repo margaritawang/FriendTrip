@@ -54,6 +54,7 @@ class ActivityBadge extends React.Component {
         <Card.Content>
           <Card.Header>
             {activity.description}
+            <Icon name='trash'size='large' onClick={() => this.props.handleDelete(activity.id)}/>
           </Card.Header>
           <Card.Meta>
             <span className='date'>

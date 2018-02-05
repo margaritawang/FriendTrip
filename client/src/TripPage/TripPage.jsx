@@ -43,6 +43,7 @@ class TripPage extends React.Component {
     this.handleClose = this.handleClose.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
     this.changeMessage = this.changeMessage.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleChange(e, {name, value}) {
@@ -106,6 +107,12 @@ class TripPage extends React.Component {
     })
   }
 
+  handleDelete(activityId) {
+    console.log('clicked delete activity', activityId);
+    const { dispatch } = this.props;
+    dispatch(userActions.deleteActivity(activityId));
+  }
+
   componentDidMount() {
     const {user} = this.props;
     const tripId = this.props.match.params.id;
@@ -123,7 +130,7 @@ class TripPage extends React.Component {
     const { recommendations } = this.props;
     const panes = [
       { menuItem: 'Recommendations', render: () => <Tab.Pane><Recommendation dispatch={dispatch} user={user} tripid={tripId} recommendations={recommendations}/></Tab.Pane> },
-      { menuItem: 'Saved Activities', render: () => <Tab.Pane><TripActivityPage activities={activities} /></Tab.Pane> },
+      { menuItem: 'Saved Activities', render: () => <Tab.Pane><TripActivityPage handleDelete={this.handleDelete} activities={activities} /></Tab.Pane> },
       { menuItem: 'My Trip', render: () => <Tab.Pane><Calendar /></Tab.Pane> },
     ];
 

@@ -23,6 +23,7 @@ export const userActions = {
   sendMessage,
   sendActivity,
   receiveActivity,
+  deleteActivity,
   getRecommendation,
   clearAllComments,
   sendComment,
@@ -246,6 +247,25 @@ function createNewActivity(user, activityInfo){
   function failure(error) {
     return {type: userConstants.CREATE_NEW_ACTIVITY_FAILURE, error}
   }
+}
+
+function deleteActivity(activityid) {
+  return dispatch => {
+    dispatch(request());
+
+    tripService.deleteActivity(activityid)
+      .then((r) => {
+        dispatch(success(activityid));
+      }).catch(error => {
+        dispatch(failure());
+      });
+      // dispatch(success(tripid));
+      // dispatch(failure());
+  }
+
+  function request() { return { type: userConstants.DELETE_ACTIVITY_REQUEST } }
+  function success(activityid) { return { type: userConstants.DELETE_ACTIVITY_SUCCESS, activityid } }
+  function failure() { return { type: userConstants.DELETE_ACTIVITY_FAILURE } }
 }
 
 function getAllComments(user, activity){

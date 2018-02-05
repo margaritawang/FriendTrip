@@ -143,6 +143,28 @@ export function users(state = { trips: [], activities: [], recommendations: [], 
         ...state,
         error: action.error
       }
+
+      case userConstants.DELETE_ACTIVITY_REQUEST:
+      return {
+        ...state,
+        loading: true
+      }
+
+    case userConstants.DELETE_ACTIVITY_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: '',
+        activities: state.activities.filter(activity => activity.id !== action.activityid)
+      }
+
+    case userConstants.DELETE_ACTIVITY_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      }
+
     case userConstants.GETALL_COMMENTS_REQUEST:
       return {
         ...state,
