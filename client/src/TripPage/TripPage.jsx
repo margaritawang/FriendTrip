@@ -129,7 +129,7 @@ class TripPage extends React.Component {
     const { msgs } = this.props;
     const { recommendations } = this.props;
     const panes = [
-      { menuItem: 'Recommendations', render: () => <Tab.Pane><Recommendation dispatch={dispatch} user={user} tripid={tripId} recommendations={recommendations}/></Tab.Pane> },
+      { menuItem: 'Recommendations', render: () => <Tab.Pane><Recommendation dispatch={dispatch} user={user} tripid={tripId} recommendations={recommendations} activities={activities}/></Tab.Pane> },
       { menuItem: 'Saved Activities', render: () => <Tab.Pane><TripActivityPage handleDelete={this.handleDelete} activities={activities} /></Tab.Pane> },
       { menuItem: 'My Trip', render: () => <Tab.Pane><Calendar /></Tab.Pane> },
     ];
