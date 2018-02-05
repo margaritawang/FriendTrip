@@ -117,7 +117,7 @@ module.exports = (datahelper) => {
       // console.log(data[0].location);
 
       name = data[0].location;
-      //  console.log(name);
+       console.log('placename:::::::', name);
       place.getPlaceID(`things to do in ${name}`).then((data) => {
         console.log('api return data', data);
         console.log("back data", data.results);
