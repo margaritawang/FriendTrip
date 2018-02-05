@@ -69,6 +69,16 @@
 }
 
 
+
+.recommendationImage {
+  height: 250px;
+}
+
+.recommendationCard {
+  margin-right: 20px;
+}
+
+
 .camera {
   margin: auto;
 }
