@@ -2,7 +2,23 @@ module.exports = function makeDataHelpers(db) {
   return {
     // Get all trips that belong to a given user
     queryUserTrips: function(userid){
-      return db.select('*').from('trips').where('owner_id', userid);
+      return db.select('*').from('trips').where('owner_id', userid)
+      .then((data) => {
+        // let invites = this.getTripInvites(userid);
+        // data.concat(invites);
+        return this.getTripInvites(userid).then((invites) => {
+          // console.log(data.concat(invites));
+          return data.concat(invites);
+        })
+      })
+    },
+
+    getTripInvites: function(userid) {
+      return db.table('trips').innerJoin('users_trips','trips.id', 'users_trips.trip_id').where('users_trips.user_id', userid)
+        .then((data) => {
+          // console.log('getting trip invites', data);
+          return data;
+        })
     },
 
     //create a new trip for a given user
@@ -43,7 +59,7 @@ module.exports = function makeDataHelpers(db) {
         .then((data) => {
           // console.log(data);
           return data.forEach((activity) => {
-            return this.deleteActivities(activity.id);
+            return this.deleteActivity(activity.id);
           })
 
         }).then(() => {
