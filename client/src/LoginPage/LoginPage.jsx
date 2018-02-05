@@ -145,10 +145,13 @@ class LoginPage extends React.Component {
             </Segment>
           </Form>
 
-            <Message color='blue'>
-              New to us?
-              <a href='#'>   Sign Up</a>
-            </Message>
+
+            <Segment secondary inverted color='blue' textAlign='center'>
+
+                New to us?
+                Sign Up
+
+            </Segment>
 
 
         </Grid.Column>
