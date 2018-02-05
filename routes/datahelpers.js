@@ -25,7 +25,8 @@ module.exports = function makeDataHelpers(db) {
     addTrip: function(tripinfo){
       return db('trips').returning('id').insert(tripinfo)
       .then((id) => {
-        return id;
+        console.log(typeof(id[0]));
+        return Number(id);
       })
     },
 
@@ -78,7 +79,7 @@ module.exports = function makeDataHelpers(db) {
     addActivities: function(activityinfo) {
       return db('activities').returning('id').insert(activityinfo)
       .then((id) => {
-        return id;
+        return Number(id);
       })
     },
 

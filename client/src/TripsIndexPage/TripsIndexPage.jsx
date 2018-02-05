@@ -87,9 +87,13 @@ class TripsPage extends React.Component {
   }
 
   handleDelete(tripid){
-    console.log('clicked delete', tripid);
+    // console.log('clicked delete', tripid);
     const { dispatch } = this.props;
     dispatch(userActions.deleteTrip(tripid));
+  }
+
+  handleInvite(){
+    console.log('inviting friends!!!');
   }
 
   componentDidMount() {
@@ -101,8 +105,8 @@ class TripsPage extends React.Component {
     const { user, trips } = this.props;
     console.log(user);
     console.log(trips);
-    const ownedTrips = trips.filter(trip => trip.owner_id === user.id);
-    const invitedTrips = trips.filter(trip => trip.owner_id !== user.id);
+    const ownedTrips = trips.filter(trip => Number(trip.owner_id) === user.id);
+    const invitedTrips = trips.filter(trip => Number(trip.owner_id) !== user.id);
     const { location, start_date, end_date, submittedLocation, submittedStart_date, submittedEnd_date } = this.state;
     const panes = [
       { menuItem: 'My Trips', render: () => <Tab.Pane>{
@@ -141,21 +145,10 @@ class TripsPage extends React.Component {
               FriendTrip
             </Menu.Item>
             <Menu.Item as='a' position='right'><Icon name='user' /> Profile</Menu.Item>
-            <Menu.Item as='a'><Icon name='send' />Invite Friends</Menu.Item>
+            <Menu.Item as='a'><Icon name='send' onClick={this.handleInvite}/>Invite Friends</Menu.Item>
           </Container>
         </Menu>
         <Tab panes={panes} style={{ marginTop: '7em' }} />
-        {/* <Grid container columns={3} style={{ marginTop: '7em' }} stackable>
-          {
-            trips.map(trip => {
-              return (
-                <Grid.Column key={trip.id}>
-                  <TripBadge key={trip.id} trip={trip} handleDelete={this.handleDelete}/>
-                </Grid.Column>
-              )
-            })
-          }
-        </Grid> */}
           <Modal trigger={<Button icon='add' onClick={this.handleOpen} className="primary-btn-fab"/>}
               open={this.state.modalOpen}
               onClose={this.handleClose}
