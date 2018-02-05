@@ -43,7 +43,7 @@ module.exports = function makeDataHelpers(db) {
         .then((data) => {
           // console.log(data);
           return data.forEach((activity) => {
-            return this.deleteActivities(activity.id);
+            return this.deleteActivity(activity.id);
           })
 
         }).then(() => {

@@ -29,7 +29,14 @@ io.on('connection', (client) => {
       type: 'comment',
       data: data
     }
-
+    client.broadcast.emit('message', sendData);
+  })
+  client.on('deleteActivity', (data) => {
+    console.log('delect activity', data);
+    let sendData = {
+      type: 'deleteActivity',
+      data: data
+    }
     client.broadcast.emit('message', sendData);
   })
 });

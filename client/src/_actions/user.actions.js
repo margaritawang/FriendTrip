@@ -27,7 +27,8 @@ export const userActions = {
   getRecommendation,
   clearAllComments,
   sendComment,
-  receiveComment
+  receiveComment,
+  receiveDeleteActivity
 };
 
 function face(buffer) {
@@ -233,6 +234,7 @@ function createNewActivity(user, activityInfo){
          console.log('createNewActivityresponse:', response.data);
          console.log('activityinfoooooooo', activityInfo);
          dispatch(success(response.data));
+         dispatch(send(response.data));
        //   history.push('/');
        })
     .catch(error => dispatch(failure(error)));
@@ -247,6 +249,9 @@ function createNewActivity(user, activityInfo){
   function failure(error) {
     return {type: userConstants.CREATE_NEW_ACTIVITY_FAILURE, error}
   }
+  function send(activity) {
+    return { type: chatConstants.SENDING_ACTIVITY, activity}
+  }
 }
 
 function deleteActivity(activityid) {
@@ -256,6 +261,7 @@ function deleteActivity(activityid) {
     tripService.deleteActivity(activityid)
       .then((r) => {
         dispatch(success(activityid));
+        dispatch(send(activityid));
       }).catch(error => {
         dispatch(failure());
       });
@@ -266,6 +272,7 @@ function deleteActivity(activityid) {
   function request() { return { type: userConstants.DELETE_ACTIVITY_REQUEST } }
   function success(activityid) { return { type: userConstants.DELETE_ACTIVITY_SUCCESS, activityid } }
   function failure() { return { type: userConstants.DELETE_ACTIVITY_FAILURE } }
+  function send(activityid) {return {type: chatConstants.DELECTING_ACTIVITY, activityid}}
 }
 
 function getAllComments(user, activity){
@@ -418,4 +425,17 @@ function sendComment(comment) {
   function send(comment) {
     return { type: chatConstants.SENDING_COMMENT, comment}
   }
+}
+
+function receiveDeleteActivity(activityID) {
+  return dispatch => {
+    dispatch(receive(activityID));
+  }
+
+  function receive(activityID) {
+    return { type: chatConstants.RECEIVE_DELECT_ACTIVITY, activityID};
+  }
+
+
+
 }

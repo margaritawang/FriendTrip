@@ -71,7 +71,7 @@ class TripPage extends React.Component {
     };
 
     dispatch(userActions.createNewActivity(user, activityInfo))
-    dispatch(userActions.sendActivity(activityInfo));
+    
     this.setState({
       submittedDescription: description,
       description: '',
@@ -138,7 +138,7 @@ class TripPage extends React.Component {
     return (
       <div>
         TripPage
-        <Menu fixed='top' inverted>
+        <Menu fixed='top' inverted color='blue'>
           <Container>
             <Menu.Item as='a' header>
               <Image
@@ -174,7 +174,7 @@ class TripPage extends React.Component {
             <Button type='submit'>Submit</Button>
           </Form>
           <MessageList messages={msgs} />
-          
+
       </div>
     );
   }

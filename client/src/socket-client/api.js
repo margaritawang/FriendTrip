@@ -22,6 +22,12 @@ export function chatMiddleware(store) {
       let comment = action.comment;
       socket.emit('comment', comment);
     }
+    if (socket && action.type === chatConstants.DELECTING_ACTIVITY) {
+      let activityId = action.activityid;
+      socket.emit('deleteActivity', activityId);
+    }
+
+
     return result;
   }
 }
@@ -41,6 +47,10 @@ export default function wrapStore(store) {
     if (data.type === 'comment') {
       console.log("receive comment", data)
       store.dispatch(userActions.receiveComment(data.data))
+    }
+    if (data.type === 'deleteActivity') {
+      console.log("receive deleteActivity", data)
+      store.dispatch(userActions.receiveDeleteActivity(data.data))
     }
   });
 }
