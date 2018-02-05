@@ -103,6 +103,10 @@ module.exports = function makeDataHelpers(db) {
         .then((id) => {
           return db.table('users').innerJoin('comments', 'users.id', 'comments.owner_id').where('comments.id', Number(id));
         })
+    },
+
+    getUserByEmail: function(email) {
+      return db.select("*").from('users').where('email', email);
     }
   }
 }

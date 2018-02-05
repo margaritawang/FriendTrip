@@ -40,8 +40,8 @@ export class RecommendationCard extends Component {
     const activities = this.props.activities;
     console.log(activities);
     return(
-      <Card>
-        <img src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=${info.photos[0].photo_reference}&key=AIzaSyAiNKWqw1War5KlsaCnkyig2Niafvi4zXg`}/>
+      <Card className='recommendationCard'>
+        <img className='recommendationImage' src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=${info.photos[0].photo_reference}&key=AIzaSyAiNKWqw1War5KlsaCnkyig2Niafvi4zXg`}/>
           <Card.Header>
             {info.name}
           </Card.Header>

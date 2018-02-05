@@ -101,7 +101,7 @@ class TripsPage extends React.Component {
     const { location, start_date, end_date, submittedLocation, submittedStart_date, submittedEnd_date } = this.state;
     return (
       <div>
-        <Menu fixed='top' inverted>
+        <Menu fixed='top' inverted color='blue'>
           <Container>
             <Menu.Item as='a' header>
               <Image

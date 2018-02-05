@@ -71,7 +71,7 @@ app.post('/api/register', (req, res) => {
 })
 
 app.use("/api", usersRoutes(datahelper));
-app.use('/api', faceRoutes());
+app.use('/api', faceRoutes(datahelper));
 
 app.listen(PORT, () => {
   console.log("listening on port " + PORT);

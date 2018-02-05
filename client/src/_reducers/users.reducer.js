@@ -303,7 +303,14 @@ export function users(state = { trips: [], activities: [], recommendations: [], 
           error: ''
         }
 
-    default:
+        case chatConstants.RECEIVE_DELECT_ACTIVITY:
+          return {
+            ...state,
+            loading: false,
+            error: '',
+            activities: state.activities.filter(activity => activity.id !== action.activityID)
+          }
+          default:
       return state
   }
 }
