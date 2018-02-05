@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import {userActions} from '../_actions/user.actions.js';
 import {Button,
         Comment,
         Form,
@@ -12,13 +12,27 @@ import {Button,
 export class RecommendationCard extends Component {
   constructor(props) {
     super(props);
+    this.addRecommendation = this.addRecommendation.bind(this);
+  }
+
+  addRecommendation(activity) {
+    console.log('clicked::::', activity);
+    const tripid = this.props.tripid;
+    console.log('tripid::::', tripid);
+    const {dispatch, user} = this.props;
+    const activityInfo = {
+      tripId: tripid,
+      description: activity
+    };
+    dispatch(userActions.createNewActivity(user, activityInfo))
+    dispatch(userActions.sendActivity(activityInfo));
   }
 
   render() {
     const info = this.props.info;
     return(
       <Card>
-        <Image size='mini' src={info.icon}/>
+        <img src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=${info.photos[0].photo_reference}&key=AIzaSyAiNKWqw1War5KlsaCnkyig2Niafvi4zXg`}/>
           <Card.Header>
             {info.name}
           </Card.Header>
@@ -27,7 +41,7 @@ export class RecommendationCard extends Component {
           </Card.Description>
           <Card.Content extra>
             <div className='ui two buttons'>
-              <Button basic color='green'>Approve</Button>
+              <Button onClick={() => this.addRecommendation(info.name)}basic color='green'>Save to Activities</Button>
             </div>
           </Card.Content>
       </Card>

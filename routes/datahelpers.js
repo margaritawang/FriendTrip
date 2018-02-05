@@ -35,8 +35,20 @@ module.exports = function makeDataHelpers(db) {
 
     // delete a trip
     deleteTrip: function(tripid){
-      return db('activities').where('trip_id', tripid).del()
-        .then(() => {
+      // return db('activities').where('trip_id', tripid).del()
+      //   .then(() => {
+      //     return db('trips').where({ id: tripid }).del();
+      //   })
+      return db('activities').where('trip_id', tripid)
+        .then((data) => {
+          // console.log(data);
+          return data.forEach((activity) => {
+            return this.deleteActivities(activity.id);
+          })
+
+        }).then(() => {
+          return db('activities').where('trip_id', tripid).del();
+        }).then(() => {
           return db('trips').where({ id: tripid }).del();
         })
     },
@@ -52,6 +64,14 @@ module.exports = function makeDataHelpers(db) {
       .then((id) => {
         return id;
       })
+    },
+
+    // delete activities
+    deleteActivities: function(activityid) {
+      return db('comments').where('activity_id', activityid).del()
+        .then(() => {
+          return db('activities').where({ id: activityid }).del();
+        })
     },
 
     // Get comments from an activity
