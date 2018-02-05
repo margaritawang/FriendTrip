@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, Icon, Image } from 'semantic-ui-react';
+import { Button, Card, Icon, Image, Header } from 'semantic-ui-react';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom'
 import { history } from '../_helpers';
@@ -17,9 +17,9 @@ export class TripBadge extends React.Component {
       <Card>
         <Image src={trip.imgURL} className="trip-badge-image" />
         <Card.Content>
-          <button onClick={() => { history.push(`/trips/${trip.id}`)}}>
+          <Header as='h2' onClick={() => { history.push(`/trips/${trip.id}`)}}>
             {trip.location}
-          </button>
+          </Header>
           <Button animated='fade' basic color='red'>
             <Button.Content hidden>Delete</Button.Content>
             <Button.Content visible>
