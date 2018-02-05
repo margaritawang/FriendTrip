@@ -25,7 +25,6 @@ class CommentContainer extends React.Component {
     const { dispatch, user } = this.props;
     const { post } = this.state;
     dispatch(userActions.createNewComment(user, activityId, post));
-
     this.setState({
       post: ''
     })
@@ -66,4 +65,3 @@ function mapStateToProps(state){
 
 const connectedCommentContainer = connect(mapStateToProps)(CommentContainer);
 export { connectedCommentContainer as CommentContainer };
-

@@ -24,7 +24,9 @@ export const userActions = {
   sendActivity,
   receiveActivity,
   getRecommendation,
-  clearAllComments
+  clearAllComments,
+  sendComment,
+  receiveComment
 };
 
 function face(buffer) {
@@ -276,7 +278,9 @@ function createNewComment(user, activityId, comment){
 
     tripService.createNewComment(user, activityId, comment)
       .then((response) => {
+        console.log('backend commnet', response.data)
         dispatch(success(response.data));
+        dispatch(send(response.data))
       })
       .catch((error) => {
         dispatch(failure(error));
@@ -291,6 +295,9 @@ function createNewComment(user, activityId, comment){
   }
   function failure(error) {
     return {type: userConstants.CREATE_NEW_COMMENT_FAILURE, error}
+  }
+  function send(comment) {
+    return { type: chatConstants.SENDING_COMMENT, comment}
   }
 }
 
@@ -368,4 +375,27 @@ function clearAllComments(){
     return { type: userConstants.CLEAR_ALL_COMMENTS, comments: []};
   }
 
+}
+
+
+function receiveComment(comment) {
+  return dispatch => {
+    let sendData = {
+      description: comment
+    }
+    console.log('received comment', comment);
+    dispatch(receive(comment));
+  }
+  function receive(comment) {
+    return { type: chatConstants.INCOMING_COMMENT, comment}
+  }
+}
+
+function sendComment(comment) {
+  return dispatch => {
+    dispatch(send(comment));
+  }
+  function send(comment) {
+    return { type: chatConstants.SENDING_COMMENT, comment}
+  }
 }
