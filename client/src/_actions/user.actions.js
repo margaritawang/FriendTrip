@@ -42,7 +42,7 @@ function face(buffer) {
       }
       else {
         dispatch(success(data));
-        history.push('/');
+        history.push('/trips');
       }
       }, error => {
       dispatch(failure("error"));
@@ -376,12 +376,13 @@ function sendActivity(activity) {
   }
 }
 
-function getRecommendation(tripID) {
+function getRecommendation(tripID,cb) {
   return dispatch => {
     dispatch(request(tripID))
     apiService.getRecommend(tripID).
     then((data) => {
       dispatch(success(data));
+      cb();
     }).
     catch((err) => {
       dispatch(failure(err));

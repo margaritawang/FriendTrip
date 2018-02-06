@@ -25,7 +25,8 @@ import {
   TextArea,
   Input,
   Modal,
-  Tab
+  Tab,
+  Progress
 } from 'semantic-ui-react'
 import { TripActivityPage } from '../TripActivityPage'
 import { CalendarPage } from '../CalendarPage';
@@ -36,7 +37,8 @@ class TripPage extends React.Component {
     this.state = {
       description: '',
       modalOpen: false,
-      message: ''
+      message: '',
+      percent: 20
     };
     // Bind any functions here.
     this.handleChange = this.handleChange.bind(this);
@@ -46,7 +48,13 @@ class TripPage extends React.Component {
     this.sendMessage = this.sendMessage.bind(this);
     this.changeMessage = this.changeMessage.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.toggle = this.toggle.bind(this);
   }
+
+  toggle() {
+    this.setState({ percent: this.state.percent === 20 ? 100 : 0 })
+  }
+
 
   handleChange(e, {name, value}) {
     this.setState({[name]: value})
@@ -119,7 +127,7 @@ class TripPage extends React.Component {
     const {user} = this.props;
     const tripId = this.props.match.params.id;
     this.props.dispatch(userActions.getAllActivities(user, tripId));
-    this.props.dispatch(userActions.getRecommendation(this.props.match.params.id));
+    this.props.dispatch(userActions.getRecommendation(this.props.match.params.id, this.toggle));
   }
 
   render() {
@@ -131,9 +139,9 @@ class TripPage extends React.Component {
     const { msgs } = this.props;
     const { recommendations } = this.props;
     const panes = [
-      { menuItem: 'Recommendations', render: () => <Tab.Pane><Recommendation dispatch={dispatch} user={user} tripid={tripId} recommendations={recommendations} activities={activities}/></Tab.Pane> },
+      { menuItem: 'Recommendations', render: () => <div className='recommendations'><Tab.Pane><Recommendation dispatch={dispatch} user={user} tripid={tripId} recommendations={recommendations} activities={activities}/></Tab.Pane></div> },
       { menuItem: 'Saved Activities', render: () => <Tab.Pane><TripActivityPage handleDelete={this.handleDelete} activities={activities} /></Tab.Pane> },
-      { menuItem: 'My Trip', render: () => <Tab.Pane><Calendar tripId={tripId}/></Tab.Pane> },
+      { menuItem: 'My Trip', render: () => <Tab.Pane><CalendarPage tripId={tripId}/></Tab.Pane> },
     ];
 
     const megs =
@@ -163,33 +171,43 @@ class TripPage extends React.Component {
             <Menu.Item as='a'><Icon name='send' />Invite Friends</Menu.Item>
           </Container>
         </Menu>
-        <Tab panes={panes} style={{ marginTop: '7em' }} />
-          <Modal trigger={<Button icon='add' onClick={this.handleOpen} className="primary-btn-fab"/>}
-              open={this.state.modalOpen}
-              onClose={this.handleClose}
-            >
-            <Modal.Header>Create an Activity</Modal.Header>
-            <Modal.Content>
-              <Form onSubmit={this.handleSubmit}>
-                <Form.Field id='form-input-control-description' control={TextArea} name='description' label='Description' placeholder='Activity!!' value={description} onChange={this.handleChange} required/>
-                <Form.Field id='form-button-control-public' control={Button} content='Create'/>
-              </Form>
-            </Modal.Content>
-          </Modal>
-          <br/>
 
-          <div>
-            <div className='chatBox'>
-              <MessageList messages={msgs} />
-              <Form onSubmit={this.sendMessage}>
-                <Form.Field>
-                  <label></label>
-                  <input placeholder='Write Something Here...' onChange={this.changeMessage}/>
-                </Form.Field>
-                <Button type='submit'>Message</Button>
-              </Form>
+        <Progress disabled percent={this.state.percent} active>
+        </Progress>
+
+
+        <Modal trigger={<Button icon='add' onClick={this.handleOpen} className="primary-btn-fab"/>}
+            open={this.state.modalOpen}
+            onClose={this.handleClose}
+          >
+          <Modal.Header>Create an Activity</Modal.Header>
+          <Modal.Content>
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Field id='form-input-control-description' control={TextArea} name='description' label='Description' placeholder='Activity!!' value={description} onChange={this.handleChange} required/>
+              <Form.Field id='form-button-control-public' control={Button} content='Create'/>
+            </Form>
+          </Modal.Content>
+        </Modal>
+
+        <Grid>
+          <Grid.Row>
+            <Tab panes={panes} style={{ marginTop: '7em'}} />
+          </Grid.Row>
+          <Grid.Row>
+            <div>
+              <div className='chatBox'>
+                <MessageList messages={msgs} />
+                <Form onSubmit={this.sendMessage}>
+                  <Form.Field>
+                    <label></label>
+                    <input placeholder='Write Something Here...' onChange={this.changeMessage}/>
+                  </Form.Field>
+                  <Button type='submit'>Message</Button>
+                </Form>
+              </div>
             </div>
-          </div>
+          </Grid.Row>
+        </Grid>
       </div>
     );
   }

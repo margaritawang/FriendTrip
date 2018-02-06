@@ -18,6 +18,9 @@ const dateTarget = {
 }
 
 function collect(connect, monitor) {
+  console.log("is over",monitor.isOver());
+  console.log('onnectDropTarget',connect.dropTarget());
+  console.log("monitor.canDrop()",monitor.canDrop())
   return {
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver(),
@@ -37,7 +40,7 @@ class ActivityDropContainer extends Component{
       backgroundColor = 'darkkhaki';
     }
 
-    return (
+    return connectDropTarget(
     <div style={{ height: '100px', width: '100px', backgroundColor }} >
       {isActive ? 'Release here' : 'Drag an activity here'}
     </div>

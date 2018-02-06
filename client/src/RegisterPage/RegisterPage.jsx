@@ -70,7 +70,7 @@ class RegisterPage extends React.Component {
                 <Grid.Column style={{
                     maxWidth: 450
                   }}>
-                <h2>Register</h2>
+                <Header inverted>Register</Header>
                 <Form name="form" onSubmit={this.handleSubmit}>
                         <Form.Input icon='user' iconPosition='left' placeholder='First Name' type="text" name="firstName" value={user.firstName} onChange={this.handleChange} />
                         {submitted && !user.firstName &&

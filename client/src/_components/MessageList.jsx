@@ -9,7 +9,7 @@ export class MessageList extends Component {
       return (<Message msg={message}/>)
     })
     return (<Comment.Group>
-      <Header as='h3' Messages="Messages">messages</Header>
+      <Header as='h3' Messages="Messages">Messages</Header>
       {renderMessages}
     </Comment.Group>)
   }

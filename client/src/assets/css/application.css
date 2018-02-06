@@ -12,6 +12,14 @@
   background-color:  #1FA5FF;
 }
 
+.nav-button {
+  margin-left:  20px;
+  display: inline-block;
+}
+
+.nav-buttons {
+  float: right;
+}
 
 .home-content {
   background-color: #f2f2f2;
@@ -81,14 +89,20 @@
 .chatBox {
   position: fixed;
   bottom: 0;
-  left: 0;
+  right: 0;
   width: 500px;
+  border: 3px solid #1FA5FF;
   background-color: #f2f2f2;
   padding: 10px 10px 10px 10px;
-  max-height: 35vh;
+  max-height: 25vh;
   overflow: scroll;
+  border-radius: 20px;
 }
 
+.recommendations {
+  max-height: 55vh;
+  overflow: scroll;
+}
 
 .camera {
   margin: auto;
@@ -99,7 +113,7 @@
 .primary-btn-fab{
   position: fixed;
   right: 2em;
-  bottom: 1.5em;
+  top: 6.5em;
 /*  background-color:#F44336;
   width:60px;
   height:60px;

@@ -41,14 +41,19 @@ const HomepageNavbar = () => (<Container>
   <Header component='h1' className='inverted'>
     <h1 className='logo'>FriendTrip</h1>
   </Header>
-  <Menu className='inverted large secondary'>
-    <Menu.Item position='right'>
-      <Button className='inverted'>Login
+  <div className='nav-buttons'>
+
+    <div className='nav-button'>
+      <Button className='inverted' as={Link} to='/login'>Login
       </Button>
-      <Button className='inverted'>Register
+    </div>
+    <div className='nav-button'>
+      <Button className='inverted' as={Link} to='/register'>Register
       </Button>
-    </Menu.Item>
-  </Menu>
+    </div>
+
+
+  </div>
 </Container>)
 
 
