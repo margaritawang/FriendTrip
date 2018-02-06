@@ -25,7 +25,8 @@ module.exports = function makeDataHelpers(db) {
     addTrip: function(tripinfo){
       return db('trips').returning('id').insert(tripinfo)
       .then((id) => {
-        return id;
+        console.log(typeof(id[0]));
+        return Number(id);
       })
     },
 
@@ -34,6 +35,15 @@ module.exports = function makeDataHelpers(db) {
       return db.table('users').innerJoin('users_trips','users.id', 'users_trips.user_id').where('users_trips.trip_id', tripid);
     },
 
+    inviteFriend: function(tripid, friendEmail) {
+      return db.table('users').where('email', friendEmail).first()
+      .then((data) => {
+        return db.table('users_trips').insert({
+          user_id: data.id,
+          trip_id: tripid
+        });
+      })
+    },
 
     // Select a single trip
     queryTrip: function(tripid){
@@ -51,10 +61,6 @@ module.exports = function makeDataHelpers(db) {
 
     // delete a trip
     deleteTrip: function(tripid){
-      // return db('activities').where('trip_id', tripid).del()
-      //   .then(() => {
-      //     return db('trips').where({ id: tripid }).del();
-      //   })
       return db('activities').where('trip_id', tripid)
         .then((data) => {
           // console.log(data);
@@ -78,7 +84,7 @@ module.exports = function makeDataHelpers(db) {
     addActivities: function(activityinfo) {
       return db('activities').returning('id').insert(activityinfo)
       .then((id) => {
-        return id;
+        return Number(id);
       })
     },
 
