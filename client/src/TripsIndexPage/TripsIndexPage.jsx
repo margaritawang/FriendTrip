@@ -39,7 +39,10 @@ class TripsPage extends React.Component {
       submittedEnd_date: '',
       modalOpen: false,
       inviteModalOpen: false,
-      email: ''
+      email: '',
+      inviteTrip: '',
+      submittedEmail: '',
+      submittedinviteTrip: ''
     };
     // Bind any functions here.
     this.handleChange = this.handleChange.bind(this);
@@ -91,7 +94,10 @@ class TripsPage extends React.Component {
       end_date: '',
       modalOpen: false,
       inviteModalOpen: false,
-      email: ''
+      email: '',
+      inviteTrip: '',
+      submittedEmail: '',
+      submittedinviteTrip: ''
     })
   }
 
@@ -101,8 +107,28 @@ class TripsPage extends React.Component {
     dispatch(userActions.deleteTrip(tripid));
   }
 
-  handleInviteSubmit(){
+  handleInviteSubmit(e){
     console.log('inviting friends!!!');
+    e.preventDefault();
+    const {email, inviteTrip} = this.state;
+    const {trips} = this.props;
+    const {dispatch, user} = this.props;
+    trips.filter(trip => Number(trip.owner_id) === user.id);
+    const tripInvite = {
+      tripid: inviteTrip,
+      email: email,
+      user: user.id
+    };
+    // console.log('inviting those guys:', tripInvite);
+    dispatch(userActions.inviteFriend(tripInvite));
+    this.setState({
+      ...this.state,
+      inviteModalOpen: false,
+      email: '',
+      inviteTrip: '',
+      submittedEmail: email,
+      submittedinviteTrip: inviteTrip
+    })
   }
 
   handleInviteOpen() {
@@ -133,14 +159,14 @@ class TripsPage extends React.Component {
       return ({
         key: trip.id,
         text: trip.location,
-        value: trip.location,
+        value: trip.id,
         image: {avatar: true, src: `${trip.imgURL}`}
       });
     })
     // console.log('heres your options:', tripOptions);
 
     const invitedTrips = trips.filter(trip => Number(trip.owner_id) !== user.id);
-    const { location, start_date, end_date, submittedLocation, submittedStart_date, submittedEnd_date, email } = this.state;
+    const { location, start_date, end_date, submittedLocation, submittedStart_date, submittedEnd_date, email, inviteTrip } = this.state;
     const panes = [
       { menuItem: 'My Trips', render: () => <Tab.Pane>{
         <Grid container columns={3} style={{ marginTop: '2em' }} stackable>
@@ -186,7 +212,7 @@ class TripsPage extends React.Component {
               <Modal.Content>
                 <Form onSubmit={this.handleInviteSubmit}>
                   <Form.Field id='form-input-control-email' control={Input} name='email' label='Email' placeholder='Email' value={email} onChange={this.handleChange} required/>
-                  <Form.Select id='form-input-control-trip' control={Select} fluid label='Select A Trip' options={tripOptions} required/>
+                  <Form.Select id='form-input-control-inviteTrip' name='inviteTrip' control={Select} fluid label='Select A Trip' options={tripOptions} onChange={this.handleChange} required/>
                   <Form.Field id='form-button-control-public' control={Button} content='Invite'/>
                 </Form>
               </Modal.Content>
