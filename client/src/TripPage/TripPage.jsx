@@ -172,21 +172,23 @@ class TripPage extends React.Component {
           </Container>
         </Menu>
 
-        <Progress disabled percent={this.state.percent} active>
-        </Progress>
-        <Modal trigger={<Button icon='add' onClick={this.handleOpen} className="primary-btn-fab"/>}
+        <div className="primary-btn">
+          <Modal trigger={<Button icon='add' onClick={this.handleOpen} className="primary-btn-fab"/>}
             open={this.state.modalOpen}
             onClose={this.handleClose}
-          >
-          <Modal.Header>Create an Activity</Modal.Header>
-          <Modal.Content>
-            <Form onSubmit={this.handleSubmit}>
-              <Form.Field id='form-input-control-description' control={TextArea} name='description' label='Description' placeholder='Activity!!' value={description} onChange={this.handleChange} required/>
-              <Form.Field id='form-button-control-public' control={Button} content='Create'/>
-            </Form>
-          </Modal.Content>
-        </Modal>
+            >
+            <Modal.Header>Create an Activity</Modal.Header>
+            <Modal.Content>
+              <Form onSubmit={this.handleSubmit}>
+                <Form.Field id='form-input-control-description' control={TextArea} name='description' label='Description' placeholder='Activity!!' value={description} onChange={this.handleChange} required/>
+                <Form.Field id='form-button-control-public' control={Button} content='Create'/>
+              </Form>
+            </Modal.Content>
+          </Modal>
+        </div>
+
         <Grid>
+
           <Grid.Row>
             <Container>
               <Tab panes={panes} style={{ marginTop: '7em'}} />

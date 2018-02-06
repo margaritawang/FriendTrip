@@ -23,12 +23,8 @@ import {
   TextArea,
   Input,
   Modal,
-<<<<<<< HEAD
-  Progress
-=======
   Tab,
   Select
->>>>>>> feature/invitefriends
 } from 'semantic-ui-react'
 
 class TripsPage extends React.Component {
@@ -42,18 +38,12 @@ class TripsPage extends React.Component {
       submittedStart_date: '',
       submittedEnd_date: '',
       modalOpen: false,
-<<<<<<< HEAD
-      percent: 20
-=======
       inviteModalOpen: false,
       email: '',
       inviteTrip: '',
       submittedEmail: '',
       submittedinviteTrip: ''
->>>>>>> feature/invitefriends
     };
-    // Bind any functions here.
-    this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
@@ -62,9 +52,6 @@ class TripsPage extends React.Component {
     this.handleInviteSubmit = this.handleInviteSubmit.bind(this);
     this.handleInviteOpen = this.handleInviteOpen.bind(this);
     this.handleInviteClose = this.handleInviteClose.bind(this);
-  }
-  toggle() {
-    this.setState({ percent: this.state.percent === 20 ? 100 : 0 })
   }
 
   handleChange(e, {name, value}) {
@@ -77,7 +64,7 @@ class TripsPage extends React.Component {
       modalOpen: true
     })
   }
-  
+
   handleClose() {
     this.setState({
       ...this.state,
@@ -149,7 +136,7 @@ class TripsPage extends React.Component {
       inviteModalOpen: true
     })
   }
-  
+
   handleInviteClose() {
     this.setState({
       ...this.state,
@@ -216,7 +203,7 @@ class TripsPage extends React.Component {
               FriendTrip
             </Menu.Item>
             <Menu.Item as='a' position='right'><Icon name='user' /> Profile</Menu.Item>
-            <Modal trigger={<Menu.Item as='a' onClick={this.handleInviteOpen}><Icon name='send' />Invite Friends</Menu.Item>}  
+            <Modal trigger={<Menu.Item as='a' onClick={this.handleInviteOpen}><Icon name='send' />Invite Friends</Menu.Item>}
               open={this.state.inviteModalOpen}
               onClose={this.handleInviteClose}
               >
