@@ -32,7 +32,6 @@ export class RecommendationCard extends Component {
       description: activity
     };
     dispatch(userActions.createNewActivity(user, activityInfo))
-    dispatch(userActions.sendActivity(activityInfo));
   }
 
   render() {
@@ -41,9 +40,10 @@ export class RecommendationCard extends Component {
     console.log(activities);
     return(
       <Card className='recommendationCard'>
-        <img className='recommendationImage' src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=${info.photos[0].photo_reference}&key=AIzaSyAiNKWqw1War5KlsaCnkyig2Niafvi4zXg`}/>
+        {(info.photos) ? <img className='recommendationImage' src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=${info.photos[0].photo_reference}&key=AIzaSyAiNKWqw1War5KlsaCnkyig2Niafvi4zXg`}/> :
+         <p>Missing image</p>}
           <Card.Header>
-            {info.name}
+            <h4>{info.name}</h4>
           </Card.Header>
           <Card.Description>
             Address: {info.formatted_address}

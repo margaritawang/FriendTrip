@@ -23,10 +23,13 @@ export class Recommendation extends Component {
     return (
       <Card.Group>
         {
+
           this.props.recommendations.map((item,index) => {
-            // console.log('render'+ index);
+            console.log('render'+ index);
             return (<RecommendationCard  activities={activities} dispatch={dispatch} user={user} tripid={tripId} info={item}/>)
           })
+
+
         }
       </Card.Group>
     )

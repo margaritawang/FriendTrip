@@ -5,6 +5,7 @@ import {userActions} from '../_actions/user.actions.js';
 import {ActivityBadge} from '../_components';
 import {MessageList} from '../_components';
 import { Recommendation } from '../_components';
+import ChatBubble from 'react-chat-bubble';
 import {
   Button,
   Container,
@@ -71,7 +72,7 @@ class TripPage extends React.Component {
     };
 
     dispatch(userActions.createNewActivity(user, activityInfo))
-    
+
     this.setState({
       submittedDescription: description,
       description: '',
@@ -134,7 +135,16 @@ class TripPage extends React.Component {
       { menuItem: 'My Trip', render: () => <Tab.Pane><Calendar /></Tab.Pane> },
     ];
 
-
+    const megs =
+  [{
+        "type" : 0,
+        "image": "cat.jpg",
+        "text": "Hello! Good Morning!"
+    }, {
+        "type": 1,
+        "image": "dog.jpg",
+        "text": "Hello! Good Afternoon!"
+    }]
     return (
       <div>
         TripPage
@@ -166,15 +176,19 @@ class TripPage extends React.Component {
             </Modal.Content>
           </Modal>
           <br/>
-          <Form onSubmit={this.sendMessage}>
-            <Form.Field>
-              <label></label>
-              <input placeholder='Write Something Here...' onChange={this.changeMessage}/>
-            </Form.Field>
-            <Button type='submit'>Submit</Button>
-          </Form>
-          <MessageList messages={msgs} />
 
+          <div>
+            <div className='chatBox'>
+              <MessageList messages={msgs} />
+              <Form onSubmit={this.sendMessage}>
+                <Form.Field>
+                  <label></label>
+                  <input placeholder='Write Something Here...' onChange={this.changeMessage}/>
+                </Form.Field>
+                <Button type='submit'>Message</Button>
+              </Form>
+            </div>
+          </div>
       </div>
     );
   }

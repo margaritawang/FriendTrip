@@ -158,18 +158,27 @@ class LoginPage extends React.Component {
       </Grid>
     </Container>)
 
-    const loginFace = (<Container className='login-main'>
-      <Container className='camera center aligned'>
-        <Container>
-          <Webcam audio={false} height={500} ref={this.setRef} width={400} screenshotFormat="image/jpeg"/>
-        </Container>
-        <Button animated="animated" onClick={this.capture}>
-          <Button.Content visible="visible">Log In</Button.Content>
-          <Button.Content hidden="hidden">
-            <Icon name='right arrow'/>
-          </Button.Content>
-        </Button>
-      </Container>
+    const loginFace = (
+      <Container fluid className='login-main'>
+        <Grid className='login-container' textAlign='center' style={{
+            height: '100%'
+          }} verticalAlign='middle'>
+
+          <Grid.Column style={{
+              maxWidth: 450
+            }}>
+          <Webcam className='camera' audio={false} height={500} ref={this.setRef} width={400} screenshotFormat="image/jpeg"/>
+            <Segment secondary inverted color='red' textAlign='center'>
+              <Button animated="animated" onClick={this.capture}>
+                <Button.Content visible="visible">Log In</Button.Content>
+                <Button.Content hidden="hidden">
+                  <Icon name='right arrow'/>
+                </Button.Content>
+              </Button>
+            </Segment>
+          </Grid.Column>
+        </Grid>
+
     </Container>)
 
     const loader = (<div>
