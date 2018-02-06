@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {userActions} from '../_actions/user.actions.js';
 import {TripBadge} from '../_components';
+import {InvitedTripBadge} from '../_components';
 import {
   Button,
   Container,
@@ -87,7 +88,7 @@ class TripsPage extends React.Component {
   }
 
   handleDelete(tripid){
-    // console.log('clicked delete', tripid);
+    console.log('clicked delete', tripid);
     const { dispatch } = this.props;
     dispatch(userActions.deleteTrip(tripid));
   }
@@ -125,7 +126,7 @@ class TripsPage extends React.Component {
         {invitedTrips.map(trip => {
           return (
             <Grid.Column key={trip.id}>
-              <TripBadge key={trip.id} trip={trip} handleDelete={this.handleDelete}/>
+              <InvitedTripBadge key={trip.id} trip={trip} />
             </Grid.Column>
           )
         })}
