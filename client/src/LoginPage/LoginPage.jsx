@@ -120,8 +120,6 @@ class LoginPage extends React.Component {
           </Segment>
           <Form size='large' onSubmit={this.handleSubmit}>
             <Segment  stacked="stacked">
-
-
               <Form.Input name='username' fluid="fluid" icon='user' iconPosition='left' placeholder='Account Number' onChange={this.handleChange}/> {submitted && !username && <div className="help-block">Username is required</div>}
               <Form.Input name='password' onChange={this.handleChange} fluid="fluid" icon='lock' iconPosition='left' placeholder='Password' type='password'/> {submitted && !password && <div className="help-block">Password is required</div>}
               <Button animated="animated">
@@ -130,8 +128,6 @@ class LoginPage extends React.Component {
                   <Icon name='right arrow'/>
                 </Button.Content>
               </Button>
-
-
               <Button animated="animated" onClick={this.faceReg}>
                 <Button.Content visible="visible">Face Login</Button.Content>
                 <Button.Content hidden="hidden">
@@ -144,16 +140,10 @@ class LoginPage extends React.Component {
               </Button>
             </Segment>
           </Form>
-
-
             <Segment secondary inverted color='blue' textAlign='center'>
-
                 New to us?
                 Sign Up
-
             </Segment>
-
-
         </Grid.Column>
       </Grid>
     </Container>)
