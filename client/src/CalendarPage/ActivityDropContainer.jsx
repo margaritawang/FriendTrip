@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { DropTarget } from 'react-dnd';
+import { DragCard } from './DragBadges.jsx';
+import { ActivityBadgeNoComments } from './ActivityBadgeNoComments';
 
 const types = {
   ACTIVITY: 'ACTIVITY'
@@ -7,9 +9,14 @@ const types = {
 
 const dateTarget = {
   drop(props, monitor, component){
+    // props.onDrop(monitor.getItem());
+    const date = props.date;
     const item = monitor.getItem();
-    console.log("DROPPED ITEM?: ", item);
-    return { name: 'Date' }
+    console.log("Item: ", item);
+    console.log("Props: ", props);
+    console.log("Component", component);
+    props.onDrop(monitor.getItem(), props);
+    return { name: date }
   },
 
   hover(props, monitor, component){
@@ -28,21 +35,27 @@ function collect(connect, monitor) {
 class ActivityDropContainer extends Component{
 
   render(){
-    const { canDrop, isOver, connectDropTarget } = this.props;
+    const { canDrop, isOver, connectDropTarget, activities } = this.props;
+    const date = this.props.date;
     const isActive = isOver;
     let backgroundColor = '#FFF';
     if(isActive){
-      backgroundColor = '#000';
+      backgroundColor = '#222';
     }else if (canDrop){
       backgroundColor = 'darkkhaki';
     }
 
-    return (
-    <div style={{ height: '100px', width: '100px', backgroundColor }} >
-      {isActive ? 'Release here' : 'Drag an activity here'}
+    return connectDropTarget(
+    <div date={date} style={{ height: '100px', width: '100%', backgroundColor }} >
+      {
+        activities.map((activity) => {
+          return (<DragCard text={<ActivityBadgeNoComments activity={activity.activity} />} />);
+        })
+      }
     </div>
     );
   }
+
 }
 
 const DropActivityDropContainer = DropTarget(types.ACTIVITY, dateTarget, collect)(ActivityDropContainer);
