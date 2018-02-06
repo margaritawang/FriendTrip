@@ -21,7 +21,8 @@ import {
   Form,
   TextArea,
   Input,
-  Modal
+  Modal,
+  Progress
 } from 'semantic-ui-react'
 
 class TripsPage extends React.Component {
@@ -34,14 +35,19 @@ class TripsPage extends React.Component {
       submittedLocation: '',
       submittedStart_date: '',
       submittedEnd_date: '',
-      modalOpen: false
+      modalOpen: false,
+      percent: 20
     };
     // Bind any functions here.
+    this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+  }
+  toggle() {
+    this.setState({ percent: this.state.percent === 20 ? 100 : 0 })
   }
 
   handleChange(e, {name, value}) {
@@ -115,7 +121,12 @@ class TripsPage extends React.Component {
             <Menu.Item as='a'><Icon name='send' />Invite Friends</Menu.Item>
           </Container>
         </Menu>
+
+        <Progress percent={this.state.percent} active>
+        </Progress>
+
         <Grid container columns={3} style={{ marginTop: '7em' }} stackable>
+
           {
             trips.map(trip => {
               return (

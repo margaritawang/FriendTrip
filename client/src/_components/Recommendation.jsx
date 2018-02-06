@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { RecommendationCard } from './RecommendationCard.jsx';
+import { Progress } from 'semantic-ui-react';
 
 import {Button,
         Comment,
@@ -12,7 +13,6 @@ export class Recommendation extends Component {
   constructor(props) {
     super(props);
   }
-
   render() {
     // console.log("user", this.props.user);
     const user = this.props.user;
@@ -22,6 +22,7 @@ export class Recommendation extends Component {
     // console.log('tripid', this.props.tripid);
     return (
       <Card.Group>
+        
         {
 
           this.props.recommendations.map((item,index) => {

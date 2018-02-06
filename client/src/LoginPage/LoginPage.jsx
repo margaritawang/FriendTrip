@@ -16,7 +16,8 @@ import {
   Image,
   Grid,
   Message,
-  Header
+  Header,
+  Progress
 } from 'semantic-ui-react'
 
 class LoginPage extends React.Component {
@@ -27,13 +28,21 @@ class LoginPage extends React.Component {
       username: '',
       password: '',
       submitted: false,
-      face: false
+      face: false,
+      percent: 65
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.setRef = this.setRef.bind(this);
     this.capture = this.capture.bind(this);
     this.faceReg = this.faceReg.bind(this);
+    this.toggle = this.toggle.bind(this);
+  }
+
+  toggle() {
+
+      this.setState({ percent: this.state.percent === 20 ? 100 : 0 })
+
   }
   handleChange(e) {
     const {name, value} = e.target;
@@ -66,12 +75,11 @@ class LoginPage extends React.Component {
   }
 
   render() {
-    const {loggingIn} = this.props;
+    const {loggingIn, loggedIn} = this.props;
     const {username, password, submitted} = this.state;
     (loggingIn)
       ? console.log("logging")
       : console.log("not log")
-
     const loginForm = (<Container className='login-main'>
       <Button animated="animated" onClick={this.faceReg}>
         <Button.Content visible="visible">Face Login</Button.Content>
@@ -116,7 +124,7 @@ class LoginPage extends React.Component {
             maxWidth: 450
           }}>
           <Segment inverted color='blue' textAlign='center'>
-            <Image src='/logo.png'/> {' '}Log-in to your account
+            <Header>Log-in to Your Account</Header>
           </Segment>
           <Form size='large' onSubmit={this.handleSubmit}>
             <Segment  stacked="stacked">
@@ -141,8 +149,10 @@ class LoginPage extends React.Component {
             </Segment>
           </Form>
             <Segment secondary inverted color='blue' textAlign='center'>
-                New to us?
-                Sign Up
+
+                <Header as={Link} to='/register'><p style={{
+                    display: 'inline-block'
+                  }}>New to us?</p>   Sign Up</Header>
             </Segment>
         </Grid.Column>
       </Grid>
@@ -157,6 +167,8 @@ class LoginPage extends React.Component {
           <Grid.Column style={{
               maxWidth: 450
             }}>
+            <Progress percent={this.state.percent} active>
+            </Progress>
           <Webcam className='camera' audio={false} height={500} ref={this.setRef} width={400} screenshotFormat="image/jpeg"/>
             <Segment secondary inverted color='red' textAlign='center'>
               <Button animated="animated" onClick={this.capture}>
@@ -189,8 +201,8 @@ class LoginPage extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const {loggingIn} = state.authentication;
-  return {loggingIn};
+  const {loggingIn, loggedIn} = state.authentication;
+  return {loggingIn, loggedIn};
 }
 
 const connectedLoginPage = connect(mapStateToProps)(LoginPage);
