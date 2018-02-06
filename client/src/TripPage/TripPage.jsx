@@ -27,6 +27,7 @@ import {
   Tab
 } from 'semantic-ui-react'
 import { TripActivityPage } from '../TripActivityPage'
+import { CalendarPage } from '../CalendarPage';
 
 class TripPage extends React.Component {
   constructor(props) {
@@ -123,7 +124,7 @@ class TripPage extends React.Component {
     const panes = [
       { menuItem: 'Recommendations', render: () => <Tab.Pane>Tab 1 Content</Tab.Pane> },
       { menuItem: 'Saved Activities', render: () => <Tab.Pane><TripActivityPage activities={activities} /></Tab.Pane> },
-      { menuItem: 'My Trip', render: () => <Tab.Pane><Calendar /></Tab.Pane> },
+      { menuItem: 'My Trip', render: () => <Tab.Pane><CalendarPage tripId={tripId}/></Tab.Pane> },
     ];
 
 
