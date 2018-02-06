@@ -153,8 +153,8 @@ class TripsPage extends React.Component {
     const { user, trips } = this.props;
     console.log(user);
     console.log(trips);
-    const ownedTrips = trips.filter(trip => Number(trip.owner_id) === user.id);
-    const tripOptions = ownedTrips.map(trip => {
+    const ownedTrips = trips && trips.filter(trip => Number(trip.owner_id) === user.id);
+    const tripOptions = trips && ownedTrips.map(trip => {
       return ({
         key: trip.id,
         text: trip.location,
@@ -164,12 +164,12 @@ class TripsPage extends React.Component {
     })
     // console.log('heres your options:', tripOptions);
 
-    const invitedTrips = trips.filter(trip => Number(trip.owner_id) !== user.id);
+    const invitedTrips = trips && trips.filter(trip => Number(trip.owner_id) !== user.id);
     const { location, start_date, end_date, submittedLocation, submittedStart_date, submittedEnd_date, email, inviteTrip } = this.state;
     const panes = [
       { menuItem: 'My Trips', render: () => <Tab.Pane>{
         <Grid container columns={3} style={{ marginTop: '2em' }} stackable>
-          {ownedTrips.map(trip => {
+          {trips && ownedTrips.map(trip => {
             return (
               <Grid.Column key={trip.id}>
                 <TripBadge key={trip.id} trip={trip} handleDelete={this.handleDelete}/>

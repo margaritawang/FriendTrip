@@ -214,7 +214,7 @@ function deleteTrip(tripid) {
 function inviteFriend(inviteInfo) {
   return dispatch => {
     dispatch(request());
-    
+
     tripService.inviteFriend(inviteInfo)
     .then(() => {
       dispatch(success());
@@ -224,7 +224,7 @@ function inviteFriend(inviteInfo) {
   }
   function request() { return { type: userConstants.INVITE_FRIEND_REQUEST }}
   function success() { return { type: userConstants.INVITE_FRIEND_SUCCESS }}
-  function failure() { return { type: userConstants.INVITE_FRIEND_FAILURE }} 
+  function failure() { return { type: userConstants.INVITE_FRIEND_FAILURE }}
 }
 
 function getAllActivities(user, trip) {
@@ -393,13 +393,12 @@ function sendActivity(activity) {
   }
 }
 
-function getRecommendation(tripID,cb) {
+function getRecommendation(tripID) {
   return dispatch => {
     dispatch(request(tripID))
     apiService.getRecommend(tripID).
     then((data) => {
       dispatch(success(data));
-      cb();
     }).
     catch((err) => {
       dispatch(failure(err));

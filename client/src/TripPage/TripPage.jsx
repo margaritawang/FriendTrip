@@ -40,6 +40,7 @@ class TripPage extends React.Component {
       message: '',
       percent: 20
     };
+    console.log('User Up Front', props.user);
     // Bind any functions here.
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -126,20 +127,21 @@ class TripPage extends React.Component {
   componentDidMount() {
     const {user} = this.props;
     const tripId = this.props.match.params.id;
-    this.props.dispatch(userActions.getAllActivities(user, tripId));
-    this.props.dispatch(userActions.getRecommendation(this.props.match.params.id, this.toggle));
+    if (user && tripId) {
+      this.props.dispatch(userActions.getAllActivities(user, tripId));
+    }
+
+    if (tripId) {
+      this.props.dispatch(userActions.getRecommendation(tripId));
+    }
   }
 
   render() {
-    const { user } = this.props;
-    const { dispatch } = this.props;
+    const { recommendations, user, dispatch, activities, msgs, match:{params: {id: tripId}} } = this.props;
     const { description } = this.state;
-    const { activities } = this.props;
-    const tripId = this.props.match.params.id;
-    const { msgs } = this.props;
-    const { recommendations } = this.props;
+
     const panes = [
-      { menuItem: 'Recommendations', render: () => <div className='recommendations'><Tab.Pane><Recommendation dispatch={dispatch} user={user} tripid={tripId} recommendations={recommendations} activities={activities}/></Tab.Pane></div> },
+      { menuItem: 'Recommendations', render: () => <div className='recommendations'><Tab.Pane><Recommendation tripid={tripId}/></Tab.Pane></div> },
       { menuItem: 'Saved Activities', render: () => <div className='recommendations'><Tab.Pane><TripActivityPage handleDelete={this.handleDelete} activities={activities} /></Tab.Pane></div> },
       { menuItem: 'My Trip', render: () => <Tab.Pane><CalendarPage tripId={tripId}/></Tab.Pane> },
     ];
@@ -219,9 +221,8 @@ class TripPage extends React.Component {
 
 function mapStateToProps(state) {
   const {user} = state.authentication;
-  const {trips} = state.users;
   const {msgs} = state.chat;
-  const {activities, recommendations} = state.users;
+  const {activities, recommendations, trips} = state.users;
   return {user, activities, msgs, recommendations};
 }
 
