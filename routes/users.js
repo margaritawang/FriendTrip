@@ -24,7 +24,7 @@ module.exports = (datahelper) => {
   router.get('/users/:uid/trips', (req, res) => {
     let user_id = req.params.uid
     datahelper.queryUserTrips(user_id).then((data) => {
-      return res.json(data);
+      res.send(data);
     });
   });
 
