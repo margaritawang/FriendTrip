@@ -1,7 +1,7 @@
 import React from 'react';
 import {Router, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
-
+import { compose } from 'redux'
 import {history} from '../_helpers';
 import {alertActions} from '../_actions';
 import {PrivateRoute, Recommendation } from '../_components';
@@ -11,6 +11,8 @@ import {RegisterPage} from '../RegisterPage';
 import {TripsPage} from '../TripsIndexPage';
 import {PlanPage} from '../PlanPage';
 import {TripPage} from '../TripPage';
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContext } from 'react-dnd';
 
 class App extends React.Component {
   constructor(props) {
@@ -43,7 +45,16 @@ function mapStateToProps(state) {
   return {alert};
 }
 
-const connectedApp = connect(mapStateToProps)(App);
-export {
-  connectedApp as App
-};
+// const connectedApp = connect(mapStateToProps)(App);
+// const dragAndDropApp = DragDropContext(HTML5Backend)(connectedApp);
+// export {
+//   dragAndDropApp as App
+// };
+
+
+const ExportApp = compose(
+  DragDropContext(HTML5Backend),
+  connect(mapStateToProps)
+)(App);
+
+export {ExportApp as App};
