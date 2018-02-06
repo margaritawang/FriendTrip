@@ -60,15 +60,10 @@ class RegisterPage extends React.Component {
     }
 
     render() {
-
-
-
-
-
         const { registering  } = this.props;
         const { user, submitted } = this.state;
         return (
-            <Container className="login-main">
+            <Container fluid className="login-main">
               <Grid className='login-container' textAlign='center' style={{
                   height: '100%'
                 }} verticalAlign='middle'>
