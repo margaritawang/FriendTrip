@@ -37,7 +37,7 @@ class ActivityDropContainer extends Component{
       backgroundColor = 'darkkhaki';
     }
 
-    return (
+    return connectDropTarget(
     <div style={{ height: '100px', width: '100px', backgroundColor }} >
       {isActive ? 'Release here' : 'Drag an activity here'}
     </div>
