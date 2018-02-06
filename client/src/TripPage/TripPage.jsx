@@ -140,7 +140,7 @@ class TripPage extends React.Component {
     const { recommendations } = this.props;
     const panes = [
       { menuItem: 'Recommendations', render: () => <div className='recommendations'><Tab.Pane><Recommendation dispatch={dispatch} user={user} tripid={tripId} recommendations={recommendations} activities={activities}/></Tab.Pane></div> },
-      { menuItem: 'Saved Activities', render: () => <Tab.Pane><TripActivityPage handleDelete={this.handleDelete} activities={activities} /></Tab.Pane> },
+      { menuItem: 'Saved Activities', render: () => <div className='recommendations'><Tab.Pane><TripActivityPage handleDelete={this.handleDelete} activities={activities} /></Tab.Pane></div> },
       { menuItem: 'My Trip', render: () => <Tab.Pane><CalendarPage tripId={tripId}/></Tab.Pane> },
     ];
 
@@ -174,8 +174,6 @@ class TripPage extends React.Component {
 
         <Progress disabled percent={this.state.percent} active>
         </Progress>
-
-
         <Modal trigger={<Button icon='add' onClick={this.handleOpen} className="primary-btn-fab"/>}
             open={this.state.modalOpen}
             onClose={this.handleClose}
@@ -188,14 +186,19 @@ class TripPage extends React.Component {
             </Form>
           </Modal.Content>
         </Modal>
-
         <Grid>
           <Grid.Row>
-            <Tab panes={panes} style={{ marginTop: '7em'}} />
+            <Container>
+              <Tab panes={panes} style={{ marginTop: '7em'}} />
+            </Container>
           </Grid.Row>
           <Grid.Row>
-            <div>
               <div className='chatBox'>
+                <div className='chat-top'>
+                  <div className='chat-header'>
+                    <Header inverted as='h3' Messages="Messages">MESSAGES</Header>
+                  </div>
+                </div>
                 <MessageList messages={msgs} />
                 <Form onSubmit={this.sendMessage}>
                   <Form.Field>
@@ -205,7 +208,6 @@ class TripPage extends React.Component {
                   <Button type='submit'>Message</Button>
                 </Form>
               </div>
-            </div>
           </Grid.Row>
         </Grid>
       </div>
