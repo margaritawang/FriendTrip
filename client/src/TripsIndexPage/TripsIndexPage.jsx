@@ -23,7 +23,8 @@ import {
   TextArea,
   Input,
   Modal,
-  Tab
+  Tab,
+  Select
 } from 'semantic-ui-react'
 
 class TripsPage extends React.Component {
@@ -36,7 +37,9 @@ class TripsPage extends React.Component {
       submittedLocation: '',
       submittedStart_date: '',
       submittedEnd_date: '',
-      modalOpen: false
+      modalOpen: false,
+      inviteModalOpen: false,
+      email: ''
     };
     // Bind any functions here.
     this.handleChange = this.handleChange.bind(this);
@@ -44,6 +47,9 @@ class TripsPage extends React.Component {
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleInviteSubmit = this.handleInviteSubmit.bind(this);
+    this.handleInviteOpen = this.handleInviteOpen.bind(this);
+    this.handleInviteClose = this.handleInviteClose.bind(this);
   }
 
   handleChange(e, {name, value}) {
@@ -56,7 +62,7 @@ class TripsPage extends React.Component {
       modalOpen: true
     })
   }
-
+  
   handleClose() {
     this.setState({
       ...this.state,
@@ -83,7 +89,9 @@ class TripsPage extends React.Component {
       location: '',
       start_date: '',
       end_date: '',
-      modalOpen: false
+      modalOpen: false,
+      inviteModalOpen: false,
+      email: ''
     })
   }
 
@@ -93,8 +101,22 @@ class TripsPage extends React.Component {
     dispatch(userActions.deleteTrip(tripid));
   }
 
-  handleInvite(){
+  handleInviteSubmit(){
     console.log('inviting friends!!!');
+  }
+
+  handleInviteOpen() {
+    this.setState({
+      ...this.state,
+      inviteModalOpen: true
+    })
+  }
+  
+  handleInviteClose() {
+    this.setState({
+      ...this.state,
+      inviteModalOpen: false
+    })
   }
 
   componentDidMount() {
@@ -107,8 +129,18 @@ class TripsPage extends React.Component {
     console.log(user);
     console.log(trips);
     const ownedTrips = trips.filter(trip => Number(trip.owner_id) === user.id);
+    const tripOptions = ownedTrips.map(trip => {
+      return ({
+        key: trip.id,
+        text: trip.location,
+        value: trip.location,
+        image: {avatar: true, src: `${trip.imgURL}`}
+      });
+    })
+    // console.log('heres your options:', tripOptions);
+
     const invitedTrips = trips.filter(trip => Number(trip.owner_id) !== user.id);
-    const { location, start_date, end_date, submittedLocation, submittedStart_date, submittedEnd_date } = this.state;
+    const { location, start_date, end_date, submittedLocation, submittedStart_date, submittedEnd_date, email } = this.state;
     const panes = [
       { menuItem: 'My Trips', render: () => <Tab.Pane>{
         <Grid container columns={3} style={{ marginTop: '2em' }} stackable>
@@ -146,7 +178,19 @@ class TripsPage extends React.Component {
               FriendTrip
             </Menu.Item>
             <Menu.Item as='a' position='right'><Icon name='user' /> Profile</Menu.Item>
-            <Menu.Item as='a'><Icon name='send' onClick={this.handleInvite}/>Invite Friends</Menu.Item>
+            <Modal trigger={<Menu.Item as='a' onClick={this.handleInviteOpen}><Icon name='send' />Invite Friends</Menu.Item>}  
+              open={this.state.inviteModalOpen}
+              onClose={this.handleInviteClose}
+              >
+              <Modal.Header>Invite Your Friends!</Modal.Header>
+              <Modal.Content>
+                <Form onSubmit={this.handleInviteSubmit}>
+                  <Form.Field id='form-input-control-email' control={Input} name='email' label='Email' placeholder='Email' value={email} onChange={this.handleChange} required/>
+                  <Form.Select id='form-input-control-trip' control={Select} fluid label='Select A Trip' options={tripOptions} required/>
+                  <Form.Field id='form-button-control-public' control={Button} content='Invite'/>
+                </Form>
+              </Modal.Content>
+            </Modal>
           </Container>
         </Menu>
         <Tab panes={panes} style={{ marginTop: '7em' }} />
