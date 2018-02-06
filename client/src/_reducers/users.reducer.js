@@ -66,6 +66,7 @@ export function users(state = { trips: [], activities: [], recommendations: [], 
         ...state,
         loading: true
       }
+
     case userConstants.CREATE_NEW_TRIP_SUCCESS:
       const { trips } = state;
       return{
@@ -97,6 +98,26 @@ export function users(state = { trips: [], activities: [], recommendations: [], 
       }
 
     case userConstants.DELETE_TRIP_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.error
+      }
+
+    case userConstants.INVITE_FRIEND_REQUEST:
+      return {
+        ...state,
+        loading: true
+      }
+
+    case userConstants.INVITE_FRIEND_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: ''
+      }
+    
+    case userConstants.INVITE_FRIEND_FAILURE:
       return {
         ...state,
         loading: false,

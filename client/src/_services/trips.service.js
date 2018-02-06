@@ -4,6 +4,7 @@ export const tripService = {
   getAllTrips,
   createNewTrip,
   getAllActivities,
+  inviteFriend,
   createNewActivity,
   deleteActivity,
   getAllComments,
@@ -39,6 +40,11 @@ function createNewTrip(user, trip){
 function deleteTrip(tripid) {
   console.log(`/api/trips/${tripid}`);
   return axios.delete(`/api/trips/${tripid}`);
+}
+
+function inviteFriend(inviteInfo) {
+  console.log(inviteInfo);
+  return axios.post(`/api/friends/${inviteInfo.tripid}`, inviteInfo);
 }
 
 function getAllActivities(trip) {

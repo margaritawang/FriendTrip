@@ -19,6 +19,16 @@ module.exports = (datahelper) => {
     })
   });
 
+  router.post('/friends/:tid', (req, res) => {
+    let trip_id = req.params.tid;
+    let email = req.body.email;
+    console.log(req.body);
+    datahelper.inviteFriend(trip_id,email). then((data) => {
+      console.log(data);
+    })
+    return res.send(200);
+  })
+
 
   // get all trips that belong to a given user
   router.get('/users/:uid/trips', (req, res) => {

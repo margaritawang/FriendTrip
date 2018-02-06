@@ -15,6 +15,7 @@ export const userActions = {
   getAllTrips,
   createNewTrip,
   deleteTrip,
+  inviteFriend,
   getAllActivities,
   createNewActivity,
   getAllComments,
@@ -208,6 +209,22 @@ function deleteTrip(tripid) {
   function request() { return { type: userConstants.DELETE_TRIP_REQUEST } }
   function success(tripid) { return { type: userConstants.DELETE_TRIP_SUCCESS, tripid } }
   function failure() { return { type: userConstants.DELETE_TRIP_FAILURE } }
+}
+
+function inviteFriend(inviteInfo) {
+  return dispatch => {
+    dispatch(request());
+    
+    tripService.inviteFriend(inviteInfo)
+    .then(() => {
+      dispatch(success());
+    }).catch(error => {
+      dispatch(failure());
+    })
+  }
+  function request() { return { type: userConstants.INVITE_FRIEND_REQUEST }}
+  function success() { return { type: userConstants.INVITE_FRIEND_SUCCESS }}
+  function failure() { return { type: userConstants.INVITE_FRIEND_FAILURE }} 
 }
 
 function getAllActivities(user, trip) {

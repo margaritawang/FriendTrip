@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {userActions} from '../_actions/user.actions.js';
 import {TripBadge} from '../_components';
+import {InvitedTripBadge} from '../_components';
 import {
   Button,
   Container,
@@ -22,7 +23,12 @@ import {
   TextArea,
   Input,
   Modal,
+<<<<<<< HEAD
   Progress
+=======
+  Tab,
+  Select
+>>>>>>> feature/invitefriends
 } from 'semantic-ui-react'
 
 class TripsPage extends React.Component {
@@ -36,7 +42,15 @@ class TripsPage extends React.Component {
       submittedStart_date: '',
       submittedEnd_date: '',
       modalOpen: false,
+<<<<<<< HEAD
       percent: 20
+=======
+      inviteModalOpen: false,
+      email: '',
+      inviteTrip: '',
+      submittedEmail: '',
+      submittedinviteTrip: ''
+>>>>>>> feature/invitefriends
     };
     // Bind any functions here.
     this.toggle = this.toggle.bind(this);
@@ -45,6 +59,9 @@ class TripsPage extends React.Component {
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleInviteSubmit = this.handleInviteSubmit.bind(this);
+    this.handleInviteOpen = this.handleInviteOpen.bind(this);
+    this.handleInviteClose = this.handleInviteClose.bind(this);
   }
   toggle() {
     this.setState({ percent: this.state.percent === 20 ? 100 : 0 })
@@ -60,7 +77,7 @@ class TripsPage extends React.Component {
       modalOpen: true
     })
   }
-
+  
   handleClose() {
     this.setState({
       ...this.state,
@@ -87,7 +104,12 @@ class TripsPage extends React.Component {
       location: '',
       start_date: '',
       end_date: '',
-      modalOpen: false
+      modalOpen: false,
+      inviteModalOpen: false,
+      email: '',
+      inviteTrip: '',
+      submittedEmail: '',
+      submittedinviteTrip: ''
     })
   }
 
@@ -97,6 +119,44 @@ class TripsPage extends React.Component {
     dispatch(userActions.deleteTrip(tripid));
   }
 
+  handleInviteSubmit(e){
+    console.log('inviting friends!!!');
+    e.preventDefault();
+    const {email, inviteTrip} = this.state;
+    const {trips} = this.props;
+    const {dispatch, user} = this.props;
+    trips.filter(trip => Number(trip.owner_id) === user.id);
+    const tripInvite = {
+      tripid: inviteTrip,
+      email: email,
+      user: user.id
+    };
+    // console.log('inviting those guys:', tripInvite);
+    dispatch(userActions.inviteFriend(tripInvite));
+    this.setState({
+      ...this.state,
+      inviteModalOpen: false,
+      email: '',
+      inviteTrip: '',
+      submittedEmail: email,
+      submittedinviteTrip: inviteTrip
+    })
+  }
+
+  handleInviteOpen() {
+    this.setState({
+      ...this.state,
+      inviteModalOpen: true
+    })
+  }
+  
+  handleInviteClose() {
+    this.setState({
+      ...this.state,
+      inviteModalOpen: false
+    })
+  }
+
   componentDidMount() {
     const {user} = this.props;
     this.props.dispatch(userActions.getAllTrips(user));
@@ -104,7 +164,45 @@ class TripsPage extends React.Component {
 
   render() {
     const { user, trips } = this.props;
-    const { location, start_date, end_date, submittedLocation, submittedStart_date, submittedEnd_date } = this.state;
+    console.log(user);
+    console.log(trips);
+    const ownedTrips = trips.filter(trip => Number(trip.owner_id) === user.id);
+    const tripOptions = ownedTrips.map(trip => {
+      return ({
+        key: trip.id,
+        text: trip.location,
+        value: trip.id,
+        image: {avatar: true, src: `${trip.imgURL}`}
+      });
+    })
+    // console.log('heres your options:', tripOptions);
+
+    const invitedTrips = trips.filter(trip => Number(trip.owner_id) !== user.id);
+    const { location, start_date, end_date, submittedLocation, submittedStart_date, submittedEnd_date, email, inviteTrip } = this.state;
+    const panes = [
+      { menuItem: 'My Trips', render: () => <Tab.Pane>{
+        <Grid container columns={3} style={{ marginTop: '2em' }} stackable>
+          {ownedTrips.map(trip => {
+            return (
+              <Grid.Column key={trip.id}>
+                <TripBadge key={trip.id} trip={trip} handleDelete={this.handleDelete}/>
+              </Grid.Column>
+            )
+          })}
+        </Grid>}
+      </Tab.Pane>},
+      { menuItem: "Invited Trips", render: () => <Tab.Pane>{
+        <Grid container columns={3} style={{ marginTop: '2em' }} stackable>
+        {invitedTrips.map(trip => {
+          return (
+            <Grid.Column key={trip.id}>
+              <InvitedTripBadge key={trip.id} trip={trip} />
+            </Grid.Column>
+          )
+        })}
+        </Grid>}
+      </Tab.Pane>}
+    ];
     return (
       <div>
         <Menu fixed='top' inverted color='blue'>
@@ -118,25 +216,22 @@ class TripsPage extends React.Component {
               FriendTrip
             </Menu.Item>
             <Menu.Item as='a' position='right'><Icon name='user' /> Profile</Menu.Item>
-            <Menu.Item as='a'><Icon name='send' />Invite Friends</Menu.Item>
+            <Modal trigger={<Menu.Item as='a' onClick={this.handleInviteOpen}><Icon name='send' />Invite Friends</Menu.Item>}  
+              open={this.state.inviteModalOpen}
+              onClose={this.handleInviteClose}
+              >
+              <Modal.Header>Invite Your Friends!</Modal.Header>
+              <Modal.Content>
+                <Form onSubmit={this.handleInviteSubmit}>
+                  <Form.Field id='form-input-control-email' control={Input} name='email' label='Email' placeholder='Email' value={email} onChange={this.handleChange} required/>
+                  <Form.Select id='form-input-control-inviteTrip' name='inviteTrip' control={Select} fluid label='Select A Trip' options={tripOptions} onChange={this.handleChange} required/>
+                  <Form.Field id='form-button-control-public' control={Button} content='Invite'/>
+                </Form>
+              </Modal.Content>
+            </Modal>
           </Container>
         </Menu>
-
-        <Progress percent={this.state.percent} active>
-        </Progress>
-
-        <Grid container columns={3} style={{ marginTop: '7em' }} stackable>
-
-          {
-            trips.map(trip => {
-              return (
-                <Grid.Column key={trip.id}>
-                  <TripBadge key={trip.id} trip={trip} handleDelete={this.handleDelete}/>
-                </Grid.Column>
-              )
-            })
-          }
-        </Grid>
+        <Tab panes={panes} style={{ marginTop: '7em' }} />
           <Modal trigger={<Button icon='add' onClick={this.handleOpen} className="primary-btn-fab"/>}
               open={this.state.modalOpen}
               onClose={this.handleClose}
