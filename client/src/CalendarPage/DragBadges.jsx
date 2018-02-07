@@ -13,21 +13,12 @@ const ItemTypes = {
  */
 const cardSource = {
   beginDrag(props) {
-    console.log("Begin Dragging: ", props);
-    // props.text.props.activity
-    return {
-      text: props.text
-    };
+    return props.text.props.activity;
   },
 
   endDrag(props, monitor){
     const item = monitor.getItem()
-    console.log("DRAG ITEM: ", item);
     const dropResult = monitor.getDropResult()
-    console.log("Drop Result: ", dropResult);
-    if (dropResult){
-      alert(`You dropped ${item.text} into ${dropResult.name}`)
-    }
   }
 };
 
@@ -42,7 +33,7 @@ function collect(connect, monitor) {
 }
 
 const propTypes = {
-  text: PropTypes.string.isRequired,
+  // text: PropTypes.string.isRequired,
 
   // Injected by React DnD:
   isDragging: PropTypes.bool.isRequired,
@@ -51,10 +42,10 @@ const propTypes = {
 
 class DragCard extends Component {
   render() {
-    const { isDragging, connectDragSource, text } = this.props;
+    const { isDragging, connectDragSource, text, isDropped } = this.props;
     return connectDragSource(
-      <div style={{ width: '50px', height: '50px', opacity: isDragging ? 0.5 : 1 }}>
-        {text}
+      <div style={{ width: '100%', opacity: isDragging ? 0.5 : 1 }}>
+        {isDropped ? "" : text}
       </div>
     );
   }

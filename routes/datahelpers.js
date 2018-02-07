@@ -96,6 +96,10 @@ module.exports = function makeDataHelpers(db) {
         })
     },
 
+    updateActivity: function(activityInfo, activityId){
+      return db('activities').update(activityInfo).where('id', activityId);
+    },
+
     // Get comments from an activity
     getComments: function(activityid){
       return db.table('users').innerJoin('comments', 'users.id', 'comments.owner_id').where('comments.activity_id', activityid);

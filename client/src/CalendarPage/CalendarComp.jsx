@@ -6,28 +6,15 @@ import { ActivityDropContainer } from './ActivityDropContainer';
 
 class CalendarComp extends Component{
 
-
   render(){
-    const tripId = this.props.tripId;
-    const trips = this.props.trips;
-    const trip = trips.filter(
-      (trip) => {
-        if(trip.id === Number(tripId)) {
-          return true
-        }
-      })[0];
-    const datesArray = [];
-    console.log(trip);
-    const numberOfDays = Math.round(Math.abs((Date.parse(trip.start_date) - Date.parse(trip.end_date))/(24*60*60*1000)));
-    const startDate = Date.parse(trip.start_date);
-    const dateOfStartDate = new Date(startDate);
-    for(let i = 0; i < numberOfDays; i++){
-      datesArray.push(new Date(dateOfStartDate.getFullYear(), dateOfStartDate.getMonth(), (dateOfStartDate.getDay() + i)));
-    }
+    const datesArray = this.props.schedule;
+    const handleDrop = this.props.handleDrop;
+    const isDropped = this.props.isDropped;
+
     return (
-      <div>
-      <ActivityDropContainer />
-      <Table basic='very' celled collapsing>
+
+
+      <Table basic='very' celled collapsing size='large'>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Date</Table.HeaderCell>
@@ -37,18 +24,18 @@ class CalendarComp extends Component{
 
         <Table.Body>
         {
-          datesArray.map((date) => {
+          datesArray.map((element, index, array) => {
             return (
-              <Table.Row key={date}>
-                <Table.Cell key={date}>
-                  <Header as='h4' key={date}>
-                    <Header.Content key={date}>
-                      <Moment format="MMM, DD" key={date}>{date}</Moment>
+              <Table.Row key={index}>
+                <Table.Cell key={index}>
+                  <Header as='h4' key={index}>
+                    <Header.Content key={index}>
+                      <Moment format="MMM, DD" key={index}>{element.date}</Moment>
                     </Header.Content>
                   </Header>
                 </Table.Cell>
-                <Table.Cell>
-
+                <Table.Cell style={{ width: '100%'}} fluid key={(-1 * index) - 1}>
+                  <ActivityDropContainer key={index} date={element.date} onDrop={(item, element) => {handleDrop(item, element)}} activities={element.activities} isDropped={isDropped}/>
                 </Table.Cell>
               </Table.Row>
             )
@@ -56,7 +43,7 @@ class CalendarComp extends Component{
         }
         </Table.Body>
       </Table>
-      </div>);
+      );
   }
 }
 
