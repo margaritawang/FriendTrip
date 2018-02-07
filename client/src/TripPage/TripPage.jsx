@@ -38,9 +38,13 @@ class TripPage extends React.Component {
       description: '',
       modalOpen: false,
       message: '',
-      percent: 20
+      percent: 20,
+      inviteModalOpen: false,
+      email: '',
+      submittedEmail: '',
+      submittedinviteTrip: ''
     };
-    console.log('User Up Front', props.user);
+
     // Bind any functions here.
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -50,6 +54,9 @@ class TripPage extends React.Component {
     this.changeMessage = this.changeMessage.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.handleInviteSubmit = this.handleInviteSubmit.bind(this);
+    this.handleInviteOpen = this.handleInviteOpen.bind(this);
+    this.handleInviteClose = this.handleInviteClose.bind(this);
   }
 
   toggle() {
@@ -84,6 +91,7 @@ class TripPage extends React.Component {
     dispatch(userActions.createNewActivity(user, activityInfo))
 
     this.setState({
+      ...this.state,
       submittedDescription: description,
       description: '',
       modalOpen: false
@@ -104,17 +112,51 @@ class TripPage extends React.Component {
     })
   }
 
-  handleOpen() {
+  // handleOpen() {
+  //   this.setState({
+  //     ...this.state,
+  //     modalOpen: true
+  //   })
+  // }
+
+  // handleClose() {
+  //   this.setState({
+  //     ...this.state,
+  //     modalOpen: false
+  //   })
+  // }
+  handleInviteSubmit(e){
+    console.log('inviting friends!!!');
+    e.preventDefault();
+    const {email} = this.state;
+    const tripId = this.props.match.params.id;
+    const {dispatch, user} = this.props;
+    const tripInvite = {
+      tripid: tripId,
+      email: email,
+      user: user.id
+    };
+    // console.log('inviting those guys:', tripInvite);
+    dispatch(userActions.inviteFriend(tripInvite));
     this.setState({
       ...this.state,
-      modalOpen: true
+      inviteModalOpen: false,
+      email: '',
+      submittedEmail: email
     })
   }
 
-  handleClose() {
+  handleInviteOpen() {
     this.setState({
       ...this.state,
-      modalOpen: false
+      inviteModalOpen: true
+    })
+  }
+  
+  handleInviteClose() {
+    this.setState({
+      ...this.state,
+      inviteModalOpen: false
     })
   }
 
@@ -138,8 +180,7 @@ class TripPage extends React.Component {
 
   render() {
     const { recommendations, user, dispatch, activities, msgs, match:{params: {id: tripId}} } = this.props;
-    const { description } = this.state;
-
+    const { description, email } = this.state;
     const panes = [
       { menuItem: 'Recommendations', render: () => <div className='recommendations'><Tab.Pane><Recommendation tripid={tripId}/></Tab.Pane></div> },
       { menuItem: 'Saved Activities', render: () => <div className='recommendations'><Tab.Pane><TripActivityPage handleDelete={this.handleDelete} activities={activities} /></Tab.Pane></div> },
@@ -170,7 +211,18 @@ class TripPage extends React.Component {
               FriendTrip
             </Menu.Item>
             <Menu.Item as='a' position='right'><Icon name='user' /> Profile</Menu.Item>
-            <Menu.Item as='a'><Icon name='send' />Invite Friends</Menu.Item>
+            <Modal trigger={<Menu.Item as='a' onClick={this.handleInviteOpen}><Icon name='send' />Invite Friends</Menu.Item>}  
+              open={this.state.inviteModalOpen}
+              onClose={this.handleInviteClose}
+              >
+              <Modal.Header>Invite Your Friends to Help Plan the Trip!</Modal.Header>
+              <Modal.Content>
+                <Form onSubmit={this.handleInviteSubmit}>
+                  <Form.Field id='form-input-control-email' control={Input} name='email' label='Email' placeholder='email@example.com' value={email} onChange={this.handleChange} required/>
+                  <Form.Field id='form-button-control-public' control={Button} content='Invite'/>
+                </Form>
+              </Modal.Content>
+            </Modal>            
           </Container>
         </Menu>
 
