@@ -9,14 +9,14 @@ export class TripBadge extends React.Component {
     super(props);
   }
 
-  
+
   render() {
     const trip = this.props.trip;
     return (
       <Card>
-        <Image src={trip.imgURL} className="trip-badge-image" />
+        <Image src={trip.imgURL} style={{cursor: 'pointer'}} className="trip-badge-image" onClick={() => { history.push(`/trips/${trip.id}`)}}/>
         <Card.Content>
-          <Header as='h2' onClick={() => { history.push(`/trips/${trip.id}`)}}>
+          <Header as='h2' style={{cursor: 'pointer'}} onClick={() => { history.push(`/trips/${trip.id}`)}}>
             {trip.location}
           </Header>
           <Button animated='fade' basic color='red'>

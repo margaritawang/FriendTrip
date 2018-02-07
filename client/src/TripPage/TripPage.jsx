@@ -202,12 +202,7 @@ class TripPage extends React.Component {
         TripPage
         <Menu fixed='top' inverted color='blue'>
           <Container>
-            <Menu.Item as='a' header>
-              <Image
-                size='mini'
-                src='./client/src/assets/img/FriendTripLogo.jpg'
-                style={{ marginRight: '1.5em' }}
-              />
+            <Menu.Item as={Link} to="/trips" header>
               FriendTrip
             </Menu.Item>
             <Menu.Item as='a' position='right'><Icon name='user' /> Profile</Menu.Item>
@@ -258,7 +253,7 @@ class TripPage extends React.Component {
                   <MessageList messages={msgs} />
                 </Segment>
                 <Segment color='blue' className="chatBox-two-shown" textAlign='center'>
-                  <Form onSubmit={this.sendMessage} textAlign='center'>
+                  <Form onSubmit={this.sendMessage}>
                     <Form.Field style={{ margin: '5px'}}>
                       <label></label>
                       <input placeholder='Write Something Here...' onChange={this.changeMessage} value={message} required/>
@@ -269,8 +264,7 @@ class TripPage extends React.Component {
               </Segment>
             :
             <Segment color='blue' className="chatBox-two" textAlign='center'>
-              <Icon name="user" />2 Friends Online
-              <Button color='blue' style={{ margin: '5px'}} onClick={this.handleClick}>Chat</Button>
+              <Button color='blue' style={{ margin: '5px'}} onClick={this.handleClick}><Icon name="comments" />Chat with your Friends</Button>
             </Segment>
           }
 
