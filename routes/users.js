@@ -58,6 +58,8 @@ module.exports = (datahelper) => {
     console.log(trip);
     datahelper.addTrip(trip).then((data) =>{
       trip.id = data[0];
+
+      console.log('back new trip', trip);
       res.send(trip);
     });
   });
@@ -70,7 +72,7 @@ module.exports = (datahelper) => {
     console.log(trip_id);
     datahelper.queryTrip(trip_id)
       .then((data) => {
-        res.json(data);
+        return res.json(data);
     })
   });
 
@@ -114,7 +116,7 @@ module.exports = (datahelper) => {
     };
     datahelper.addActivities(activity).then((data) =>{
       activity.id = data[0];
-      res.send(activity);
+      return res.send(activity);
       //res.redirect(`/trips/${req.params.tid}`)
     });
   });

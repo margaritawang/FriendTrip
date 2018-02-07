@@ -125,10 +125,10 @@
 }
 
 
-.primary-btn-fab{
-  position: fixed;
-  right: 2em;
-  top: 6.5em;
+.primary-btn{
+  float: right;
+  margin-top: 90px;
+  margin-right: 80px;
 /*  background-color:#F44336;
   width:60px;
   height:60px;

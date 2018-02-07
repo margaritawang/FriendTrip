@@ -44,8 +44,6 @@ class TripsPage extends React.Component {
       submittedEmail: '',
       submittedinviteTrip: ''
     };
-    // Bind any functions here.
-    this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
@@ -54,9 +52,6 @@ class TripsPage extends React.Component {
     this.handleInviteSubmit = this.handleInviteSubmit.bind(this);
     this.handleInviteOpen = this.handleInviteOpen.bind(this);
     this.handleInviteClose = this.handleInviteClose.bind(this);
-  }
-  toggle() {
-    this.setState({ percent: this.state.percent === 20 ? 100 : 0 })
   }
 
   handleChange(e, {name, value}) {
@@ -69,7 +64,7 @@ class TripsPage extends React.Component {
       modalOpen: true
     })
   }
-  
+
   handleClose() {
     this.setState({
       ...this.state,
@@ -141,7 +136,7 @@ class TripsPage extends React.Component {
       inviteModalOpen: true
     })
   }
-  
+
   handleInviteClose() {
     this.setState({
       ...this.state,
@@ -158,8 +153,8 @@ class TripsPage extends React.Component {
     const { user, trips } = this.props;
     console.log(user);
     console.log(trips);
-    const ownedTrips = trips.filter(trip => Number(trip.owner_id) === user.id);
-    const tripOptions = ownedTrips.map(trip => {
+    const ownedTrips = trips && trips.filter(trip => Number(trip.owner_id) === user.id);
+    const tripOptions = trips && ownedTrips.map(trip => {
       return ({
         key: trip.id,
         text: trip.location,
@@ -169,12 +164,12 @@ class TripsPage extends React.Component {
     })
     // console.log('heres your options:', tripOptions);
 
-    const invitedTrips = trips.filter(trip => Number(trip.owner_id) !== user.id);
+    const invitedTrips = trips && trips.filter(trip => Number(trip.owner_id) !== user.id);
     const { location, start_date, end_date, submittedLocation, submittedStart_date, submittedEnd_date, email, inviteTrip } = this.state;
     const panes = [
       { menuItem: 'My Trips', render: () => <Tab.Pane>{
         <Grid container columns={3} style={{ marginTop: '2em' }} stackable>
-          {ownedTrips.map(trip => {
+          {trips && ownedTrips.map(trip => {
             return (
               <Grid.Column key={trip.id}>
                 <TripBadge key={trip.id} trip={trip} handleDelete={this.handleDelete}/>
@@ -208,7 +203,7 @@ class TripsPage extends React.Component {
               FriendTrip
             </Menu.Item>
             <Menu.Item as='a' position='right'><Icon name='user' /> Profile</Menu.Item>
-            <Modal trigger={<Menu.Item as='a' onClick={this.handleInviteOpen}><Icon name='send' />Invite Friends</Menu.Item>}  
+            <Modal trigger={<Menu.Item as='a' onClick={this.handleInviteOpen}><Icon name='send' />Invite Friends</Menu.Item>}
               open={this.state.inviteModalOpen}
               onClose={this.handleInviteClose}
               >
