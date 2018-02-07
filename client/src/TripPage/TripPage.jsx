@@ -152,7 +152,7 @@ class TripPage extends React.Component {
       inviteModalOpen: true
     })
   }
-  
+
   handleInviteClose() {
     this.setState({
       ...this.state,
@@ -211,7 +211,7 @@ class TripPage extends React.Component {
               FriendTrip
             </Menu.Item>
             <Menu.Item as='a' position='right'><Icon name='user' /> Profile</Menu.Item>
-            <Modal trigger={<Menu.Item as='a' onClick={this.handleInviteOpen}><Icon name='send' />Invite Friends</Menu.Item>}  
+            <Modal trigger={<Menu.Item as='a' onClick={this.handleInviteOpen}><Icon name='send' />Invite Friends</Menu.Item>}
               open={this.state.inviteModalOpen}
               onClose={this.handleInviteClose}
               >
@@ -222,7 +222,7 @@ class TripPage extends React.Component {
                   <Form.Field id='form-button-control-public' control={Button} content='Invite'/>
                 </Form>
               </Modal.Content>
-            </Modal>            
+            </Modal>
           </Container>
         </Menu>
 
@@ -275,7 +275,7 @@ function mapStateToProps(state) {
   const {user} = state.authentication;
   const {msgs} = state.chat;
   const {activities, recommendations, trips} = state.users;
-  return {user, activities, msgs, recommendations};
+  return {user, activities, msgs, recommendations, trips};
 }
 
 const connectedTripPage = connect(mapStateToProps)(TripPage);
