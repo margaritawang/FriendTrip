@@ -128,7 +128,7 @@ class LoginPage extends React.Component {
           </Segment>
           <Form size='large' onSubmit={this.handleSubmit}>
             <Segment  stacked="stacked">
-              <Form.Input name='username' fluid="fluid" icon='user' iconPosition='left' placeholder='Account Number' onChange={this.handleChange}/> {submitted && !username && <div className="help-block">Username is required</div>}
+              <Form.Input name='username' fluid="fluid" icon='user' iconPosition='left' placeholder='Username' onChange={this.handleChange}/> {submitted && !username && <div className="help-block">Username is required</div>}
               <Form.Input name='password' onChange={this.handleChange} fluid="fluid" icon='lock' iconPosition='left' placeholder='Password' type='password'/> {submitted && !password && <div className="help-block">Password is required</div>}
               <Button animated="animated">
                 <Button.Content visible="visible">Log In</Button.Content>
@@ -148,7 +148,7 @@ class LoginPage extends React.Component {
               </Button>
             </Segment>
           </Form>
-            <Segment secondary inverted color='blue' textAlign='center'>
+            <Segment secondary inverted color='blue' textAlign='center' >
 
                 <Header as={Link} to='/register'><p style={{
                     display: 'inline-block'

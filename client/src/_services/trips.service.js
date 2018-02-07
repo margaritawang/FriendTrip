@@ -9,7 +9,8 @@ export const tripService = {
   deleteActivity,
   getAllComments,
   createNewComment,
-  deleteTrip
+  deleteTrip,
+  updateActivity
 }
 
 function getAllTrips(user) {
@@ -90,3 +91,10 @@ function createNewComment(user, activityId, comment){
   console.log("INFO --------", info);
   return axios.post(`/api/activities/${activityId}/comments`, info);
 }
+
+function updateActivity(activity){
+  console.log('dnd activity', activity.trip_id);
+  return axios.put(`/api/trips/${activity.trip_id}/activities`, activity)
+}
+
+
