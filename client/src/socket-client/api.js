@@ -33,8 +33,8 @@ export function chatMiddleware(store) {
   }
 }
 
-export default function wrapStore(store) {
-  socket = io.connect(`http://localhost:8090`);
+export default function wrapStore(store, address) {
+  socket = io.connect(address);
   console.log("try to connnect 1")
   socket.on('message', data => {
     if (data.type === 'message') {

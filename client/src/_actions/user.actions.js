@@ -66,6 +66,7 @@ function login(username, password) {
     dispatch(request({username}));
     userService.login(username, password).then(user => {
       dispatch(success(user));
+
       history.push('/trips');
     }, error => {
       dispatch(failure(error));
@@ -308,6 +309,7 @@ function getAllComments(user, activity){
 
     tripService.getAllComments(user, activity)
       .then((response) => {
+        console.log('get all comments', response);
         dispatch(success(response));
       })
       .catch(error => dispatch(failure(error)));

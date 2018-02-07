@@ -152,7 +152,7 @@ class TripPage extends React.Component {
       inviteModalOpen: true
     })
   }
-  
+
   handleInviteClose() {
     this.setState({
       ...this.state,
@@ -179,11 +179,11 @@ class TripPage extends React.Component {
   }
 
   render() {
-    const { recommendations, user, dispatch, activities, msgs, match:{params: {id: tripId}} } = this.props;
+    const { recommendations, user, dispatch, activities, msgs, match:{params: {id: tripId}}, comments } = this.props;
     const { description, email } = this.state;
     const panes = [
       { menuItem: 'Recommendations', render: () => <div className='recommendations'><Tab.Pane><Recommendation tripid={tripId}/></Tab.Pane></div> },
-      { menuItem: 'Saved Activities', render: () => <div className='recommendations'><Tab.Pane><TripActivityPage handleDelete={this.handleDelete} activities={activities} /></Tab.Pane></div> },
+      { menuItem: 'Saved Activities', render: () => <div className='recommendations'><Tab.Pane><TripActivityPage handleDelete={this.handleDelete} /></Tab.Pane></div> },
       { menuItem: 'My Trip', render: () => <Tab.Pane><CalendarPage tripId={tripId}/></Tab.Pane> },
     ];
 
@@ -211,7 +211,7 @@ class TripPage extends React.Component {
               FriendTrip
             </Menu.Item>
             <Menu.Item as='a' position='right'><Icon name='user' /> Profile</Menu.Item>
-            <Modal trigger={<Menu.Item as='a' onClick={this.handleInviteOpen}><Icon name='send' />Invite Friends</Menu.Item>}  
+            <Modal trigger={<Menu.Item as='a' onClick={this.handleInviteOpen}><Icon name='send' />Invite Friends</Menu.Item>}
               open={this.state.inviteModalOpen}
               onClose={this.handleInviteClose}
               >
@@ -222,7 +222,7 @@ class TripPage extends React.Component {
                   <Form.Field id='form-button-control-public' control={Button} content='Invite'/>
                 </Form>
               </Modal.Content>
-            </Modal>            
+            </Modal>
           </Container>
         </Menu>
 
@@ -274,8 +274,8 @@ class TripPage extends React.Component {
 function mapStateToProps(state) {
   const {user} = state.authentication;
   const {msgs} = state.chat;
-  const {activities, recommendations, trips} = state.users;
-  return {user, activities, msgs, recommendations};
+  const {activities, recommendations, trips, comments} = state.users;
+  return {user, activities, msgs, recommendations, comments};
 }
 
 const connectedTripPage = connect(mapStateToProps)(TripPage);

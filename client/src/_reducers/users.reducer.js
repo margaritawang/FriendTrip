@@ -116,7 +116,7 @@ export function users(state = { trips: [], activities: [], recommendations: [], 
         loading: false,
         error: ''
       }
-    
+
     case userConstants.INVITE_FRIEND_FAILURE:
       return {
         ...state,
@@ -172,6 +172,7 @@ export function users(state = { trips: [], activities: [], recommendations: [], 
       }
 
     case userConstants.DELETE_ACTIVITY_SUCCESS:
+      console.log('delete 1, comments residual', comments);
       return {
         ...state,
         loading: false,
@@ -194,57 +195,11 @@ export function users(state = { trips: [], activities: [], recommendations: [], 
       }
 
     case userConstants.GETALL_COMMENTS_SUCCESS:
-      const currentComments = state.comments;
-
-      // const filterNewComments = ((stateComments, actionComments) => {
-      //   if (stateComments.length === 0) {
-
-
-      //     // console.log('statecomments:', currentComments);
-      //     return actionComments;
-      //   }else{
-      //     let result = [];
-      //     for(let i = 0; i < stateComments.length; i++){
-      //       for(let j = 0; j < actionComments.length; j++){
-      //         // console.log("I element: ", actionComments[i].id)
-      //         // console.log("J element: ", stateComments[j].id)
-      //         console.log("RESULT", result);
-      //         if(stateComments[i].id !== actionComments[j].id){
-      //           result.push(actionComments[i]);
-      //         }
-      //       }
-      //     }
-      //     return stateComments.concat(result);
-      //   }
-
-          // return actionComments.filter((comment) => {
-          //   for(let element of stateComments){
-          //     console.log('element--------', element);
-          //     if(element !== comment){
-          //       return true;
-          //     }
-          //   }
-          // })
-      // })
-
-      // console.log(filterNewComments(currentComments, action.comments));
-
-      // const filteredNewComments = action.comments.filter((comment) => {
-      //   if(state.comments.length > 0){
-      //     for(let element of currentComments){
-      //       if(element.id !== comment.id){
-      //         return comment;
-      //       }
-      //     }
-      //   }else{
-      //     return comment;
-      //   }
-      // })
-      // console.log("Filtered New Comments: ", filteredNewComments);
+      console.log('reduced comments', action.comments);
       return {
         ...state,
         loading: false,
-        comments: currentComments.concat(action.comments),
+        comments: action.comments,
         error: ''
       }
 
@@ -263,7 +218,7 @@ export function users(state = { trips: [], activities: [], recommendations: [], 
       }
 
     case userConstants.CREATE_NEW_COMMENT_SUCCESS:
-
+      console.log("reducued comment", action.comment);
       return {
         ...state,
         loading: false,
@@ -329,7 +284,7 @@ export function users(state = { trips: [], activities: [], recommendations: [], 
             ...state,
             loading: false,
             error: '',
-            activities: state.activities.filter(activity => activity.id !== action.activityID)
+            activities: activities.filter(activity => activity.id !== action.activityID)
           }
           default:
       return state

@@ -99,7 +99,7 @@ module.exports = (datahelper) => {
     console.log('selecting activities in ',trip_id);
     datahelper.getActivities(trip_id).
     then((data) => {
-      console.log(data);
+      console.log('get all acts',data);
       return res.json(data);
     });
   });
@@ -144,7 +144,15 @@ module.exports = (datahelper) => {
     datahelper.getComments(activity_id).
     then((data) => {
       console.log("Comments: ", data);
-      return res.json(data);
+      if (data.length > 0) {
+        data.forEach((item, index) => {
+          console.log(`each ${index}`, item);
+        })
+        return res.json(data);
+      }
+      else {
+        return res.send(404);
+      }
     });
   });
 
@@ -163,9 +171,11 @@ module.exports = (datahelper) => {
       activity_id: req.params.aid,
       owner_id: req.session.user_id
     };
+    console.log('posting comment-----------', comment);
     datahelper.postComments(comment).then((data) => {
       // comment.id = data[0];
       // res.send(comment);
+      console.log('after helper comment--------', data[0]);
       res.send(data[0]);
     });
   });

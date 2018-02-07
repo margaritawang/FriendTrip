@@ -36,13 +36,18 @@ class CommentContainer extends React.Component {
   }
 
   render() {
-    const comments = this.props.comments;
+    const { comments }  = this.props;
+    {console.log("container commnents" ,typeof comments)}
     const activityId = this.props.activityId;
+    console.log('activityId',activityId);
+
+
     const { post } = this.state;
     return (
       <Comment.Group size='small'>
         <Header>Comments</Header>
-        {comments.map((comment) => {
+        {comments && comments.map((comment) => {
+          console.log(comment.activity_id)
           if(Number(comment.activity_id) === activityId ){
             return (<CommentComponent key={comment.id} comment={comment} />)
           }
@@ -58,8 +63,10 @@ class CommentContainer extends React.Component {
 
 function mapStateToProps(state){
   const { user } = state.authentication;
+  const { comments } =state.users;
   return {
-    user
+    user,
+    comments
   };
 }
 
