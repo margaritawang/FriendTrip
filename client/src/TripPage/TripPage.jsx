@@ -25,7 +25,8 @@ import {
   TextArea,
   Input,
   Modal,
-  Tab
+  Tab,
+  Progress
 } from 'semantic-ui-react'
 import { TripActivityPage } from '../TripActivityPage'
 import { CalendarPage } from '../CalendarPage';
@@ -36,8 +37,14 @@ class TripPage extends React.Component {
     this.state = {
       description: '',
       modalOpen: false,
-      message: ''
+      message: '',
+      percent: 20,
+      inviteModalOpen: false,
+      email: '',
+      submittedEmail: '',
+      submittedinviteTrip: ''
     };
+
     // Bind any functions here.
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -46,7 +53,16 @@ class TripPage extends React.Component {
     this.sendMessage = this.sendMessage.bind(this);
     this.changeMessage = this.changeMessage.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.toggle = this.toggle.bind(this);
+    this.handleInviteSubmit = this.handleInviteSubmit.bind(this);
+    this.handleInviteOpen = this.handleInviteOpen.bind(this);
+    this.handleInviteClose = this.handleInviteClose.bind(this);
   }
+
+  toggle() {
+    this.setState({ percent: this.state.percent === 20 ? 100 : 0 })
+  }
+
 
   handleChange(e, {name, value}) {
     this.setState({[name]: value})
@@ -75,6 +91,7 @@ class TripPage extends React.Component {
     dispatch(userActions.createNewActivity(user, activityInfo))
 
     this.setState({
+      ...this.state,
       submittedDescription: description,
       description: '',
       modalOpen: false
@@ -95,17 +112,51 @@ class TripPage extends React.Component {
     })
   }
 
-  handleOpen() {
+  // handleOpen() {
+  //   this.setState({
+  //     ...this.state,
+  //     modalOpen: true
+  //   })
+  // }
+
+  // handleClose() {
+  //   this.setState({
+  //     ...this.state,
+  //     modalOpen: false
+  //   })
+  // }
+  handleInviteSubmit(e){
+    console.log('inviting friends!!!');
+    e.preventDefault();
+    const {email} = this.state;
+    const tripId = this.props.match.params.id;
+    const {dispatch, user} = this.props;
+    const tripInvite = {
+      tripid: tripId,
+      email: email,
+      user: user.id
+    };
+    // console.log('inviting those guys:', tripInvite);
+    dispatch(userActions.inviteFriend(tripInvite));
     this.setState({
       ...this.state,
-      modalOpen: true
+      inviteModalOpen: false,
+      email: '',
+      submittedEmail: email
     })
   }
 
-  handleClose() {
+  handleInviteOpen() {
     this.setState({
       ...this.state,
-      modalOpen: false
+      inviteModalOpen: true
+    })
+  }
+  
+  handleInviteClose() {
+    this.setState({
+      ...this.state,
+      inviteModalOpen: false
     })
   }
 
@@ -118,22 +169,22 @@ class TripPage extends React.Component {
   componentDidMount() {
     const {user} = this.props;
     const tripId = this.props.match.params.id;
-    this.props.dispatch(userActions.getAllActivities(user, tripId));
-    this.props.dispatch(userActions.getRecommendation(this.props.match.params.id));
+    if (user && tripId) {
+      this.props.dispatch(userActions.getAllActivities(user, tripId));
+    }
+
+    if (tripId) {
+      this.props.dispatch(userActions.getRecommendation(tripId));
+    }
   }
 
   render() {
-    const { user } = this.props;
-    const { dispatch } = this.props;
-    const { description } = this.state;
-    const { activities } = this.props;
-    const tripId = this.props.match.params.id;
-    const { msgs } = this.props;
-    const { recommendations } = this.props;
+    const { recommendations, user, dispatch, activities, msgs, match:{params: {id: tripId}} } = this.props;
+    const { description, email } = this.state;
     const panes = [
-      { menuItem: 'Recommendations', render: () => <Tab.Pane><Recommendation dispatch={dispatch} user={user} tripid={tripId} recommendations={recommendations} activities={activities}/></Tab.Pane> },
-      { menuItem: 'Saved Activities', render: () => <Tab.Pane><TripActivityPage handleDelete={this.handleDelete} activities={activities} /></Tab.Pane> },
-      { menuItem: 'My Trip', render: () => <Tab.Pane><Calendar tripId={tripId}/></Tab.Pane> },
+      { menuItem: 'Recommendations', render: () => <div className='recommendations'><Tab.Pane><Recommendation tripid={tripId}/></Tab.Pane></div> },
+      { menuItem: 'Saved Activities', render: () => <div className='recommendations'><Tab.Pane><TripActivityPage handleDelete={this.handleDelete} activities={activities} /></Tab.Pane></div> },
+      { menuItem: 'My Trip', render: () => <Tab.Pane><CalendarPage tripId={tripId}/></Tab.Pane> },
     ];
 
     const megs =
@@ -160,13 +211,25 @@ class TripPage extends React.Component {
               FriendTrip
             </Menu.Item>
             <Menu.Item as='a' position='right'><Icon name='user' /> Profile</Menu.Item>
-            <Menu.Item as='a'><Icon name='send' />Invite Friends</Menu.Item>
+            <Modal trigger={<Menu.Item as='a' onClick={this.handleInviteOpen}><Icon name='send' />Invite Friends</Menu.Item>}  
+              open={this.state.inviteModalOpen}
+              onClose={this.handleInviteClose}
+              >
+              <Modal.Header>Invite Your Friends to Help Plan the Trip!</Modal.Header>
+              <Modal.Content>
+                <Form onSubmit={this.handleInviteSubmit}>
+                  <Form.Field id='form-input-control-email' control={Input} name='email' label='Email' placeholder='email@example.com' value={email} onChange={this.handleChange} required/>
+                  <Form.Field id='form-button-control-public' control={Button} content='Invite'/>
+                </Form>
+              </Modal.Content>
+            </Modal>            
           </Container>
         </Menu>
-        <Tab panes={panes} style={{ marginTop: '7em' }} />
+
+        <div className="primary-btn">
           <Modal trigger={<Button icon='add' onClick={this.handleOpen} className="primary-btn-fab"/>}
-              open={this.state.modalOpen}
-              onClose={this.handleClose}
+            open={this.state.modalOpen}
+            onClose={this.handleClose}
             >
             <Modal.Header>Create an Activity</Modal.Header>
             <Modal.Content>
@@ -176,20 +239,33 @@ class TripPage extends React.Component {
               </Form>
             </Modal.Content>
           </Modal>
-          <br/>
+        </div>
 
-          <div>
-            <div className='chatBox'>
-              <MessageList messages={msgs} />
-              <Form onSubmit={this.sendMessage}>
-                <Form.Field>
-                  <label></label>
-                  <input placeholder='Write Something Here...' onChange={this.changeMessage}/>
-                </Form.Field>
-                <Button type='submit'>Message</Button>
-              </Form>
-            </div>
-          </div>
+        <Grid>
+
+          <Grid.Row>
+            <Container>
+              <Tab panes={panes} style={{ marginTop: '7em'}} />
+            </Container>
+          </Grid.Row>
+          <Grid.Row>
+              <div className='chatBox'>
+                <div className='chat-top'>
+                  <div className='chat-header'>
+                    <Header inverted as='h3' Messages="Messages">MESSAGES</Header>
+                  </div>
+                </div>
+                <MessageList messages={msgs} />
+                <Form onSubmit={this.sendMessage}>
+                  <Form.Field>
+                    <label></label>
+                    <input placeholder='Write Something Here...' onChange={this.changeMessage}/>
+                  </Form.Field>
+                  <Button type='submit'>Message</Button>
+                </Form>
+              </div>
+          </Grid.Row>
+        </Grid>
       </div>
     );
   }
@@ -197,9 +273,8 @@ class TripPage extends React.Component {
 
 function mapStateToProps(state) {
   const {user} = state.authentication;
-  const {trips} = state.users;
   const {msgs} = state.chat;
-  const {activities, recommendations} = state.users;
+  const {activities, recommendations, trips} = state.users;
   return {user, activities, msgs, recommendations};
 }
 

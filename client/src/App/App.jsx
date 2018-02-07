@@ -19,10 +19,10 @@ class App extends React.Component {
     super(props);
 
     const {dispatch} = this.props;
-    history.listen((location, action) => {
-      // clear alert on location change
-      dispatch(alertActions.clear());
-    });
+    // history.listen((location, action) => {
+    //   // clear alert on location change
+    //   dispatch(alertActions.clear());
+    // });
   }
   render() {
     const {alert} = this.props;

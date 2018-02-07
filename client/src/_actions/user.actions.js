@@ -15,6 +15,7 @@ export const userActions = {
   getAllTrips,
   createNewTrip,
   deleteTrip,
+  inviteFriend,
   getAllActivities,
   createNewActivity,
   getAllComments,
@@ -42,7 +43,7 @@ function face(buffer) {
       }
       else {
         dispatch(success(data));
-        history.push('/');
+        history.push('/trips');
       }
       }, error => {
       dispatch(failure("error"));
@@ -180,7 +181,9 @@ function createNewTrip(user, tripInfo) {
 
         tripService.createNewTrip(user, tripInfo)
             .then((response) => {
+                console.log("new trip data", response.data);
                 dispatch(success(response.data));
+              
             })
             .catch(error => dispatch(failure(error)));
         // dispatch(success(tripInfo));
@@ -208,6 +211,22 @@ function deleteTrip(tripid) {
   function request() { return { type: userConstants.DELETE_TRIP_REQUEST } }
   function success(tripid) { return { type: userConstants.DELETE_TRIP_SUCCESS, tripid } }
   function failure() { return { type: userConstants.DELETE_TRIP_FAILURE } }
+}
+
+function inviteFriend(inviteInfo) {
+  return dispatch => {
+    dispatch(request());
+
+    tripService.inviteFriend(inviteInfo)
+    .then(() => {
+      dispatch(success());
+    }).catch(error => {
+      dispatch(failure());
+    })
+  }
+  function request() { return { type: userConstants.INVITE_FRIEND_REQUEST }}
+  function success() { return { type: userConstants.INVITE_FRIEND_SUCCESS }}
+  function failure() { return { type: userConstants.INVITE_FRIEND_FAILURE }}
 }
 
 function getAllActivities(user, trip) {

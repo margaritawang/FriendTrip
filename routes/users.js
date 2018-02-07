@@ -19,6 +19,16 @@ module.exports = (datahelper) => {
     })
   });
 
+  router.post('/friends/:tid', (req, res) => {
+    let trip_id = req.params.tid;
+    let email = req.body.email;
+    console.log(req.body);
+    datahelper.inviteFriend(trip_id,email). then((data) => {
+      console.log(data);
+    })
+    return res.send(200);
+  })
+
 
   // get all trips that belong to a given user
   router.get('/users/:uid/trips', (req, res) => {
@@ -48,6 +58,8 @@ module.exports = (datahelper) => {
     console.log(trip);
     datahelper.addTrip(trip).then((data) =>{
       trip.id = data[0];
+
+      console.log('back new trip', trip);
       res.send(trip);
     });
   });
@@ -60,7 +72,7 @@ module.exports = (datahelper) => {
     console.log(trip_id);
     datahelper.queryTrip(trip_id)
       .then((data) => {
-        res.json(data);
+        return res.json(data);
     })
   });
 
@@ -104,7 +116,7 @@ module.exports = (datahelper) => {
     };
     datahelper.addActivities(activity).then((data) =>{
       activity.id = data[0];
-      res.send(activity);
+      return res.send(activity);
       //res.redirect(`/trips/${req.params.tid}`)
     });
   });

@@ -6,10 +6,10 @@ export class MessageList extends Component {
   render() {
     const messages = this.props.messages
     const renderMessages = messages.map((message) => {
-      return (<Message msg={message}/>)
+      return (<div className='chat-msg'><Message msg={message}/> </div>)
     })
     return (<Comment.Group>
-      <Header as='h3' Messages="Messages">messages</Header>
+
       {renderMessages}
     </Comment.Group>)
   }
