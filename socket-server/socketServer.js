@@ -39,6 +39,14 @@ io.on('connection', (client) => {
     }
     client.broadcast.emit('message', sendData);
   })
+  client.on('invite', (data) => {
+    console.log('invite', data);
+    let sendData = {
+      type: 'invite',
+      data: data
+    }
+    client.broadcast.emit('message', sendData);
+  })
 });
 
 

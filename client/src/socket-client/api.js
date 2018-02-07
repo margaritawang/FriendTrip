@@ -27,8 +27,15 @@ export function chatMiddleware(store) {
       let activityId = action.activityid;
       socket.emit('deleteActivity', activityId);
     }
-
-
+    if (socket && action.type === chatConstants.DELECTING_ACTIVITY) {
+      let activityId = action.activityid;
+      socket.emit('deleteActivity', activityId);
+    }
+    if (socket && action.type === chatConstants.SENDING_INVITE) {
+      console.log('sending invite!!!_---')
+      let invite = action.invite;
+      socket.emit('invite', invite);
+    }
     return result;
   }
 }
@@ -52,6 +59,10 @@ export default function wrapStore(store, address) {
     if (data.type === 'deleteActivity') {
       console.log("receive deleteActivity", data)
       store.dispatch(userActions.receiveDeleteActivity(data.data))
+    }
+    if (data.type === 'invite') {
+      console.log("receive invite", data)
+      store.dispatch(userActions.receiveInvite(data.data))
     }
   });
 }

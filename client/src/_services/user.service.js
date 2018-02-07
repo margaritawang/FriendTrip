@@ -9,7 +9,8 @@ export const userService = {
   getById,
   update,
   delete: _delete,
-  faceCompare
+  faceCompare,
+  getUserByEmail
 };
 
 function login(username, password) {
@@ -114,4 +115,16 @@ function handleResponse(response) {
     return Promise.reject(response.statusText);
   }
   return response.json();
+}
+
+
+function getUserByEmail(email) {
+  return axios.get(`/api/invite/${email}`).
+  then((data) => {
+    console.log('email get user', data);
+    return Promise.resolve(data.data)
+  }).
+  catch((err) => {
+    Promise.reject(data);
+  })
 }

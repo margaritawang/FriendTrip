@@ -29,7 +29,9 @@ export const userActions = {
   clearAllComments,
   sendComment,
   receiveComment,
-  receiveDeleteActivity
+  receiveDeleteActivity,
+  receiveInvite,
+  sendInvite
 };
 
 function face(buffer) {
@@ -158,6 +160,7 @@ function _delete(id) {
 
 function getAllTrips(user) {
   return dispatch => {
+    console.log('get all trips', user);
     dispatch(request());
 
     tripService.getAllTrips(user).
@@ -217,7 +220,7 @@ function deleteTrip(tripid) {
 function inviteFriend(inviteInfo) {
   return dispatch => {
     dispatch(request());
-
+    console.log('invited info-----------------', inviteInfo);
     tripService.inviteFriend(inviteInfo)
     .then(() => {
       dispatch(success());
@@ -466,7 +469,40 @@ function receiveDeleteActivity(activityID) {
   function receive(activityID) {
     return { type: chatConstants.RECEIVE_DELECT_ACTIVITY, activityID};
   }
+}
+
+function receiveInvite(invite) {
+  return dispatch => {
+      console.log('user--- invite', invite);
+      userService.getUserByEmail(invite.email).
+      then((user) => {
+
+        if (invite.sender.id != user.id) {
+          let userGet = {
+            user: invite.email,
+            id: user.id
+          }
+          console.log('receive-----user',user);
+          dispatch(getAllTrips(userGet));
+          dispatch(receive(invite));
+        }
+      })
+      // dispatch(getAllTrips(invite));
+      dispatch(receive(invite));
+
+  }
+
+  function receive(invite) {
+    return { type: chatConstants.RECEIVE_INVITE, invite}
+  }
+}
 
 
-
+function sendInvite(invite) {
+  return dispatch => {
+    dispatch(send(invite));
+  }
+  function send(invite) {
+    return { type: chatConstants.SENDING_INVITE, invite}
+  }
 }

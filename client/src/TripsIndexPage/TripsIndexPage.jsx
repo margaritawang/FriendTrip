@@ -119,7 +119,13 @@ class TripsPage extends React.Component {
       user: user.id
     };
     // console.log('inviting those guys:', tripInvite);
+    const sendData = {
+      email: email,
+      sender: user
+    }
+
     dispatch(userActions.inviteFriend(tripInvite));
+    dispatch(userActions.sendInvite(sendData));
     this.setState({
       ...this.state,
       inviteModalOpen: false,

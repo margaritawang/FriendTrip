@@ -5,6 +5,7 @@ export function users(state = { trips: [], activities: [], recommendations: [], 
   const { activities } = state;
   const { recommendations } = state;
   const { comments } = state;
+  const { trips } = state;
   switch (action.type) {
     case userConstants.GETALL_REQUEST:
       return {
@@ -286,7 +287,14 @@ export function users(state = { trips: [], activities: [], recommendations: [], 
             error: '',
             activities: activities.filter(activity => activity.id !== action.activityID)
           }
-          default:
+        case chatConstants.RECEIVE_INVITE:
+          console.log('receive invite -------', action.invite);
+          return {
+            ...state,
+            invited: true,
+            error: '',
+          }
+        default:
       return state
   }
 }
