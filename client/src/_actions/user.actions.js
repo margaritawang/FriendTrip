@@ -181,7 +181,9 @@ function createNewTrip(user, tripInfo) {
 
         tripService.createNewTrip(user, tripInfo)
             .then((response) => {
+                console.log("new trip data", response.data);
                 dispatch(success(response.data));
+              
             })
             .catch(error => dispatch(failure(error)));
         // dispatch(success(tripInfo));

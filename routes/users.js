@@ -58,6 +58,8 @@ module.exports = (datahelper) => {
     console.log(trip);
     datahelper.addTrip(trip).then((data) =>{
       trip.id = data[0];
+
+      console.log('back new trip', trip);
       res.send(trip);
     });
   });

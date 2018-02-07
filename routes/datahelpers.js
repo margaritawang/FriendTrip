@@ -25,8 +25,8 @@ module.exports = function makeDataHelpers(db) {
     addTrip: function(tripinfo){
       return db('trips').returning('id').insert(tripinfo)
       .then((id) => {
-        console.log(typeof(id[0]));
-        return Number(id);
+        // console.log(typeof(id[0]));
+        return id;
       })
     },
 
