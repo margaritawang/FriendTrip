@@ -20,13 +20,13 @@ import {
 } from 'semantic-ui-react'
 
 const HomepageHeading = () => (<Container text="text">
-  <Header as='h1' content='PLAN RIGHT' inverted="inverted" style={{
+  <Header as='h1' content='MAKE YOUR NEXT TRIP, A FRIENDTRIP' inverted="inverted" style={{
       fontSize: '4em',
       fontWeight: 'normal',
       marginBottom: 0,
       marginTop: '3em'
     }}/>
-  <Header as='h2' content='Do whatever you want when you want to.' inverted="inverted" style={{
+  <Header as='h2' content="Invite your friends and make it a trip you'll never forget" inverted="inverted" style={{
       fontSize: '1.7em',
       fontWeight: 'normal',
       marginTop: '1.5em'
@@ -66,11 +66,11 @@ const HomepageContent = () => (
         <Grid.Column width={8}>
           <Header as='h3' style={{
               fontSize: '2em'
-            }}>We Help Companies and Companions</Header>
+            }}>We Help Friends Plan Their Trips</Header>
           <p style={{
               fontSize: '1.33em'
             }}>
-            We can give your company superpowers to do things that they never thought possible. Let us delight your customers and empower your needs... through pure data analytics.
+            We believe that travelling should be fun, so we decided to take all the boring-not-fun things out of it. FriendTrip helps you stay organized and plan your trip - so you can get back to the fun stuff.
           </p>
           <Header as='h3' style={{
               fontSize: '2em'
@@ -78,16 +78,16 @@ const HomepageContent = () => (
           <p style={{
               fontSize: '1.33em'
             }}>
-            Yes that's right, you thought it was the stuff of dreams, but even bananas can be bioengineered.
+            Now that we have your attention - feel free to use FriendTrip as a solo trip planning app. It'll make your next trip a breeze!
           </p>
         </Grid.Column>
         <Grid.Column floated='right' width={6}>
-          <Image bordered="bordered" rounded="rounded" size='large' src='/assets/images/wireframe/white-image.png'/>
+          <Image bordered="bordered" rounded="rounded" size='large' src='https://static.pexels.com/photos/541518/pexels-photo-541518.jpeg'/>
         </Grid.Column>
       </Grid.Row>
       <Grid.Row>
         <Grid.Column textAlign='center'>
-          <Button size='huge'>Check Them Out</Button>
+          <Button size='huge' as={Link} to='/register'>Start Your Next Trip</Button>
         </Grid.Column>
       </Grid.Row>
     </Grid>
