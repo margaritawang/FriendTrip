@@ -44,7 +44,7 @@ class DragCard extends Component {
   render() {
     const { isDragging, connectDragSource, text, isDropped } = this.props;
     return connectDragSource(
-      <div style={{ width: '100%', opacity: isDragging ? 0.5 : 1 }}>
+      <div style={{ opacity: isDragging ? 0.5 : 1 }}>
         {isDropped ? "" : text}
       </div>
     );

@@ -112,8 +112,53 @@
 .chat-top {
   background-color: #57606f;
   padding-bottom: 10px;
-
 }
+
+.chatBox-two.segment{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 266px;
+/*  border: 2px solid #2f3542;
+  background-color: #747d8c;*/
+  padding: 0;
+  max-height: 25vh;
+  overflow: scroll;
+  border-radius: 10px;
+}
+
+.chatBox-two-shown.segment{
+/*  position: fixed;
+  bottom: 0;
+  right: 0;*/
+  width: 250px;
+/*  border: 2px solid #2f3542;
+  background-color: #747d8c;*/
+  padding: 0;
+  max-height: 25vh;
+  border-radius: 10px;
+}
+
+.outer-chat-box-container.segment{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding-top: 2px;
+}
+
+.chatBox-body.segment{
+  width: 100%;
+  max-width: 250px;
+  max-height: 30vh;
+  min-height: 10vh;
+  overflow: scroll;
+}
+
+.close-buton-chat.chat-box{
+  float: right;
+  margin: 3 3 3 3;
+}
+
 .recommendations {
   max-height: 55vh;
   overflow: scroll;

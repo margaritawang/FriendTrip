@@ -466,8 +466,7 @@ function receiveDeleteActivity(activityID) {
   function receive(activityID) {
     return { type: chatConstants.RECEIVE_DELECT_ACTIVITY, activityID};
   }
-
-
+}
 
 function updateActivity(activity){
   return dispatch => {
