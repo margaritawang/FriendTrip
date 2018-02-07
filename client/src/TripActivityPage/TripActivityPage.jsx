@@ -1,21 +1,39 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { ActivityBadge } from '../_components';
 import { Grid } from 'semantic-ui-react';
+import {connect} from 'react-redux';
 
-function TripActivityPage(props){
-  return (
-        <Grid container columns={3} style={{ marginTop: '3em' }} stackable>
-          {
-            props.activities.map(activity => {
-              return (
-                <Grid.Column key={activity.id}>
-                  <ActivityBadge handleDelete={props.handleDelete} key={activity.id} activity={activity}/>
-                </Grid.Column>
-              )
-            })
-          }
-        </Grid>
+class TripActivityPage extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+
+    const { activities } = this.props;
+    console.log('trip act ---------', activities);
+    return (
+      <Grid container columns={3} style={{ marginTop: '3em' }} stackable>
+        {
+          activities && activities.map(activity => {
+            return (
+              <Grid.Column key={activity.id}>
+                <ActivityBadge handleDelete={this.props.handleDelete} key={activity.id} activity={activity}/>
+              </Grid.Column>
+            )
+          })
+        }
+      </Grid>
     )
+  }
 }
 
-export { TripActivityPage };
+
+function mapStateToProps(state) {
+  const { activities} = state.users;
+  return { activities };
+}
+
+const connectedTripActivityPage = connect(mapStateToProps)(TripActivityPage);
+export {
+  connectedTripActivityPage as TripActivityPage
+};

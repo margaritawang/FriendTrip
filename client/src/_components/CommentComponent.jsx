@@ -7,6 +7,7 @@ export class CommentComponent extends React.Component{
   }
   render(){
     const comment = this.props.comment;
+    console.log('cc coment', comment)
     return(
       <Comment>
         <Comment.Avatar src='https://react.semantic-ui.com/assets/images/avatar/small/matt.jpg' />

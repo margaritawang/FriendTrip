@@ -25,7 +25,7 @@ function handleResponse(response){
   if (!response.ok) {
     return Promise.reject(response.statusText);
   }
-
+  console.log("services response", response.statusText);
   return response.json();
 }
 
@@ -78,6 +78,7 @@ function getAllComments(user, activity){
     method: 'GET'
   };
 
+  // return fetch(`/api/activities/${activity.id}/comments`, requestOptions).then(handleResponse);
   return fetch(`/api/activities/${activity.id}/comments`, requestOptions).then(handleResponse);
 }
 

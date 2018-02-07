@@ -95,7 +95,7 @@ const HomepageContent = () => (
 
 class HomePage extends React.Component {
   componentDidMount() {
-    this.props.dispatch(userActions.getAll());
+
   }
   handleDeleteUser(id) {
     return(e) => this.props.dispatch(userActions.delete(id));

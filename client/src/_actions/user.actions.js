@@ -67,6 +67,7 @@ function login(username, password) {
     dispatch(request({username}));
     userService.login(username, password).then(user => {
       dispatch(success(user));
+
       history.push('/trips');
     }, error => {
       dispatch(failure(error));
@@ -309,6 +310,7 @@ function getAllComments(user, activity){
 
     tripService.getAllComments(user, activity)
       .then((response) => {
+        console.log('get all comments', response);
         dispatch(success(response));
       })
       .catch(error => dispatch(failure(error)));
@@ -329,9 +331,12 @@ function getAllComments(user, activity){
 function createNewComment(user, activityId, comment){
   return dispatch => {
     dispatch(request());
-
+    console.log('user', user);
+    console.log('activityId',activityId);
+    console.log('comment', comment);
     tripService.createNewComment(user, activityId, comment)
       .then((response) => {
+
         console.log('backend commnet', response.data)
         dispatch(success(response.data));
         dispatch(send(response.data))

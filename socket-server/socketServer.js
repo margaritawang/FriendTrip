@@ -3,7 +3,7 @@ var io = require('socket.io')();
 var plans = [];
 
 io.on('connection', (client) => {
-  console.log('connected');
+  console.log('new connected');
   client.on('client', (data) => {
     console.log('new message', data);
     let sendData = {

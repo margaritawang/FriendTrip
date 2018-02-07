@@ -41,9 +41,7 @@ class ActivityBadge extends React.Component {
     this.props.dispatch(userActions.getAllComments(user, activity));
   }
 
-  componentWillUnmount(){
-    this.props.dispatch(userActions.clearAllComments());
-  }
+
 
   render() {
     const activity = this.props.activity;
@@ -66,7 +64,7 @@ class ActivityBadge extends React.Component {
           </Card.Meta>
         </Card.Content>
         <Card.Content extra>
-          <CommentContainer activityId={activity.id} comments={comments}/>
+          <CommentContainer activityId={activity.id}/>
         </Card.Content>
       </Card>
     );

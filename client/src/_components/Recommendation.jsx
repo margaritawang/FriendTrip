@@ -16,13 +16,13 @@ class Recommendation extends Component {
   }
   render() {
     // console.log("user", this.props.user);
-    const { user, dispatch, activities, recommendations  } = this.props;
+    const { user, dispatch, activities, recommendations , comments } = this.props;
     const tripId = this.props.tripid;
     // console.log('tripid', this.props.tripid);
     return (
       <Card.Group>
         {
-          user && activities && tripId && recommendations && recommendations.map((item,index) => {
+            user && activities && tripId && recommendations && recommendations.map((item,index) => {
             console.log('render'+ index);
             return (<RecommendationCard  activities={activities} dispatch={dispatch} user={user} tripid={tripId} info={item}/>)
           })
@@ -35,8 +35,8 @@ class Recommendation extends Component {
 
 function mapStateToProps(state) {
   const { user } = state.authentication;
-  const {recommendations, activities} = state.users;
-  return {recommendations, activities, user};
+  const {recommendations, activities, comments} = state.users;
+  return {recommendations, activities, user, comments};
 }
 
 const connectedRecommendation = connect(mapStateToProps)(Recommendation);
