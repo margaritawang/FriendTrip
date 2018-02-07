@@ -13,9 +13,7 @@ const ItemTypes = {
  */
 const cardSource = {
   beginDrag(props) {
-    return {
-      activity: props.text.props.activity
-    };
+    return props.text.props.activity;
   },
 
   endDrag(props, monitor){

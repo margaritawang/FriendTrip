@@ -41,23 +41,33 @@ class CalendarPage extends Component {
       datesArray.push({ date: newDate, activities: [] } );
     }
 
+    const { activities } = this.props;
+    const scheduledActivities = [];
+
+    activities.forEach((activity) => {
+      datesArray.forEach((date) => {
+        if(Date.parse(activity.start_date) === Date.parse(date.date) || Date.parse(activity.end_date) === Date.parse(date.date)){
+          date.activities.push(activity);
+          scheduledActivities.push(activity);
+        }
+      })
+
+      // Activities start or end date matches a date.
+        // Push it to that date's array
+      // else do nothing.
+    })
+
     this.state = {
-      scheduledActivities: [],
+      scheduledActivities: scheduledActivities,
       schedule : datesArray
     }
-  }
-
-  componentDidMount() {
-    const {user} = this.props;
-    this.props.dispatch(userActions.getAllTrips(user));
-    console.log(this.state);
-    console.log("props: ", this.props);
   }
 
   isDropped(activityId){
     // Return True or False depending on if the activity has been dropped into the schedule or not.
     return !!this.state.scheduledActivities.find(element => {
-      return element.activity.id === activityId;
+      return element.id === activityId;
+      // return element.activity.id === activityId;
     });
   }
 
@@ -80,13 +90,15 @@ class CalendarPage extends Component {
       }else{
         // If the 'dropped' activity exists in a different date
         if (value.activities.find(function (val) {
-          return val.activity.id === item.activity.id;
+          return val.id === item.id;
+          // return val.activity.id === item.activity.id;
         })) {
           // Then remove it from that date's activities
           return {
             date: value.date,
             activities: value.activities.filter(function (element) {
-              return element.activity.id != item.activity.id;
+              return element.id != item.id;
+              // return element.activity.id != item.activity.id;
             })
           };
         } else {

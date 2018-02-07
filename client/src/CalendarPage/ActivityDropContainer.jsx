@@ -42,7 +42,7 @@ class ActivityDropContainer extends Component{
     <div date={date} style={{ height: '100px', width: '100%', backgroundColor }} >
       {
         activities.map((activity, index) => {
-          return (<DragCard key={index} text={<ActivityBadgeNoComments activity={activity.activity} />} />);
+          return (<DragCard key={index} text={<ActivityBadgeNoComments activity={activity} />} />);
         })
       }
     </div>
