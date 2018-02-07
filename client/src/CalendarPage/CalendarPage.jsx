@@ -115,10 +115,11 @@ class CalendarPage extends Component {
       schedule : newSchedule
     });
     const newActivity = {
-      ...item.activity,
+      ...item,
       start_date: this.state.schedule[scheduleIndex].date,
       end_date: this.state.schedule[scheduleIndex].date
     }
+    console.log("LITEM: ", item);
     dispatch(userActions.updateActivity(newActivity))
   }
 

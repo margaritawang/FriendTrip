@@ -12,9 +12,9 @@ class CalendarComp extends Component{
     const isDropped = this.props.isDropped;
 
     return (
-      <div>
 
-      <Table basic='very' celled collapsing>
+
+      <Table basic='very' celled collapsing size='large'>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Date</Table.HeaderCell>
@@ -34,7 +34,7 @@ class CalendarComp extends Component{
                     </Header.Content>
                   </Header>
                 </Table.Cell>
-                <Table.Cell key={(-1 * index) - 1}>
+                <Table.Cell style={{ width: '100%'}} fluid key={(-1 * index) - 1}>
                   <ActivityDropContainer key={index} date={element.date} onDrop={(item, element) => {handleDrop(item, element)}} activities={element.activities} isDropped={isDropped}/>
                 </Table.Cell>
               </Table.Row>
@@ -43,7 +43,7 @@ class CalendarComp extends Component{
         }
         </Table.Body>
       </Table>
-      </div>);
+      );
   }
 }
 

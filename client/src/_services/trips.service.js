@@ -81,6 +81,7 @@ function createNewComment(user, activityId, comment){
 }
 
 function updateActivity(activity){
+  console.log('dnd activity', activity.trip_id);
   return axios.put(`/api/trips/${activity.trip_id}/activities`, activity)
 }
 

@@ -39,7 +39,7 @@ class ActivityDropContainer extends Component{
     }
 
     return connectDropTarget(
-    <div date={date} style={{ height: '100px', width: '100%', backgroundColor }} >
+    <div date={date} style={{ minHeight: '70px', width: '100%', backgroundColor }} >
       {
         activities.map((activity, index) => {
           return (<DragCard key={index} text={<ActivityBadgeNoComments activity={activity} />} />);
