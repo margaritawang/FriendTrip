@@ -10,7 +10,8 @@ export const tripService = {
   getAllComments,
   createNewComment,
   deleteTrip,
-  updateActivity
+  updateActivity,
+  getFriends
 }
 
 function getAllTrips(user) {
@@ -19,6 +20,14 @@ function getAllTrips(user) {
   };
 
   return fetch(`/api/users/${user.id}/trips`, requestOptions).then(handleResponse);
+}
+
+function getFriends(tripid) {
+  const requestOptions = {
+    method: 'GET'
+  };
+
+  return fetch(`/api/friends/${tripid}`).then(handleResponse);
 }
 
 function handleResponse(response){

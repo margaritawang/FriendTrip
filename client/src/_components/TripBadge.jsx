@@ -12,11 +12,12 @@ export class TripBadge extends React.Component {
   
   render() {
     const trip = this.props.trip;
+    console.log('trip with friends???', trip);
     return (
       <Card>
         <Image src={trip.imgURL} className="trip-badge-image" />
         <Card.Content>
-          <Header as='h2' onClick={() => { history.push(`/trips/${trip.id}`)}}>
+          <Header as='a' onClick={() => { history.push(`/trips/${trip.id}`)}}>
             {trip.location}
           </Header>
           <Button animated='fade' basic color='red'>
@@ -34,7 +35,7 @@ export class TripBadge extends React.Component {
         <Card.Content extra>
           <a>
             <Icon name='user' />
-            2 Other Friends on this Trip
+            {trip.friends} Other Friends on this Trip
           </a>
         </Card.Content>
       </Card>
