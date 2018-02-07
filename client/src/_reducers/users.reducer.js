@@ -279,14 +279,27 @@ export function users(state = { trips: [], activities: [], recommendations: [], 
           error: ''
         }
 
-        case chatConstants.RECEIVE_DELECT_ACTIVITY:
+      case chatConstants.RECEIVE_DELECT_ACTIVITY:
           return {
             ...state,
             loading: false,
             error: '',
             activities: activities.filter(activity => activity.id !== action.activityID)
           }
-          default:
+
+    case userConstants.UPDATE_ACTIVTY_SUCCESS:
+        return {
+          ...state,
+          activities: [...activities, action.activity]
+          // Probably want to implement a filter function instead and just return back the array with one element changed
+        }
+
+    case userConstants.UPDATE_ACTIVTY_FAILURE:
+        return {
+          ...state,
+          error: action.error
+        }
+    default:
       return state
   }
 }
