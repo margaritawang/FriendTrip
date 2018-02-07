@@ -84,7 +84,7 @@ module.exports = function makeDataHelpers(db) {
     addActivities: function(activityinfo) {
       return db('activities').returning('id').insert(activityinfo)
       .then((id) => {
-        return Number(id);
+        return id;
       })
     },
 

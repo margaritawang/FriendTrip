@@ -183,7 +183,7 @@ function createNewTrip(user, tripInfo) {
             .then((response) => {
                 console.log("new trip data", response.data);
                 dispatch(success(response.data));
-              
+
             })
             .catch(error => dispatch(failure(error)));
         // dispatch(success(tripInfo));
@@ -328,9 +328,12 @@ function getAllComments(user, activity){
 function createNewComment(user, activityId, comment){
   return dispatch => {
     dispatch(request());
-
+    console.log('user', user);
+    console.log('activityId',activityId);
+    console.log('comment', comment);
     tripService.createNewComment(user, activityId, comment)
       .then((response) => {
+
         console.log('backend commnet', response.data)
         dispatch(success(response.data));
         dispatch(send(response.data))

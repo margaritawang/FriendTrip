@@ -16,6 +16,7 @@ export function chatMiddleware(store) {
     }
     if (socket && action.type === chatConstants.SENDING_ACTIVITY) {
       let activity = action.activity;
+      console.log("send activity", action.activity)
       socket.emit('activity', activity);
     }
     if (socket && action.type === chatConstants.SENDING_COMMENT) {
