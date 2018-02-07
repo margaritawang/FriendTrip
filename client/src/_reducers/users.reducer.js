@@ -61,6 +61,31 @@ export function users(state = { trips: [], activities: [], recommendations: [], 
         loading: false
       }
 
+    case userConstants.GET_FRIENDS_REQUEST:
+      return {
+        ...state,
+        loading: true
+      };
+
+    case userConstants.GET_FRIENDS_SUCCESS:
+      const newTrip = state.trips.find((trip) => {
+        return trip.id === Number(action.friends.trip_id);
+      })
+      newTrip.friends = action.friends.friends;
+    
+      return {
+        ...state,
+        trips: [...state.trips, newTrip],
+        loading: false
+      };
+
+    case userConstants.GET_FRIENDS_FAILURE:
+      return {
+        ...state,
+        error: action.error,
+        loading: false
+      }
+
     case userConstants.CREATE_NEW_TRIP_REQUEST:
       return{
         ...state,

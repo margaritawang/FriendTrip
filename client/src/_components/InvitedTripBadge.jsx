@@ -28,7 +28,7 @@ export class InvitedTripBadge extends React.Component {
         <Card.Content extra>
           <a>
             <Icon name='user' />
-            2 Other Friends on this Trip
+            {trip.friends} Other Friends on this Trip
           </a>
         </Card.Content>
       </Card>
