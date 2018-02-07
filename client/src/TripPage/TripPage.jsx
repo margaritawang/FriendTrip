@@ -42,7 +42,8 @@ class TripPage extends React.Component {
       inviteModalOpen: false,
       email: '',
       submittedEmail: '',
-      submittedinviteTrip: ''
+      submittedinviteTrip: '',
+      chatWindow: false
     };
 
     // Bind any functions here.
@@ -57,6 +58,7 @@ class TripPage extends React.Component {
     this.handleInviteSubmit = this.handleInviteSubmit.bind(this);
     this.handleInviteOpen = this.handleInviteOpen.bind(this);
     this.handleInviteClose = this.handleInviteClose.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   toggle() {
@@ -71,6 +73,10 @@ class TripPage extends React.Component {
   sendMessage(e) {
     const {dispatch, user} = this.props
     dispatch(userActions.sendMessage({user: user.user, message: this.state.message}));
+    this.setState({
+      ...this.state,
+      message: ''
+    })
   }
 
   changeMessage(e) {
@@ -112,19 +118,6 @@ class TripPage extends React.Component {
     })
   }
 
-  // handleOpen() {
-  //   this.setState({
-  //     ...this.state,
-  //     modalOpen: true
-  //   })
-  // }
-
-  // handleClose() {
-  //   this.setState({
-  //     ...this.state,
-  //     modalOpen: false
-  //   })
-  // }
   handleInviteSubmit(e){
     console.log('inviting friends!!!');
     e.preventDefault();
@@ -160,6 +153,13 @@ class TripPage extends React.Component {
     })
   }
 
+  handleClick(){
+    this.setState({
+      ...this.state,
+      chatWindow: !this.state.chatWindow
+    })
+  }
+
   handleDelete(activityId) {
     console.log('clicked delete activity', activityId);
     const { dispatch } = this.props;
@@ -180,7 +180,7 @@ class TripPage extends React.Component {
 
   render() {
     const { recommendations, user, dispatch, activities, msgs, match:{params: {id: tripId}} } = this.props;
-    const { description, email } = this.state;
+    const { description, email, message } = this.state;
     const panes = [
       { menuItem: 'Recommendations', render: () => <div className='recommendations'><Tab.Pane><Recommendation tripid={tripId}/></Tab.Pane></div> },
       { menuItem: 'Saved Activities', render: () => <div className='recommendations'><Tab.Pane><TripActivityPage handleDelete={this.handleDelete} activities={activities} /></Tab.Pane></div> },
@@ -249,7 +249,33 @@ class TripPage extends React.Component {
             </Container>
           </Grid.Row>
           <Grid.Row>
-              <div className='chatBox'>
+
+          {
+            this.state.chatWindow ?
+              <Segment color='blue' className="outer-chat-box-container" >
+                <Icon name="minus square" link onClick={this.handleClick} size="large"style={{float: 'right', marginTop: '1px', marginRight: '3px', marginLeft: '3px', marginBottom: '5px'}}/>
+                <Segment color='blue' className="chatBox-body">
+                  <MessageList messages={msgs} />
+                </Segment>
+                <Segment color='blue' className="chatBox-two-shown" textAlign='center'>
+                  <Form onSubmit={this.sendMessage} textAlign='center'>
+                    <Form.Field style={{ margin: '5px'}}>
+                      <label></label>
+                      <input placeholder='Write Something Here...' onChange={this.changeMessage} value={message} required/>
+                    </Form.Field>
+                    <Button type='submit' color='blue' style={{ margin: '5px'}}>Send Message</Button>
+                  </Form>
+                </Segment>
+              </Segment>
+            :
+            <Segment color='blue' className="chatBox-two" textAlign='center'>
+              <Icon name="user" />2 Friends Online
+              <Button color='blue' style={{ margin: '5px'}} onClick={this.handleClick}>Chat</Button>
+            </Segment>
+          }
+
+
+{/*              <div className='chatBox'>
                 <div className='chat-top'>
                   <div className='chat-header'>
                     <Header inverted as='h3' Messages="Messages">MESSAGES</Header>
@@ -263,7 +289,7 @@ class TripPage extends React.Component {
                   </Form.Field>
                   <Button type='submit'>Message</Button>
                 </Form>
-              </div>
+              </div>*/}
           </Grid.Row>
         </Grid>
       </div>
