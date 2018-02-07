@@ -12,15 +12,8 @@ const dateTarget = {
     // props.onDrop(monitor.getItem());
     const date = props.date;
     const item = monitor.getItem();
-    console.log("Item: ", item);
-    console.log("Props: ", props);
-    console.log("Component", component);
     props.onDrop(monitor.getItem(), props);
     return { name: date }
-  },
-
-  hover(props, monitor, component){
-    console.log("HOVER: ", monitor.canDrop());
   }
 }
 
@@ -35,7 +28,7 @@ function collect(connect, monitor) {
 class ActivityDropContainer extends Component{
 
   render(){
-    const { canDrop, isOver, connectDropTarget, activities } = this.props;
+    const { canDrop, isOver, connectDropTarget, activities, isDropped } = this.props;
     const date = this.props.date;
     const isActive = isOver;
     let backgroundColor = '#FFF';
@@ -48,8 +41,8 @@ class ActivityDropContainer extends Component{
     return connectDropTarget(
     <div date={date} style={{ height: '100px', width: '100%', backgroundColor }} >
       {
-        activities.map((activity) => {
-          return (<DragCard text={<ActivityBadgeNoComments activity={activity.activity} />} />);
+        activities.map((activity, index) => {
+          return (<DragCard key={index} text={<ActivityBadgeNoComments activity={activity.activity} />} />);
         })
       }
     </div>

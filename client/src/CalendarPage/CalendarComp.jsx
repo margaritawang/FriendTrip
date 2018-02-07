@@ -5,46 +5,11 @@ import Moment from 'react-moment';
 import { ActivityDropContainer } from './ActivityDropContainer';
 
 class CalendarComp extends Component{
-  // constructor(props){
-  //   super(props);
-
-  //   this.isDropped = this.isDropped.bind(this);
-  //   this.handleDrop = this.handleDrop.bind(this);
-  //   this.state = {
-  //     scheduledActivities: []
-  //   }
-  // }
-
-  // isDropped(activityId){
-  //   return this.state.scheduledActivities.indexOf(activityId) > -1;
-  // }
-
-  // handleDrop(props){
-  //   console.log("Handle Drop: ", props);
-  // }
 
   render(){
-    // const tripId = this.props.tripId;
-    // const trips = this.props.trips;
-    // const trip = trips.filter(
-    //   (trip) => {
-    //     if(trip.id === Number(tripId)) {
-    //       return true
-    //     }
-    //   })[0];
-    // const datesArray = [];
-    // console.log(trip);
-    // const numberOfDays = Math.round(Math.abs((Date.parse(trip.start_date) - Date.parse(trip.end_date))/(24*60*60*1000)));
-    // const startDate = Date.parse(trip.start_date);
-    // const dateOfStartDate = new Date(startDate);
-    // for(let i = 0; i < numberOfDays; i++){
-    //   let newDate = new Date(dateOfStartDate.getFullYear(), dateOfStartDate.getMonth(), (dateOfStartDate.getDay() + i));
-    //   datesArray.push({ date: newDate, activities: [] } );
-    // }
-    // console.log(datesArray);
-
     const datesArray = this.props.schedule;
     const handleDrop = this.props.handleDrop;
+    const isDropped = this.props.isDropped;
 
     return (
       <div>
@@ -70,7 +35,7 @@ class CalendarComp extends Component{
                   </Header>
                 </Table.Cell>
                 <Table.Cell key={(-1 * index) - 1}>
-                  <ActivityDropContainer key={index} date={element.date} onDrop={(item, element) => {handleDrop(item, element)}} activities={element.activities}/>
+                  <ActivityDropContainer key={index} date={element.date} onDrop={(item, element) => {handleDrop(item, element)}} activities={element.activities} isDropped={isDropped}/>
                 </Table.Cell>
               </Table.Row>
             )

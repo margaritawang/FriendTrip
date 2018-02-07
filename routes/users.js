@@ -109,6 +109,17 @@ module.exports = (datahelper) => {
     });
   });
 
+  router.put('/trips/:tid/activities', (req, res) => {
+    console.log(req.body);
+    let activity = {
+      start_date: req.body.start_date,
+      end_date: req.body.end_date
+    }
+    datahelper.updateActivity(activity, req.body.id).then((data) => {
+      console.log(data);
+    })
+  })
+
   router.get('/recommendations/:tid', (req, res) => {
     let tripid = req.params.tid;
 

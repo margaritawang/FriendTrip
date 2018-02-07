@@ -13,8 +13,6 @@ const ItemTypes = {
  */
 const cardSource = {
   beginDrag(props) {
-    console.log("Begin Dragging: ", props);
-    // props.text.props.activity
     return {
       activity: props.text.props.activity
     };
@@ -22,12 +20,7 @@ const cardSource = {
 
   endDrag(props, monitor){
     const item = monitor.getItem()
-    console.log("DRAG ITEM: ", item);
     const dropResult = monitor.getDropResult()
-    console.log("Drop Result: ", dropResult);
-    if (dropResult){
-      console.log(`You dropped ${item.activity} into ${dropResult.name}`, item.activity)
-    }
   }
 };
 
@@ -52,7 +45,6 @@ const propTypes = {
 class DragCard extends Component {
   render() {
     const { isDragging, connectDragSource, text, isDropped } = this.props;
-    console.log("Is Dropped DragBadge: ", isDropped);
     return connectDragSource(
       <div style={{ width: '100%', opacity: isDragging ? 0.5 : 1 }}>
         {isDropped ? "" : text}

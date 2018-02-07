@@ -178,7 +178,7 @@ function mapStateToProps(state) {
   const {trips} = state.users;
   const {msgs} = state.chat;
   const {activities, recommendations} = state.users;
-  return {user, activities, msgs, recommendations};
+  return {user, activities, msgs, recommendations, trips};
 }
 
 const connectedTripPage = connect(mapStateToProps)(TripPage);

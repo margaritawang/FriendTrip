@@ -24,7 +24,8 @@ export const userActions = {
   sendActivity,
   receiveActivity,
   getRecommendation,
-  clearAllComments
+  clearAllComments,
+  updateActivity
 };
 
 function face(buffer) {
@@ -368,4 +369,20 @@ function clearAllComments(){
     return { type: userConstants.CLEAR_ALL_COMMENTS, comments: []};
   }
 
+}
+
+function updateActivity(activity){
+  return dispatch => {
+    tripService.updateActivity(activity)
+      .then((response) => {
+        dispatch(success(response.data));
+      })
+      .catch(error => dispatch(failure(error)));
+  }
+  function success(activities) {
+    return {type: userConstants.UPDATE_ACTIVITY_SUCCESS, activities}
+  }
+  function failure(error) {
+    return {type: userConstants.UPDATE_ACTIVITY_FAILURE, error}
+  }
 }
