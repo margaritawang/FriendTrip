@@ -23,12 +23,8 @@ import {
   TextArea,
   Input,
   Modal,
-<<<<<<< HEAD
-  Progress
-=======
   Tab,
   Select
->>>>>>> feature/invitefriends
 } from 'semantic-ui-react'
 
 class TripsPage extends React.Component {
@@ -42,15 +38,11 @@ class TripsPage extends React.Component {
       submittedStart_date: '',
       submittedEnd_date: '',
       modalOpen: false,
-<<<<<<< HEAD
-      percent: 20
-=======
       inviteModalOpen: false,
       email: '',
       inviteTrip: '',
       submittedEmail: '',
       submittedinviteTrip: ''
->>>>>>> feature/invitefriends
     };
     // Bind any functions here.
     this.toggle = this.toggle.bind(this);
@@ -125,7 +117,7 @@ class TripsPage extends React.Component {
     const {email, inviteTrip} = this.state;
     const {trips} = this.props;
     const {dispatch, user} = this.props;
-    trips.filter(trip => Number(trip.owner_id) === user.id);
+    // trips.filter(trip => Number(trip.owner_id) === user.id);
     const tripInvite = {
       tripid: inviteTrip,
       email: email,
@@ -223,9 +215,9 @@ class TripsPage extends React.Component {
               <Modal.Header>Invite Your Friends!</Modal.Header>
               <Modal.Content>
                 <Form onSubmit={this.handleInviteSubmit}>
-                  <Form.Field id='form-input-control-email' control={Input} name='email' label='Email' placeholder='Email' value={email} onChange={this.handleChange} required/>
+                  <Form.Field id='form-input-control-email' control={Input} name='email' label='Email' placeholder='email@example.com' value={email} onChange={this.handleChange} required/>
                   <Form.Select id='form-input-control-inviteTrip' name='inviteTrip' control={Select} fluid label='Select A Trip' options={tripOptions} onChange={this.handleChange} required/>
-                  <Form.Field id='form-button-control-public' control={Button} content='Invite'/>
+                  <Form.Field id='form-button-control-public' control={Button} content='Invite' Icon name='group'/>
                 </Form>
               </Modal.Content>
             </Modal>
@@ -242,7 +234,7 @@ class TripsPage extends React.Component {
                 <Form.Field id='form-input-control-first-name' control={Input} name='location' label='Location' placeholder='Location' value={location} onChange={this.handleChange} required/>
                 <Form.Field id='form-input-control-start-date' control={Input} name='start_date' label='Start Date' placeholder='2018-07-12' value={start_date} onChange={this.handleChange} required/>
                 <Form.Field id='form-input-control-end-date' control={Input} name='end_date' label='End Date' placeholder='2018-07-22' value={end_date} onChange={this.handleChange} required/>
-                <Form.Field id='form-button-control-public' control={Button} content='Create'/>
+                <Form.Field id='form-button-control-public' control={Button} content='Create' />
               </Form>
             </Modal.Content>
           </Modal>
