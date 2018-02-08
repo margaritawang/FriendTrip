@@ -71,6 +71,8 @@ module.exports = function makeDataHelpers(db) {
         }).then(() => {
           return db('activities').where('trip_id', tripid).del();
         }).then(() => {
+          return db('users_trips').where('trip_id', tripid).del();
+        }).then(() => {
           return db('trips').where({ id: tripid }).del();
         })
     },
