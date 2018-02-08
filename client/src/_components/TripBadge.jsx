@@ -12,6 +12,7 @@ export class TripBadge extends React.Component {
 
   render() {
     const trip = this.props.trip;
+    console.log('trip with friends???', trip);
     return (
       <Card>
         <Image src={trip.imgURL} style={{cursor: 'pointer'}} className="trip-badge-image" onClick={() => { history.push(`/trips/${trip.id}`)}}/>
@@ -25,7 +26,7 @@ export class TripBadge extends React.Component {
             </span>
           </Card.Meta>
             <Icon name='user' />
-            2 Other Friends on this Trip
+          {trip.friends} Other Friends on this Trip
         </Card.Content>
         <Card.Content extra>
           <Button animated='fade' basic color='red' size="mini">

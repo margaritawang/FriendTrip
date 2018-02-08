@@ -30,7 +30,8 @@ export const userActions = {
   sendComment,
   receiveComment,
   receiveDeleteActivity,
-  updateActivity
+  updateActivity,
+  getFriends
 };
 
 function face(buffer) {
@@ -161,9 +162,18 @@ function getAllTrips(user) {
   return dispatch => {
     dispatch(request());
 
-    tripService.getAllTrips(user).
-    then(trips => dispatch(success(trips))).
-    catch(error => dispatch(failure(error)));
+    tripService.getAllTrips(user)
+    .then(trips => {
+      return Promise.all([trips, Promise.all(trips.map(trip => tripService.getFriends(trip.id)))]);
+    })
+    .then(([trips, friends]) => {
+      trips.forEach((trip, index) => {
+        trips[index].friends = friends[index].friends;
+      });
+
+      dispatch(success(trips));
+    })
+    .catch(error => dispatch(failure(error)));
   };
 
   function request() {
@@ -468,6 +478,7 @@ function receiveDeleteActivity(activityID) {
   }
 }
 
+
 function updateActivity(activity){
   return dispatch => {
     tripService.updateActivity(activity)
@@ -481,5 +492,23 @@ function updateActivity(activity){
   }
   function failure(error) {
     return {type: userConstants.UPDATE_ACTIVITY_FAILURE, error}
+  }
+}
+
+function getFriends(tripid) {
+  return dispatch => {
+    tripService.getFriends(tripid)
+    .then((response) => {
+      console.log('getting friends on this trip', response)
+      dispatch(success(response));
+    })
+    .catch(error => dispatch(failure(error)));
+  }
+
+  function success(friends) {
+    return {type: userConstants.GET_FRIENDS_SUCCESS, friends}
+  }
+  function failure(error) {
+    return {type: userConstants.GET_FRIENDS_FAILURE, error}
   }
 }

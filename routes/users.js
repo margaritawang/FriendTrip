@@ -15,7 +15,10 @@ module.exports = (datahelper) => {
   router.get('/friends/:tid', (req, res) => {
     let trip_id = req.params.tid;
     datahelper.getFriends(trip_id).then((data) => {
-      return res.json(data);
+      return res.send({
+        friends: data.length,
+        trip_id: trip_id
+      });
     })
   });
 
