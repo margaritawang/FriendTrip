@@ -115,7 +115,8 @@ module.exports = (datahelper) => {
       description: req.body.description,
       trip_id: req.params.tid,
       owner_id: req.session.user_id,
-      category: nlp.getCategory(req.body.description)
+      category: nlp.getCategory(req.body.description),
+      imgURL: req.body.imgURL
     };
     datahelper.addActivities(activity).then((data) =>{
       activity.id = data[0];

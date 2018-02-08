@@ -49,8 +49,16 @@ class ActivityBadge extends React.Component {
 
     return (
       <Card>
-        <Card.Content>
-          <Card.Header>
+        <Card.Content className='recommendationCard' style = {{
+            padding: '0px'
+          }}>
+          {activity.imgURL ? <img className='recommendationImageWidth' src={activity.imgURL} style={{
+              paddingTop: '0px',
+              paddingLeft: '0px',
+              paddingRight: '0px',
+              paddingBottom: '0px'
+            }}/> : "" }
+          <Card.Header style={{padding: '10px'}}>
             {activity.description}
           </Card.Header>
           <Card.Meta>

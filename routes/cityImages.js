@@ -1,21 +1,4 @@
-// const Flickr = require('flickr-sdk')
 
-// const flickr = new Flickr("c2b4e258b6f0175ae0604b61c7186c42")
-
-// flickr.photos.search({
-//   text: "vancouver, landscape",
-//   url_o: true
-// }).then(function(res) {
-//   console.log('Yay!', res.body.photos.photo[0]);
-//   const photoInfo = res.body.photos.photo[0];
-//   console.log(`https://www.flickr.com/photos/${photoInfo.owner}/${photoInfo.id}`)
-//   console.log(`https://farm${photoInfo.farm}.staticflickr.com/${photoInfo.server}/${photoInfo.id}_${photoInfo.secret}_m.jpg`)
-// }).catch(function(err){
-//   console.error('Damn', err);
-// });
-// https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
-// https://flic.kr/p/EbNDvH
-// https://www.flickr.com/photos/118719274@N07/25063823487/in/photolist-EbNDvH
 
 
 const cityImages = {
@@ -31,7 +14,12 @@ const cityImages = {
   "Cape Town": "https://static.pexels.com/photos/259447/pexels-photo-259447.jpeg",
   "Cancun": "https://images.pexels.com/photos/449627/pexels-photo-449627.jpeg?w=940&h=650&dpr=2&auto=compress&cs=tinysrgb",
   "Seoul": "https://static.pexels.com/photos/237211/pexels-photo-237211.jpeg",
-  "Tokyo":"https://static.pexels.com/photos/34142/pexels-photo.jpg"
+  "Tokyo":"https://static.pexels.com/photos/34142/pexels-photo.jpg",
+  "Toronto": 'https://images.pexels.com/photos/800694/pexels-photo-800694.jpeg?w=940&h=650&auto=compress&cs=tinysrgb',
+  "Dubai": "https://images.pexels.com/photos/316001/pexels-photo-316001.jpeg?w=940&h=650&auto=compress&cs=tinysrgb",
+  "Amsterdam": "https://images.pexels.com/photos/60247/pexels-photo-60247.jpeg?w=940&h=650&auto=compress&cs=tinysrgb",
+  "Washington DC": 'https://images.pexels.com/photos/129112/pexels-photo-129112.jpeg?w=940&h=650&auto=compress&cs=tinysrgb',
+  "Chicago": "https://images.pexels.com/photos/161963/chicago-illinois-skyline-skyscrapers-161963.jpeg?w=940&h=650&auto=compress&cs=tinysrgb"
 }
 
 module.exports = {

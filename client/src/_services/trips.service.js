@@ -70,6 +70,7 @@ function createNewActivity(user, activityInfo){
   const info = {
     trip_id: activityInfo.tripId,
     description: activityInfo.description,
+    imgURL: activityInfo.imgURL,
     owner_id: user.id
   }
 
@@ -105,5 +106,3 @@ function updateActivity(activity){
   console.log('dnd activity', activity.trip_id);
   return axios.put(`/api/trips/${activity.trip_id}/activities`, activity)
 }
-
-

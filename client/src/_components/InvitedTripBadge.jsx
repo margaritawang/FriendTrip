@@ -14,9 +14,9 @@ export class InvitedTripBadge extends React.Component {
     const trip = this.props.trip;
     return (
       <Card>
-        <Image src={trip.imgURL} className="trip-badge-image" />
+        <Image src={trip.imgURL} style={{cursor: 'pointer'}} onClick={() => { history.push(`/trips/${trip.id}`)}} className="trip-badge-image" />
         <Card.Content>
-          <Header as='h2' onClick={() => { history.push(`/trips/${trip.id}`)}}>
+          <Header as='h2' style={{cursor: 'pointer'}} onClick={() => { history.push(`/trips/${trip.id}`)}}>
             {trip.location}
           </Header>
           <Card.Meta>
@@ -24,12 +24,10 @@ export class InvitedTripBadge extends React.Component {
               {compareDates(trip.start_date, trip.end_date) ? <Moment format="MMMM, YYYY">{trip.start_date}</Moment> : <div><Moment format="MMMM, YYYY">{trip.start_date}</Moment> - &nbsp;<Moment format="MMMM, YYYY">{trip.end_date}</Moment></div>}
             </span>
           </Card.Meta>
+          <Icon name='user' />
+          {trip.friends} {trip.friends === 1 ? "Friend" : "Friends" } on this Trip
         </Card.Content>
         <Card.Content extra>
-          <a>
-            <Icon name='user' />
-            {trip.friends} Other Friends on this Trip
-          </a>
         </Card.Content>
       </Card>
     );

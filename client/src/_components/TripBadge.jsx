@@ -26,7 +26,7 @@ export class TripBadge extends React.Component {
             </span>
           </Card.Meta>
             <Icon name='user' />
-          {trip.friends} Other Friends on this Trip
+          {trip.friends} {trip.friends === 1 ? "Friend" : "Friends" } on this Trip
         </Card.Content>
         <Card.Content extra>
           <Button animated='fade' basic color='red' size="mini">

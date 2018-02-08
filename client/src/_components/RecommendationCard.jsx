@@ -22,14 +22,15 @@ export class RecommendationCard extends Component {
     this.addRecommendation = this.addRecommendation.bind(this);
   }
 
-  addRecommendation(activity) {
+  addRecommendation(activity, imgURL) {
     // console.log('clicked::::', activity);
     const tripid = this.props.tripid;
     // console.log('tripid::::', tripid);
     const {dispatch, user} = this.props;
     const activityInfo = {
       tripId: tripid,
-      description: activity
+      description: activity,
+      imgURL: imgURL
     };
     dispatch(userActions.createNewActivity(user, activityInfo))
   }
@@ -51,7 +52,7 @@ export class RecommendationCard extends Component {
           <Card.Content extra>
             <div className='ui two buttons'>
               {/* <Button onClick={() => this.addRecommendation(info.name)}basic color='green'>Save to Activities</Button> */
-              renderButton(activities, info.name, () => this.addRecommendation(info.name))}
+              renderButton(activities, info.name, () => this.addRecommendation(info.name, `https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=${info.photos[0].photo_reference}&key=AIzaSyAiNKWqw1War5KlsaCnkyig2Niafvi4zXg`))}
             </div>
           </Card.Content>
       </Card>

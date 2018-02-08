@@ -82,6 +82,14 @@
   height: 250px;
 }
 
+
+.recommendationImageWidth {
+  width: 100%;
+  height: 150px;
+}
+
+
+
 .recommendationCard {
   margin-right: 20px;
 }
