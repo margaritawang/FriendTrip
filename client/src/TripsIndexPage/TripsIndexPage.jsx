@@ -205,11 +205,6 @@ class TripsPage extends React.Component {
         <Menu fixed='top' inverted color='blue'>
           <Container>
             <Menu.Item as='a' header>
-              <Image
-                size='mini'
-                src='./client/src/assets/img/FriendTripLogo.jpg'
-                style={{ marginRight: '1.5em' }}
-              />
               FriendTrip
             </Menu.Item>
             <Menu.Item as='a' position='right'><Icon name='user' /> Profile</Menu.Item>
@@ -228,7 +223,7 @@ class TripsPage extends React.Component {
             </Modal>
           </Container>
         </Menu>
-        <Tab panes={panes} style={{ marginTop: '7em' }} />
+        <div className='primary-btn'>
           <Modal trigger={<Button icon='add' onClick={this.handleOpen} className="primary-btn-fab"/>}
               open={this.state.modalOpen}
               onClose={this.handleClose}
@@ -243,6 +238,8 @@ class TripsPage extends React.Component {
               </Form>
             </Modal.Content>
           </Modal>
+        </div>
+        <Tab panes={panes} style={{ marginTop: '2em' }} />
       </div>
     );
   }

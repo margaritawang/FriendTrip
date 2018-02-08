@@ -119,7 +119,6 @@ class TripPage extends React.Component {
   }
 
   handleInviteSubmit(e){
-    console.log('inviting friends!!!');
     e.preventDefault();
     const {email} = this.state;
     const tripId = this.props.match.params.id;
@@ -161,7 +160,6 @@ class TripPage extends React.Component {
   }
 
   handleDelete(activityId) {
-    console.log('clicked delete activity', activityId);
     const { dispatch } = this.props;
     dispatch(userActions.deleteActivity(activityId));
   }
@@ -202,12 +200,7 @@ class TripPage extends React.Component {
         TripPage
         <Menu fixed='top' inverted color='blue'>
           <Container>
-            <Menu.Item as='a' header>
-              <Image
-                size='mini'
-                src='./client/src/assets/img/FriendTripLogo.jpg'
-                style={{ marginRight: '1.5em' }}
-              />
+            <Menu.Item as={Link} to="/trips" header>
               FriendTrip
             </Menu.Item>
             <Menu.Item as='a' position='right'><Icon name='user' /> Profile</Menu.Item>
@@ -234,21 +227,19 @@ class TripPage extends React.Component {
             <Modal.Header>Create an Activity</Modal.Header>
             <Modal.Content>
               <Form onSubmit={this.handleSubmit}>
-                <Form.Field id='form-input-control-description' control={TextArea} name='description' label='Description' placeholder='Activity!!' value={description} onChange={this.handleChange} required/>
+                <Form.Field id='form-input-control-description' control={TextArea} name='description' label='Description' placeholder='What do you want to do on your trip?' value={description} onChange={this.handleChange} required/>
                 <Form.Field id='form-button-control-public' control={Button} content='Create'/>
               </Form>
             </Modal.Content>
           </Modal>
         </div>
 
-        <Grid>
+{/*        <Grid>
 
-          <Grid.Row>
-            <Container>
-              <Tab panes={panes} style={{ marginTop: '7em'}} />
-            </Container>
-          </Grid.Row>
-          <Grid.Row>
+          <Grid.Row>*/}
+        <Tab panes={panes} style={{ marginTop: '2em'}} />
+{/*          </Grid.Row>
+          <Grid.Row>*/}
 
           {
             this.state.chatWindow ?
@@ -258,19 +249,18 @@ class TripPage extends React.Component {
                   <MessageList messages={msgs} />
                 </Segment>
                 <Segment color='blue' className="chatBox-two-shown" textAlign='center'>
-                  <Form onSubmit={this.sendMessage} textAlign='center'>
+                  <Form onSubmit={this.sendMessage}>
                     <Form.Field style={{ margin: '5px'}}>
                       <label></label>
-                      <input placeholder='Write Something Here...' onChange={this.changeMessage} value={message} required/>
+                      <input placeholder='Start Chatting Here...' onChange={this.changeMessage} value={message} required/>
                     </Form.Field>
                     <Button type='submit' color='blue' style={{ margin: '5px'}}>Send Message</Button>
                   </Form>
                 </Segment>
               </Segment>
             :
-            <Segment color='blue' className="chatBox-two" textAlign='center'>
-              <Icon name="user" />2 Friends Online
-              <Button color='blue' style={{ margin: '5px'}} onClick={this.handleClick}>Chat</Button>
+            <Segment color='blue' className="chatBox-two" textAlign='center' verticalAlign='middle'>
+              <Button color='blue' style={{ margin: '5px'}} onClick={this.handleClick}><Icon name="comments" />Chat with your Friends</Button>
             </Segment>
           }
 
@@ -290,8 +280,8 @@ class TripPage extends React.Component {
                   <Button type='submit'>Message</Button>
                 </Form>
               </div>*/}
-          </Grid.Row>
-        </Grid>
+{/*          </Grid.Row>
+        </Grid> */}
       </div>
     );
   }
