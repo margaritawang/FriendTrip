@@ -12,9 +12,6 @@ export class CommentComponent extends React.Component{
         <Comment.Avatar src='https://react.semantic-ui.com/assets/images/avatar/small/matt.jpg' />
         <Comment.Content>
           <Comment.Author>{comment.first_name}</Comment.Author>
-          <Comment.Metadata>
-            <div>{comment.createdDate}</div>
-          </Comment.Metadata>
           <Comment.Text>{comment.description}</Comment.Text>
         </Comment.Content>
       </Comment>

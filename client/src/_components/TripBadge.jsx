@@ -19,23 +19,21 @@ export class TripBadge extends React.Component {
           <Header as='h2' style={{cursor: 'pointer'}} onClick={() => { history.push(`/trips/${trip.id}`)}}>
             {trip.location}
           </Header>
-          <Button animated='fade' basic color='red'>
-          <Button.Content hidden>Delete</Button.Content>
-           <Button.Content visible>
-             <Icon name='trash' onClick={() => this.props.handleDelete(trip.id)} />
-           </Button.Content>
-           </Button>
           <Card.Meta>
             <span className='date'>
               {compareDates(trip.start_date, trip.end_date) ? <Moment format="MMMM, YYYY">{trip.start_date}</Moment> : <div><Moment format="MMMM, YYYY">{trip.start_date}</Moment> - &nbsp;<Moment format="MMMM, YYYY">{trip.end_date}</Moment></div>}
             </span>
           </Card.Meta>
-        </Card.Content>
-        <Card.Content extra>
-          <a>
             <Icon name='user' />
             2 Other Friends on this Trip
-          </a>
+        </Card.Content>
+        <Card.Content extra>
+          <Button animated='fade' basic color='red' size="mini">
+            <Button.Content hidden>Delete</Button.Content>
+            <Button.Content visible>
+              <Icon name='trash' onClick={() => this.props.handleDelete(trip.id)} />
+            </Button.Content>
+          </Button>
         </Card.Content>
       </Card>
     );
