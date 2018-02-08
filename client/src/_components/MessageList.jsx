@@ -9,8 +9,7 @@ export class MessageList extends Component {
       return (<div className='chat-msg'><Message msg={message}/> </div>)
     })
     return (<Comment.Group>
-
-      {renderMessages}
+     {renderMessages}
     </Comment.Group>)
   }
 }

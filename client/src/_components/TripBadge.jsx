@@ -9,34 +9,32 @@ export class TripBadge extends React.Component {
     super(props);
   }
 
-  
+
   render() {
     const trip = this.props.trip;
     console.log('trip with friends???', trip);
     return (
       <Card>
-        <Image src={trip.imgURL} className="trip-badge-image" />
+        <Image src={trip.imgURL} style={{cursor: 'pointer'}} className="trip-badge-image" onClick={() => { history.push(`/trips/${trip.id}`)}}/>
         <Card.Content>
-          <Header as='a' onClick={() => { history.push(`/trips/${trip.id}`)}}>
+          <Header as='h2' style={{cursor: 'pointer'}} onClick={() => { history.push(`/trips/${trip.id}`)}}>
             {trip.location}
           </Header>
-          <Button animated='fade' basic color='red'>
-          <Button.Content hidden>Delete</Button.Content>
-           <Button.Content visible>
-             <Icon name='trash' onClick={() => this.props.handleDelete(trip.id)} />
-           </Button.Content>
-           </Button>
           <Card.Meta>
             <span className='date'>
               {compareDates(trip.start_date, trip.end_date) ? <Moment format="MMMM, YYYY">{trip.start_date}</Moment> : <div><Moment format="MMMM, YYYY">{trip.start_date}</Moment> - &nbsp;<Moment format="MMMM, YYYY">{trip.end_date}</Moment></div>}
             </span>
           </Card.Meta>
+            <Icon name='user' />
+          {trip.friends} Other Friends on this Trip
         </Card.Content>
         <Card.Content extra>
-          <a>
-            <Icon name='user' />
-            {trip.friends} Other Friends on this Trip
-          </a>
+          <Button animated='fade' basic color='red' size="mini">
+            <Button.Content hidden>Delete</Button.Content>
+            <Button.Content visible>
+              <Icon name='trash' onClick={() => this.props.handleDelete(trip.id)} />
+            </Button.Content>
+          </Button>
         </Card.Content>
       </Card>
     );

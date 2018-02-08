@@ -39,7 +39,7 @@ class ActivityBadgeNoComments extends React.Component {
     const activity = this.props.activity;
 
     return (
-      <Card style={{margin: '5px'}}>
+      <Card style={{margin: '5px', width: '100%'}}>
         <Card.Content>
           <Card.Header>
             {activity.description}
