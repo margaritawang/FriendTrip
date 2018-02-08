@@ -160,7 +160,7 @@
 }
 
 .recommendations {
-  max-height: 55vh;
+  /*max-height: 55vh;*/
   overflow: scroll;
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Icon, Image, Header, Label } from 'semantic-ui-react';
+import { Card, Icon, Image, Header, Label, Button } from 'semantic-ui-react';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom'
 import { CommentContainer} from './CommentContainer.jsx'
@@ -9,19 +9,19 @@ import { userActions } from '../_actions/user.actions.js';
 function renderCategory (category) {
   if (category === "Restaurant") {
     return (
-      <Label as='a' color='blue' image>
+      <Label color='blue' image>
         Restaurant
       </Label>
     )
   } else if  (category === "Attraction") {
     return (
-      <Label as='a' color='teal' image>
+      <Label color='teal' image>
         Attraction
       </Label>
     )
   } else {
     return (
-      <Label as='a' color='yellow' image>
+      <Label color='yellow' image>
         Accommodation
       </Label>
     )
@@ -52,15 +52,18 @@ class ActivityBadge extends React.Component {
         <Card.Content>
           <Card.Header>
             {activity.description}
-            <Icon name='trash' size='large' className="delete-button" onClick={() => this.props.handleDelete(activity.id)}/>
           </Card.Header>
           <Card.Meta>
             <span className='date'>
 
             </span>
-            <div>
             {renderCategory(activity.category)}
-            </div>
+           <Button animated='fade' basic color='red' size="mini" style={{float: 'right'}} onClick={() => this.props.handleDelete(activity.id)}>
+              <Button.Content hidden>Delete</Button.Content>
+              <Button.Content visible>
+                <Icon name='trash'/>
+              </Button.Content>
+            </Button>
           </Card.Meta>
         </Card.Content>
         <Card.Content extra>
