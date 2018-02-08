@@ -184,7 +184,7 @@ module.exports = (datahelper) => {
     let comment = {
       description: req.body.description,
       activity_id: req.params.aid,
-      owner_id: req.session.user_id
+      owner_id: req.body.owner_id
     };
     console.log('posting comment-----------', comment);
     datahelper.postComments(comment).then((data) => {

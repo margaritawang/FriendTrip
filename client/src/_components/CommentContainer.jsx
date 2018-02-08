@@ -53,7 +53,7 @@ class CommentContainer extends React.Component {
           }
         })}
       <Form reply size='mini' onSubmit={this.handleSubmit}>
-        <Form.TextArea style={{height: '50px'}} name='post' value={post} onChange={this.handleChange} />
+        <Form.TextArea style={{height: '50px'}} name='post' value={post} onChange={this.handleChange} required/>
         <Button content='Add Reply' labelPosition='left' icon='edit' primary />
       </Form>
     </Comment.Group>

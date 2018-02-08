@@ -93,6 +93,7 @@ function getAllComments(user, activity){
 }
 
 function createNewComment(user, activityId, comment){
+  console.log('user- new - commnet ', user);
   const info = {
     owner_id: user.id,
     description: comment,
