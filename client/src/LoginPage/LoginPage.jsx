@@ -149,8 +149,8 @@ class LoginPage extends React.Component {
             <Header as={Link} to='/register'>
               <p style={{
                   display: 'inline-block'
-                }}>New to us?</p>
-              Sign Up</Header>
+                }}>New to us? Sign Up </p>
+              </Header>
           </Segment>
         </Grid.Column>
       </Grid>
