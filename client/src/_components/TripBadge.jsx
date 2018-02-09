@@ -39,8 +39,8 @@ export class TripBadge extends React.Component {
         <Icon name='user'/> {trip.friends}
         {
           trip.friends === 1
-            ? "Friend"
-            : "Friends"
+            ? " Friend "
+            : " Friends "
         }
         on this Trip
       </Card.Content>
