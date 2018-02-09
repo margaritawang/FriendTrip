@@ -4,7 +4,6 @@ export const apiService = {
   getRecommend
 }
 
-
 function getRecommend(tripID) {
   const requestOptions = {
     method: 'GET'

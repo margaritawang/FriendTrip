@@ -1,13 +1,12 @@
 // array in local storage for registered users
 let users = JSON.parse(localStorage.getItem('users')) || [];
-    
+
 export function configureFakeBackend() {
     let realFetch = window.fetch;
     window.fetch = function (url, opts) {
         return new Promise((resolve, reject) => {
             // wrap in timeout to simulate server api call
             setTimeout(() => {
-
                 // authenticate
                 if (url.endsWith('/users/authenticate') && opts.method === 'POST') {
                     // get parameters from post request
@@ -36,7 +35,6 @@ export function configureFakeBackend() {
 
                     return;
                 }
-
                 // get users
                 if (url.endsWith('/users') && opts.method === 'GET') {
                     // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
@@ -49,7 +47,6 @@ export function configureFakeBackend() {
 
                     return;
                 }
-
                 // get user by id
                 if (url.match(/\/users\/\d+$/) && opts.method === 'GET') {
                     // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
@@ -66,10 +63,8 @@ export function configureFakeBackend() {
                         // return 401 not authorised if token is null or invalid
                         reject('Unauthorised');
                     }
-
                     return;
                 }
-
                 // register user
                 if (url.endsWith('/users/register') && opts.method === 'POST') {
                     // get new user object from post body
@@ -81,7 +76,6 @@ export function configureFakeBackend() {
                         reject('Username "' + newUser.username + '" is already taken');
                         return;
                     }
-
                     // save new user
                     newUser.id = users.length ? Math.max(...users.map(user => user.id)) + 1 : 1;
                     users.push(newUser);
@@ -92,7 +86,6 @@ export function configureFakeBackend() {
 
                     return;
                 }
-
                 // delete user
                 if (url.match(/\/users\/\d+$/) && opts.method === 'DELETE') {
                     // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
@@ -109,17 +102,14 @@ export function configureFakeBackend() {
                                 break;
                             }
                         }
-
                         // respond 200 OK
                         resolve({ ok: true, json: () => ({}) });
                     } else {
                         // return 401 not authorised if token is null or invalid
                         reject('Unauthorised');
                     }
-
                     return;
                 }
-
                 // pass through any requests not handled above
                 realFetch(url, opts).then(response => resolve(response));
 

@@ -18,8 +18,11 @@ function login(username, password) {
     email: username,
     password: password
   }).then((response) => {
-    console.log('res', response);
-    const user = {user: username, token: 'fake-jwt-token', id: response.data.user_id };
+    const user = {
+      user: username,
+      token: 'fake-jwt-token',
+      id: response.data.user_id
+    };
     localStorage.setItem('user', JSON.stringify(user));
     return Promise.resolve(user);
   })
@@ -38,14 +41,12 @@ function faceCompare(buffer) {
   data.append('file', buffer);
   data.append('name', 'what');
   return axios.post('api/face/compare', data, config).then((resposne) => {
-    console.log('face response',resposne.data);
     localStorage.setItem('user', JSON.stringify(resposne.data));
     return Promise.resolve(resposne.data);
   })
 }
 
 function logout() {
-  // remove user from local storage to log user out
   localStorage.removeItem('user');
 }
 
@@ -63,28 +64,24 @@ function getById(id) {
     method: 'GET',
     headers: authHeader()
   };
-
   return fetch('/users/' + _id, requestOptions).then(handleResponse);
 }
 
 function register(user) {
   const requestOptions = {
-      firstname: user.firstName,
-      lastname: user.lastName,
-      username: user.username,
-      password: user.password
+    firstname: user.firstName,
+    lastname: user.lastName,
+    username: user.username,
+    password: user.password
   };
   return axios.post('/api/register', requestOptions).then((response) => {
-    console.log('res', response);
     let registeredUser = {
       user: user.username
     }
-    return  Promise.resolve(registeredUser);
+    return Promise.resolve(registeredUser);
   }).catch((err) => {
     return Promise.reject(err);
   })
-
-
 }
 
 function update(user) {
@@ -96,7 +93,6 @@ function update(user) {
     },
     body: JSON.stringify(user)
   };
-
   return fetch('/users/' + user.id, requestOptions).then(handleResponse);;
 }
 
@@ -106,7 +102,6 @@ function _delete(id) {
     method: 'DELETE',
     headers: authHeader()
   };
-
   return fetch('/users/' + id, requestOptions).then(handleResponse);;
 }
 
@@ -117,14 +112,10 @@ function handleResponse(response) {
   return response.json();
 }
 
-
 function getUserByEmail(email) {
-  return axios.get(`/api/invite/${email}`).
-  then((data) => {
-    console.log('email get user', data);
+  return axios.get(`/api/invite/${email}`).then((data) => {
     return Promise.resolve(data.data)
-  }).
-  catch((err) => {
+  }).catch((err) => {
     Promise.reject(data);
   })
 }

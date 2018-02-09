@@ -6,10 +6,6 @@ import { store } from './_helpers';
 import { App } from './App';
 import  { wrapStore }  from './socket-client/api.js'
 
-// // setup fake backend
-// import { configureFakeBackend } from './_helpers';
-// configureFakeBackend();
-
 wrapStore(store,`http://localhost:8090`);
 
 render(

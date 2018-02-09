@@ -38,10 +38,12 @@ class LoginPage extends React.Component {
     this.faceReg = this.faceReg.bind(this);
     this.toggle = this.toggle.bind(this);
   }
-
   toggle() {
-
-      this.setState({ percent: this.state.percent === 20 ? 100 : 0 })
+    this.setState({
+      percent: this.state.percent === 20
+        ? 100
+        : 0
+    })
 
   }
   handleChange(e) {
@@ -51,7 +53,6 @@ class LoginPage extends React.Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-
     this.setState({submitted: true});
     const {username, password} = this.state;
     const {dispatch} = this.props;
@@ -69,11 +70,9 @@ class LoginPage extends React.Component {
     const {dispatch} = this.props;
     dispatch(userActions.face(imageSrc));
   }
-
   faceReg() {
     this.setState({face: true});
   }
-
   render() {
     const {loggingIn, loggedIn} = this.props;
     const {username, password, submitted} = this.state;
@@ -114,20 +113,18 @@ class LoginPage extends React.Component {
         </Segment>
       </Form>
     </Container>)
-
-    const LoginForm = (
-      <Container fluid className='login-main'>
+    const LoginForm = (<Container fluid="fluid" className='login-main'>
       <Grid className='login-container' textAlign='center' style={{
           height: '100%'
         }} verticalAlign='middle'>
         <Grid.Column style={{
             maxWidth: 450
           }}>
-          <Segment inverted color='blue' textAlign='center'>
+          <Segment inverted="inverted" color='blue' textAlign='center'>
             <Header>Log-in to Your Account</Header>
           </Segment>
           <Form size='large' onSubmit={this.handleSubmit}>
-            <Segment  stacked="stacked">
+            <Segment stacked="stacked">
               <Form.Input name='username' fluid="fluid" icon='user' iconPosition='left' placeholder='Username' onChange={this.handleChange}/> {submitted && !username && <div className="help-block">Username is required</div>}
               <Form.Input name='password' onChange={this.handleChange} fluid="fluid" icon='lock' iconPosition='left' placeholder='Password' type='password'/> {submitted && !password && <div className="help-block">Password is required</div>}
               <Button animated="animated">
@@ -148,47 +145,41 @@ class LoginPage extends React.Component {
               </Button>
             </Segment>
           </Form>
-            <Segment secondary inverted color='blue' textAlign='center' >
-
-                <Header as={Link} to='/register'><p style={{
-                    display: 'inline-block'
-                  }}>New to us?</p>   Sign Up</Header>
-            </Segment>
+          <Segment secondary="secondary" inverted="inverted" color='blue' textAlign='center'>
+            <Header as={Link} to='/register'>
+              <p style={{
+                  display: 'inline-block'
+                }}>New to us?</p>
+              Sign Up</Header>
+          </Segment>
         </Grid.Column>
       </Grid>
     </Container>)
-
-    const loginFace = (
-      <Container fluid className='login-main'>
-        <Grid className='login-container' textAlign='center' style={{
-            height: '100%'
-          }} verticalAlign='middle'>
-
-          <Grid.Column style={{
-              maxWidth: 450
-            }}>
-            <Progress percent={this.state.percent} active>
-            </Progress>
+    const loginFace = (<Container fluid="fluid" className='login-main'>
+      <Grid className='login-container' textAlign='center' style={{
+          height: '100%'
+        }} verticalAlign='middle'>
+        <Grid.Column style={{
+            maxWidth: 450
+          }}>
+          <Progress percent={this.state.percent} active="active"></Progress>
           <Webcam className='camera' audio={false} height={500} ref={this.setRef} width={400} screenshotFormat="image/jpeg"/>
-            <Segment secondary inverted color='red' textAlign='center'>
-              <Button animated="animated" onClick={this.capture}>
-                <Button.Content visible="visible">Log In</Button.Content>
-                <Button.Content hidden="hidden">
-                  <Icon name='right arrow'/>
-                </Button.Content>
-              </Button>
-            </Segment>
-          </Grid.Column>
-        </Grid>
-
+          <Segment secondary="secondary" inverted="inverted" color='red' textAlign='center'>
+            <Button animated="animated" onClick={this.capture}>
+              <Button.Content visible="visible">Log In</Button.Content>
+              <Button.Content hidden="hidden">
+                <Icon name='right arrow'/>
+              </Button.Content>
+            </Button>
+          </Segment>
+        </Grid.Column>
+      </Grid>
     </Container>)
-
     const loader = (<div>
       <Segment>
         <Dimmer active="active">
           <Loader indeterminate="indeterminate">Preparing Files</Loader>
         </Dimmer>
-        //
         <Image src='/assets/images/wireframe/short-paragraph.png'/>
       </Segment>
 

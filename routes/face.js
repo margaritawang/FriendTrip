@@ -26,7 +26,6 @@ function indexFaces(bitmap, name) {
       },
     }, function(err, data) {
       if (err) {
-        console.log(err, err.stack); // an error occurred
         reject(err);
       } else {
         resolve(data);
@@ -36,7 +35,6 @@ function indexFaces(bitmap, name) {
 }
 
 const FACE_COLLECTION = 'users';
-
 function createCollection() {
   // Index a dir of faces
   rekognition.createCollection({
@@ -49,7 +47,6 @@ function createCollection() {
     }
   });
 }
-
 function getBinary(encodedFile) {
         var base64Image = encodedFile.split("data:image/jpeg;base64,")[1];
         var b64 = "SGVsbG8gV29ybGQ=";
@@ -62,7 +59,6 @@ function getBinary(encodedFile) {
         }
         return ab;
       }
-
 //endpoints
 module.exports = (datahelper) => {
   router.post('/saveimage/:id', upload.single('data'), (req, res, next) => {
@@ -94,7 +90,7 @@ module.exports = (datahelper) => {
       else {
         if (data.FaceMatches[0].Similarity) {
           let sim = data.FaceMatches[0].Similarity;
-          console.log("sim----", sim);
+          console.log("similarty------------------", sim);
           datahelper.getUserByEmail("s@s").
           then((data) => {
             console.log("db matched user data", data[0]);
@@ -107,11 +103,6 @@ module.exports = (datahelper) => {
           catch((err) => {
             return res.send({error: 'Invalid face'});
           })
-          // let user = {
-          //   user: data[0].email,
-          //   id: data[0].id
-          // }
-          // return res.send(JSON.stringify(user));
         } else if (ata.FaceMatches[0].Similarity) {
           return res.send({error: 'Invalid face'});
         }

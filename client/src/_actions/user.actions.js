@@ -35,13 +35,10 @@ export const userActions = {
   updateActivity,
   getFriends
 };
-
 function face(buffer) {
   return dispatch => {
     userService.faceCompare(buffer).then((data) => {
-      console.log("face back data", data);
       if (data.error) {
-        console.log('face error',data);
         dispatch(failure("error"));
         dispatch(alertActions.error("error"));
       }
@@ -70,7 +67,6 @@ function login(username, password) {
     dispatch(request({username}));
     userService.login(username, password).then(user => {
       dispatch(success(user));
-
       history.push('/trips');
     }, error => {
       dispatch(failure(error));
@@ -96,7 +92,6 @@ function logout() {
 function register(user) {
   return dispatch => {
     dispatch(request(user));
-
     userService.register(user).then(user => {
       dispatch(success(user));
       history.push('/login');
@@ -106,7 +101,6 @@ function register(user) {
       dispatch(alertActions.error(error));
     });
   };
-
   function request(user) {
     return {type: userConstants.REGISTER_REQUEST, user}
   }
@@ -121,11 +115,9 @@ function register(user) {
 function getAll() {
   return dispatch => {
     dispatch(request());
-
     userService.getAll().
     then(users => dispatch(success(users)), error => dispatch(failure(error)));
   };
-
   function request() {
     return {type: userConstants.GETALL_REQUEST}
   }
@@ -148,7 +140,6 @@ function _delete(id) {
       dispatch(failure(id, error));
     });
   };
-
   function request(id) {
     return {type: userConstants.DELETE_REQUEST, id}
   }
@@ -162,9 +153,7 @@ function _delete(id) {
 
 function getAllTrips(user) {
   return dispatch => {
-    console.log('get all trips', user);
     dispatch(request());
-
     tripService.getAllTrips(user)
     .then(trips => {
       return Promise.all([trips, Promise.all(trips.map(trip => tripService.getFriends(trip.id)))]);
@@ -173,12 +162,10 @@ function getAllTrips(user) {
       trips.forEach((trip, index) => {
         trips[index].friends = friends[index].friends;
       });
-
       dispatch(success(trips));
     })
     .catch(error => dispatch(failure(error)));
   };
-
   function request() {
     return {type: userConstants.GETALL_TRIPS_REQUEST}
   }
@@ -193,16 +180,11 @@ function getAllTrips(user) {
 function createNewTrip(user, tripInfo) {
     return dispatch => {
         dispatch(request());
-
         tripService.createNewTrip(user, tripInfo)
             .then((response) => {
-                console.log("new trip data", response.data);
                 dispatch(success(response.data));
-
             })
             .catch(error => dispatch(failure(error)));
-        // dispatch(success(tripInfo));
-        // dispatch(failure(tripInfo));
     };
   function request() { return { type: userConstants.CREATE_NEW_TRIP_REQUEST } }
   function success(trip) { return { type: userConstants.CREATE_NEW_TRIP_SUCCESS, trip } }
@@ -212,15 +194,12 @@ function createNewTrip(user, tripInfo) {
 function deleteTrip(tripid) {
   return dispatch => {
     dispatch(request());
-
     tripService.deleteTrip(tripid)
       .then((r) => {
         dispatch(success(tripid));
       }).catch(error => {
         dispatch(failure());
       });
-      // dispatch(success(tripid));
-      // dispatch(failure());
   }
 
   function request() { return { type: userConstants.DELETE_TRIP_REQUEST } }
@@ -231,7 +210,6 @@ function deleteTrip(tripid) {
 function inviteFriend(inviteInfo) {
   return dispatch => {
     dispatch(request());
-    console.log('invited info-----------------', inviteInfo);
     tripService.inviteFriend(inviteInfo)
     .then(() => {
       dispatch(success());
@@ -245,15 +223,12 @@ function inviteFriend(inviteInfo) {
 }
 
 function getAllActivities(user, trip) {
-  console.log(user, trip);
   return dispatch => {
     dispatch(request());
-
     tripService.getAllActivities(trip).
     then(activities => dispatch(success(activities))).
     catch(error => dispatch(failure(error)));
   };
-
   function request() {
     return {type: userConstants.GETALL_TRIP_ACTIVITIES_REQUEST}
   }
@@ -266,21 +241,15 @@ function getAllActivities(user, trip) {
 }
 
 function createNewActivity(user, activityInfo){
-  console.log('info',activityInfo);
   return dispatch => {
     dispatch(request());
-
     tripService.createNewActivity(user, activityInfo)
     .then((response) => {
-         console.log('createNewActivityresponse:', response.data);
-         console.log('activityinfoooooooo', activityInfo);
          dispatch(success(response.data));
          dispatch(send(response.data));
-       //   history.push('/');
        })
     .catch(error => dispatch(failure(error)));
   }
-
   function request() {
     return {type: userConstants.CREATE_NEW_ACTIVITY_REQUEST}
   }
@@ -298,7 +267,6 @@ function createNewActivity(user, activityInfo){
 function deleteActivity(activityid) {
   return dispatch => {
     dispatch(request());
-
     tripService.deleteActivity(activityid)
       .then((r) => {
         dispatch(success(activityid));
@@ -306,10 +274,7 @@ function deleteActivity(activityid) {
       }).catch(error => {
         dispatch(failure());
       });
-      // dispatch(success(tripid));
-      // dispatch(failure());
   }
-
   function request() { return { type: userConstants.DELETE_ACTIVITY_REQUEST } }
   function success(activityid) { return { type: userConstants.DELETE_ACTIVITY_SUCCESS, activityid } }
   function failure() { return { type: userConstants.DELETE_ACTIVITY_FAILURE } }
@@ -319,8 +284,6 @@ function deleteActivity(activityid) {
 function getAllComments(user, activity){
   return dispatch => {
     dispatch(request());
-
-
     tripService.getAllComments(user, activity)
       .then((response) => {
         console.log('get all comments', response);
@@ -328,7 +291,6 @@ function getAllComments(user, activity){
       })
       .catch(error => dispatch(failure(error)));
   }
-
   function request() {
     return {type: userConstants.GETALL_COMMENTS_REQUEST}
   }
@@ -338,19 +300,13 @@ function getAllComments(user, activity){
   function failure(error) {
     return {type: userConstants.GETALL_COMMENTS_FAILURE, error}
   }
-
 }
 
 function createNewComment(user, activityId, comment){
   return dispatch => {
     dispatch(request());
-    console.log('user', user);
-    console.log('activityId',activityId);
-    console.log('comment', comment);
     tripService.createNewComment(user, activityId, comment)
       .then((response) => {
-
-        console.log('backend commnet', response.data)
         dispatch(success(response.data));
         dispatch(send(response.data))
       })
@@ -358,7 +314,6 @@ function createNewComment(user, activityId, comment){
         dispatch(failure(error));
       })
   }
-
   function request(){
     return { type: userConstants.CREATE_NEW_COMMENT_REQUEST }
   }
@@ -377,11 +332,9 @@ function receiveMessage(message) {
   return dispatch => {
     dispatch(receive(message));
   }
-
   function receive(message) {
     return {type: chatConstants.INCOMING_MESSAGE, message}
   }
-
 }
 
 function sendMessage(message) {
@@ -425,8 +378,6 @@ function getRecommendation(tripID) {
       dispatch(failure(err));
     })
   }
-
-
   function request(tripID) {
     return {type: userConstants.GET_RECOMMENDATION_REQUEST, tripID}
   }
@@ -437,7 +388,6 @@ function getRecommendation(tripID) {
     return {type: userConstants.GET_RECOMMENDATION_FAILURE, error: error}
   }
 }
-
 
 function clearAllComments(){
   return dispatch => {
@@ -454,7 +404,6 @@ function receiveComment(comment) {
     let sendData = {
       description: comment
     }
-    console.log('received comment', comment);
     dispatch(receive(comment));
   }
   function receive(comment) {
@@ -475,12 +424,10 @@ function receiveDeleteActivity(activityID) {
   return dispatch => {
     dispatch(receive(activityID));
   }
-
   function receive(activityID) {
     return { type: chatConstants.RECEIVE_DELECT_ACTIVITY, activityID};
   }
 }
-
 
 function updateActivity(activity){
   return dispatch => {
@@ -502,12 +449,10 @@ function getFriends(tripid) {
   return dispatch => {
     tripService.getFriends(tripid)
     .then((response) => {
-      console.log('getting friends on this trip', response)
       dispatch(success(response));
     })
     .catch(error => dispatch(failure(error)));
   }
-
   function success(friends) {
     return {type: userConstants.GET_FRIENDS_SUCCESS, friends}
   }
@@ -516,27 +461,21 @@ function getFriends(tripid) {
   }
 }
 
-
 function receiveInvite(invite) {
   return dispatch => {
-      console.log('user--- invite', invite);
       userService.getUserByEmail(invite.email).
       then((user) => {
-
         if (invite.sender.id != user.id) {
           let userGet = {
             user: invite.email,
             id: user.id
           }
-          console.log('receive-----user',user);
           dispatch(getAllTrips(userGet));
           dispatch(receive(invite));
         }
       })
-      // dispatch(getAllTrips(invite));
       dispatch(receive(invite));
   }
-
   function receive(invite) {
     return { type: chatConstants.RECEIVE_INVITE, invite}
   }

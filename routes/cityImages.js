@@ -1,6 +1,3 @@
-
-
-
 const cityImages = {
   "Vancouver": "https://images.pexels.com/photos/63332/science-world-false-creek-vancouver-british-columbia-63332.jpeg?w=940&h=650&auto=compress&cs=tinysrgb",
   "Seattle": "https://static.pexels.com/photos/656195/pexels-photo-656195.jpeg",

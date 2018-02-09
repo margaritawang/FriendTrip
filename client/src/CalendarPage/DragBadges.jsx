@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { DragSource } from 'react-dnd';
 // import { ItemTypes } from './Constants';
 
-
 const ItemTypes = {
   ACTIVITY: 'ACTIVITY',
 }

@@ -28,25 +28,17 @@ function renderCategory (category) {
   }
 }
 
-
-
-
 class ActivityBadge extends React.Component {
   constructor(props){
     super(props);
   }
-
   componentDidMount(){
     const { activity, user } = this.props;
     this.props.dispatch(userActions.getAllComments(user, activity));
   }
-
-
-
   render() {
     const activity = this.props.activity;
     const { comments } = this.props;
-
     return (
       <Card>
         <Card.Content className='recommendationCard' style = {{
@@ -63,7 +55,6 @@ class ActivityBadge extends React.Component {
           </Card.Header>
           <Card.Meta>
             <span className='date'>
-
             </span>
             {renderCategory(activity.category)}
            <Button animated='fade' basic color='red' size="mini" style={{float: 'right'}} onClick={() => this.props.handleDelete(activity.id)}>
@@ -81,7 +72,6 @@ class ActivityBadge extends React.Component {
     );
   }
 }
-
 
 function mapStateToProps(state){
   const { user } = state.authentication;

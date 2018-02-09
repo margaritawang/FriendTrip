@@ -17,12 +17,7 @@ import { DragDropContext } from 'react-dnd';
 class App extends React.Component {
   constructor(props) {
     super(props);
-
-    const {dispatch} = this.props;
-    // history.listen((location, action) => {
-    //   // clear alert on location change
-    //   dispatch(alertActions.clear());
-    // });
+    const { dispatch } = this.props;
   }
   render() {
     const {alert} = this.props;
@@ -44,13 +39,6 @@ function mapStateToProps(state) {
   const {alert} = state;
   return {alert};
 }
-
-// const connectedApp = connect(mapStateToProps)(App);
-// const dragAndDropApp = DragDropContext(HTML5Backend)(connectedApp);
-// export {
-//   dragAndDropApp as App
-// };
-
 
 const ExportApp = compose(
   DragDropContext(HTML5Backend),

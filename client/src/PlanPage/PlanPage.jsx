@@ -4,14 +4,15 @@ import {connect} from 'react-redux';
 import {tripActions} from '../_actions';
 import {userActions} from '../_actions';
 
-import {Card,
-        Icon,
-        Image,
-        Container,
-        Button,
-        Form,
-        Input
-      } from 'semantic-ui-react'
+import {
+  Card,
+  Icon,
+  Image,
+  Container,
+  Button,
+  Form,
+  Input
+} from 'semantic-ui-react'
 
 class PlanPage extends React.Component {
   constructor(props) {
@@ -23,21 +24,15 @@ class PlanPage extends React.Component {
     this.addPlan = this.addPlan.bind(this);
     this.changePlan = this.changePlan.bind(this);
   }
-
   addPlan(e) {
     e.preventDefault();
     const {dispatch} = this.props;
-    console.log("state plan", this.state.plan);
     dispatch(tripActions.addNewTrip(this.state.plan));
   }
-
   changePlan(e) {
-    console.log('target', e.target);
     const {value} = e.target
     this.setState({plan: value});
-    console.log(this.state.plan);
   }
-
   render() {
     const {user} = this.props
     const {trip} = this.props
@@ -69,9 +64,6 @@ class PlanPage extends React.Component {
         <Input onChange={this.changePlan}/>
         <Button>Add Trip</Button>
       </Form>
-
-
-
     </Container>)
   }
 }

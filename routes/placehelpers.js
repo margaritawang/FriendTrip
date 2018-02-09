@@ -11,8 +11,6 @@ module.exports = () => {
           json: true
         },(err, res, body) => {
           if (err) {reject(err);}
-          // console.log(body.url);
-          // console.log(body.explanation);
           resolve(body);
         });
 

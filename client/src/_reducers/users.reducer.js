@@ -43,7 +43,6 @@ export function users(state = { trips: [], activities: [], recommendations: [], 
           return user;
         })
       };
-
     case userConstants.GETALL_TRIPS_REQUEST:
       return {
         ...state,
@@ -61,38 +60,32 @@ export function users(state = { trips: [], activities: [], recommendations: [], 
         error: action.error,
         loading: false
       }
-
     case userConstants.GET_FRIENDS_REQUEST:
       return {
         ...state,
         loading: true
       };
-
     case userConstants.GET_FRIENDS_SUCCESS:
       const newTrip = state.trips.find((trip) => {
         return trip.id === Number(action.friends.trip_id);
       })
       newTrip.friends = action.friends.friends;
-    
       return {
         ...state,
         trips: [...state.trips, newTrip],
         loading: false
       };
-
     case userConstants.GET_FRIENDS_FAILURE:
       return {
         ...state,
         error: action.error,
         loading: false
       }
-
     case userConstants.CREATE_NEW_TRIP_REQUEST:
       return{
         ...state,
         loading: true
       }
-
     case userConstants.CREATE_NEW_TRIP_SUCCESS:
       const { trips } = state;
       return{
@@ -101,20 +94,17 @@ export function users(state = { trips: [], activities: [], recommendations: [], 
         loading: false,
         error: ''
       }
-
     case userConstants.CREATE_NEW_TRIP_FAILURE:
       return{
         ...state,
         loading: false,
         error: action.error
       }
-
     case userConstants.DELETE_TRIP_REQUEST:
       return {
         ...state,
         loading: true
       }
-
     case userConstants.DELETE_TRIP_SUCCESS:
       return {
         ...state,
@@ -122,41 +112,35 @@ export function users(state = { trips: [], activities: [], recommendations: [], 
         error: '',
         trips: state.trips.filter(trip => trip.id !== action.tripid)
       }
-
     case userConstants.DELETE_TRIP_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.error
       }
-
     case userConstants.INVITE_FRIEND_REQUEST:
       return {
         ...state,
         loading: true
       }
-
     case userConstants.INVITE_FRIEND_SUCCESS:
       return {
         ...state,
         loading: false,
         error: ''
       }
-
     case userConstants.INVITE_FRIEND_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.error
       }
-
     case userConstants.GETALL_TRIP_ACTIVITIES_REQUEST:
       return{
         ...state,
         loading: true,
         error: ''
       }
-
     case userConstants.GETALL_TRIP_ACTIVITIES_SUCCESS:
       return{
         ...state,
@@ -164,19 +148,16 @@ export function users(state = { trips: [], activities: [], recommendations: [], 
         loading: false,
         error: ''
       }
-
     case userConstants.GETALL_TRIP_ACTIVITIES_FAILURE:
       return{
         ...state,
         error: action.error
       }
-
     case userConstants.CREATE_NEW_ACTIVITY_REQUEST:
       return{
         ...state,
         loading: true
       }
-
     case userConstants.CREATE_NEW_ACTIVITY_SUCCESS:
       return {
         ...state,
@@ -184,156 +165,126 @@ export function users(state = { trips: [], activities: [], recommendations: [], 
         loading: false,
         error: ''
       }
-
     case userConstants.CREATE_NEW_ACTIVITY_FAILURE:
       return{
         ...state,
         error: action.error
       }
-
-      case userConstants.DELETE_ACTIVITY_REQUEST:
+    case userConstants.DELETE_ACTIVITY_REQUEST:
       return {
         ...state,
         loading: true
       }
-
     case userConstants.DELETE_ACTIVITY_SUCCESS:
-      console.log('delete 1, comments residual', comments);
       return {
         ...state,
         loading: false,
         error: '',
         activities: state.activities.filter(activity => activity.id !== action.activityid)
       }
-
     case userConstants.DELETE_ACTIVITY_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.error
       }
-
     case userConstants.GETALL_COMMENTS_REQUEST:
       return {
         ...state,
         loading: true,
         error: ''
       }
-
     case userConstants.GETALL_COMMENTS_SUCCESS:
-      console.log('reduced comments', action.comments);
       return {
         ...state,
         loading: false,
         comments: action.comments,
         error: ''
       }
-
     case userConstants.GETALL_COMMENTS_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.error
       }
-
     case userConstants.CREATE_NEW_COMMENT_REQUEST:
       return {
         ...state,
         loading: true,
         error: ''
       }
-
     case userConstants.CREATE_NEW_COMMENT_SUCCESS:
-      console.log("reducued comment", action.comment);
       return {
         ...state,
         loading: false,
         comments: [...comments, action.comment],
         error: ''
       }
-
     case userConstants.CREATE_NEW_COMMENT_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.error
       }
-
     case userConstants.CLEAR_ALL_COMMENTS:
       return {
         ...state,
         comments: action.comments
       }
-
-      case chatConstants.INCOMING_ACTIVITY:
-        console.log("reducued", action.activity);
-        return {
-          ...state,
-          activities: [...activities, action.activity.description],
-          loading: false,
-          error: ''
-        }
-
-      case userConstants.GET_RECOMMENDATION_REQUEST:
-        return {
-          ...state,
-          loading: true
-        }
-
-      case userConstants.GET_RECOMMENDATION_SUCCESS:
-        return {
-          ...state,
-          recommendations: action.recommendations,
-          loading: false,
-          error: ''
-        }
-
-      case userConstants.GET_RECOMMENDATION_FAILURE:
-        return {
-          ...state,
-          error: action.error
-        }
-
-      case chatConstants.INCOMING_COMMENT:
-
-        console.log("state comments", comments);
-        console.log("reducued", action.comment);
-        return {
-          ...state,
-          comments: [...comments, action.comment],
-          loading: false,
-          error: ''
-        }
-
-      case chatConstants.RECEIVE_DELECT_ACTIVITY:
-          return {
-            ...state,
-            loading: false,
-            error: '',
-            activities: activities.filter(activity => activity.id !== action.activityID)
-          }
+    case chatConstants.INCOMING_ACTIVITY:
+      return {
+        ...state,
+        activities: [...activities, action.activity.description],
+        loading: false,
+        error: ''
+      }
+    case userConstants.GET_RECOMMENDATION_REQUEST:
+      return {
+        ...state,
+        loading: true
+      }
+    case userConstants.GET_RECOMMENDATION_SUCCESS:
+      return {
+        ...state,
+        recommendations: action.recommendations,
+        loading: false,
+        error: ''
+      }
+    case userConstants.GET_RECOMMENDATION_FAILURE:
+      return {
+        ...state,
+        error: action.error
+      }
+    case chatConstants.INCOMING_COMMENT:
+      return {
+        ...state,
+        comments: [...comments, action.comment],
+        loading: false,
+        error: ''
+      }
+    case chatConstants.RECEIVE_DELECT_ACTIVITY:
+      return {
+        ...state,
+        loading: false,
+        error: '',
+        activities: activities.filter(activity => activity.id !== action.activityID)
+      }
     case userConstants.UPDATE_ACTIVTY_SUCCESS:
-        return {
-          ...state,
-          activities: [...activities, action.activity]
-          // Probably want to implement a filter function instead and just return back the array with one element changed
-        }
-
+      return {
+        ...state,
+        activities: [...activities, action.activity]
+      }
     case userConstants.UPDATE_ACTIVTY_FAILURE:
-        return {
-          ...state,
-          error: action.error
-        }
-
-
-        case chatConstants.RECEIVE_INVITE:
-          console.log('receive invite -------', action.invite);
-          return {
-            ...state,
-            invited: true,
-            error: '',
-          }
-
+      return {
+        ...state,
+        error: action.error
+      }
+    case chatConstants.RECEIVE_INVITE:
+      return {
+        ...state,
+        invited: true,
+        error: '',
+      }
     default:
       return state
   }

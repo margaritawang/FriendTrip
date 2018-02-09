@@ -5,7 +5,6 @@ import rootReducer from '../_reducers';
 import { chatMiddleware } from '../socket-client/api.js';
 
 const loggerMiddleware = createLogger();
-
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export const store = createStore(

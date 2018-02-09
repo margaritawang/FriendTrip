@@ -31,7 +31,7 @@ const HomepageHeading = () => (<Container text="text">
       fontWeight: 'normal',
       marginTop: '1.5em'
     }}/>
-  <Button  inverted size='huge'>
+  <Button inverted="inverted" size='huge'>
     Get Started
     <Icon name='right arrow'/>
   </Button>
@@ -42,7 +42,6 @@ const HomepageNavbar = () => (<Container>
     <h1 className='logo'>FriendTrip</h1>
   </Header>
   <div className='nav-buttons'>
-
     <div className='nav-button'>
       <Button className='inverted' as={Link} to='/login'>Login
       </Button>
@@ -51,65 +50,58 @@ const HomepageNavbar = () => (<Container>
       <Button className='inverted' as={Link} to='/register'>Register
       </Button>
     </div>
-
-
   </div>
 </Container>)
 
-
-const HomepageContent = () => (
-  <Container fluid style={{
-      padding: '8em 0em'
-    }} vertical="vertical" className='home-content'>
-    <Grid container="container" stackable="stackable" verticalAlign='middle'>
-      <Grid.Row>
-        <Grid.Column width={8}>
-          <Header as='h3' style={{
-              fontSize: '2em'
-            }}>We Help Friends Plan Their Trips</Header>
-          <p style={{
-              fontSize: '1.33em'
-            }}>
-            We believe that travelling should be fun, so we decided to take all the boring-not-fun things out of it. FriendTrip helps you stay organized and plan your trip - so you can get back to the fun stuff.
-          </p>
-          <Header as='h3' style={{
-              fontSize: '2em'
-            }}>We Make Bananas That Can Dance</Header>
-          <p style={{
-              fontSize: '1.33em'
-            }}>
-            Now that we have your attention - feel free to use FriendTrip as a solo trip planning app. It'll make your next trip a breeze!
-          </p>
-        </Grid.Column>
-        <Grid.Column floated='right' width={6}>
-          <Image bordered="bordered" rounded="rounded" size='large' src='https://static.pexels.com/photos/541518/pexels-photo-541518.jpeg'/>
-        </Grid.Column>
-      </Grid.Row>
-      <Grid.Row>
-        <Grid.Column textAlign='center'>
-          <Button size='huge' as={Link} to='/register'>Start Your Next Trip</Button>
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
-  </Container>)
+const HomepageContent = () => (<Container fluid="fluid" style={{
+    padding: '8em 0em'
+  }} vertical="vertical" className='home-content'>
+  <Grid container="container" stackable="stackable" verticalAlign='middle'>
+    <Grid.Row>
+      <Grid.Column width={8}>
+        <Header as='h3' style={{
+            fontSize: '2em'
+          }}>We Help Friends Plan Their Trips</Header>
+        <p style={{
+            fontSize: '1.33em'
+          }}>
+          We believe that travelling should be fun, so we decided to take all the boring-not-fun things out of it. FriendTrip helps you stay organized and plan your trip - so you can get back to the fun stuff.
+        </p>
+        <Header as='h3' style={{
+            fontSize: '2em'
+          }}>We Make Bananas That Can Dance</Header>
+        <p style={{
+            fontSize: '1.33em'
+          }}>
+          Now that we have your attention - feel free to use FriendTrip as a solo trip planning app. It'll make your next trip a breeze!
+        </p>
+      </Grid.Column>
+      <Grid.Column floated='right' width={6}>
+        <Image bordered="bordered" rounded="rounded" size='large' src='https://static.pexels.com/photos/541518/pexels-photo-541518.jpeg'/>
+      </Grid.Column>
+    </Grid.Row>
+    <Grid.Row>
+      <Grid.Column textAlign='center'>
+        <Button size='huge' as={Link} to='/register'>Start Your Next Trip</Button>
+      </Grid.Column>
+    </Grid.Row>
+  </Grid>
+</Container>)
 
 class HomePage extends React.Component {
-  componentDidMount() {
-
-  }
+  componentDidMount() {}
   handleDeleteUser(id) {
     return(e) => this.props.dispatch(userActions.delete(id));
   }
   render() {
     const {user, users} = this.props;
-    return (
-      <Responsive>
-        <Container fluid className="mainSeg vertical center aligned">
-          <HomepageNavbar/>
-          <HomepageHeading/>
-        </Container>
-        <HomepageContent />
-      </Responsive>)
+    return (<Responsive>
+      <Container fluid="fluid" className="mainSeg vertical center aligned">
+        <HomepageNavbar/>
+        <HomepageHeading/>
+      </Container>
+      <HomepageContent/>
+    </Responsive>)
   }
 }
 

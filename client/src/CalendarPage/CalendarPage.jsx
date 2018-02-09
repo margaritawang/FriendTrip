@@ -123,6 +123,13 @@ class CalendarPage extends Component {
     dispatch(userActions.updateActivity(newActivity))
   }
 
+  componentWillUnmount(){
+    const {tripId, user } = this.props;
+    if (user && tripId){
+      this.props.dispatch(userActions.getAllActivities(user, tripId));
+    }
+  }
+
   render(){
     const { activities, tripId } = this.props;
     // const tripId = this.props.tripId;

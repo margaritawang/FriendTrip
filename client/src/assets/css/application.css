@@ -3,8 +3,6 @@
   src: url('../fonts/Arial Black.ttf') format("truetype");
 }
 
-
-
 .mainSeg {
   width: 100%;
   min-height: 700px;
@@ -45,10 +43,6 @@
   font-size: 300%;
 }
 
-/* .login-main {
-  background-image: url(../img/loginLayout.png);
-} */
-
 .login-main {
     height: 100vh;
     margin: auto;
@@ -63,11 +57,9 @@
   padding-top: 50px;
 }
 
-
 .login-form-message {
   background-color: black;
 }
-
 
 .loginForm {
   width: 400px;
@@ -76,19 +68,14 @@
   padding-top: 20%;
 }
 
-
-
 .recommendationImage {
   height: 250px;
 }
-
 
 .recommendationImageWidth {
   width: 100%;
   height: 150px;
 }
-
-
 
 .recommendationCard {
   margin-right: 20px;
@@ -127,8 +114,6 @@
   bottom: 0;
   right: 0;
   width: 266px;
-/*  border: 2px solid #2f3542;
-  background-color: #747d8c;*/
   padding: 0;
   max-height: 25vh;
   overflow: scroll;
@@ -136,12 +121,7 @@
 }
 
 .chatBox-two-shown.segment{
-/*  position: fixed;
-  bottom: 0;
-  right: 0;*/
   width: 250px;
-/*  border: 2px solid #2f3542;
-  background-color: #747d8c;*/
   padding: 0;
   max-height: 25vh;
   border-radius: 10px;
@@ -168,7 +148,6 @@
 }
 
 .recommendations {
-  /*max-height: 55vh;*/
   overflow: scroll;
 }
 
@@ -177,35 +156,10 @@
   padding: 0;
 }
 
-
 .primary-btn{
   float: right;
   margin-top: 90px;
   margin-right: 80px;
-/*  background-color:#F44336;
-  width:60px;
-  height:60px;
-  border-radius:100%;
-  background:#F44336;
-  border:none;
-  outline:none;
-  color:#FFF;
-  font-size:36px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  transition:.3s;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);*/
-}
-/*.primary-btn-fab:focus {
-  transform:scale(1.1);
-  transform:rotate(45deg);
-  -ms-transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-}*/
-
-
-
-.trip-badge-image{
-  /*height: 80px;*/
 }
 
 .delete-button:hover {
