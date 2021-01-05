@@ -8,7 +8,7 @@
   "dependencies": {
     "atob": "^2.0.3",
     "aws-sdk": "^2.175.0",
-    "axios": "^0.17.1",
+    "axios": "^0.21.1",
     "base64-image-upload": "^1.1.4",
     "blob": "0.0.4",
     "body-parser": "^1.18.2",
